@@ -29,3 +29,11 @@ As the user, I want to be able to have the application get my GPS coordinates fo
 As the user, I want to be able to see the drone's location and time estimate. 2 days
 
 As the user, I want to have an easy-to-use application that is straight-forward.  2 days
+
+As the developer, I want a two-way connection between so I can receive data sent by the app and server so  I report back to it information such as an estimated time of delivery or errors. (3 Hours?)
+
+As the developer, I want to be able to calculate a possible flight path so the drone can get to the delivery site safely. (5 days?)
+
+As the developer, I want to be able to integrate no-fly zones into flight path so that the drone can get to the delivery site legally. (4 days?)
+
+As the server, I want to be able to get and send data from the ground station so the drones can be given orders and report status. (6 hours?)
