@@ -18,7 +18,7 @@ public class Server extends Thread {
 		try {
 
 			System.out.println("Waiting for connections ...");
-			Socket skt = srvr.accept(); //I think you can set timeout values for this
+			Socket skt = srvr.accept(); //Set timeout with setSoTimeout(int timeout) function where timeout is in milliseconds
 			System.out.print("Client has connected to the server!!!\n");
 
 			ObjectInputStream ois = new ObjectInputStream(skt.getInputStream()); // skt's
