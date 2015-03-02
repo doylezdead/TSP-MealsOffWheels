@@ -11,7 +11,6 @@ public class Server extends Thread {
 	}
 
 	public void run() {
-		Runner worker = new Runner();
 		
 		ServerSocket srvr = new ServerSocket(13337);
 		
@@ -25,11 +24,10 @@ public class Server extends Thread {
 			// input
 			// stream
 		
+			readData = (objecttype) ois.readObject();
 
-			objecttype readData = null;
 
 			while (true) {
-				readData = (objecttype) ois.readObject();
 				//wait for readData
 				if (readData != null)
 					//sleep time here
