@@ -1,4 +1,4 @@
-package server;
+package mow_server;
 
 class Payload{
 	int value; //return code for non-coordinate returning values. can also define send or return.

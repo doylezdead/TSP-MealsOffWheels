@@ -1,4 +1,4 @@
-package server;
+package mow_server;
 
 class Runner{
 	public boolean checkSecurity(String input){

@@ -1,4 +1,4 @@
-package server;
+package mow_server;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
