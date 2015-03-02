@@ -1,55 +1,106 @@
 package com.mealsoffwheels.dronedelivery;
 
-import android.support.v7.app.ActionBarActivity;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import java.net.*;
-import java.io.*;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class MainActivity extends ActionBarActivity {
 
-    private final int PORT = 13337;
-    private final String HOST = "doyle.pw";
-    private Socket skt = null;
-    private ObjectOutputStream oos = null;
+    private TextView msg;
+    private ObjectOutputStream oos;
+    private Socket skt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //StringBuffer inputBuffer = new StringBuffer();
+        // Gets references to layout objects.
+        Button sendButton = (Button) findViewById(R.id.SendDataButton);
+        msg = (TextView) findViewById(R.id.textView);
 
-        if (skt == null) {
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Run connect to server and data send in background
+                SendData sd = new SendData();
+                sd.execute();
+            }
+        });
+    }
+
+    // <Do in background type, onProgressUpdate type, onPostExecute type>
+    private class SendData extends AsyncTask<Void, Void, Void> {
+        private final int PORT = 13337;
+        private final String HOST = "doyle.pw";
+
+        @Override
+        protected Void doInBackground(Void... arg) {
             try {
                 InetAddress address = InetAddress.getByName(HOST);
-
                 skt = new Socket(address, PORT);
 
+                msg.setText("Data sent");
+                msg.invalidate(); // Sets up the GUI to refresh
+
                 oos = new ObjectOutputStream(skt.getOutputStream());
-                //oos.writeObject();
-                //oos.flush();
 
-            } catch (UnknownHostException e) {
+                // Send the payload.
+                oos.writeObject(new Payload(0, 5.0, 6.2, "Eric Kosovec"));
 
-            } catch (IOException e) {
-
+                oos.flush(); // Make sure all data was sent.
+                oos.close(); // Close stream.
+                skt.close(); // Close socket.
+            } catch (UnknownHostException ex) {
+                msg.setText("Unknown host."); // Have pop-up error box on app?
+                msg.invalidate();
+            } catch (IOException ex) {
+                msg.setText("Failed to send data.");
+                msg.invalidate();
             }
+
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... progress) {
+
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+
         }
     }
 
-    private void sendData() {
+    @Override
+    public void onPause() {
+        super.onPause();
+        // disconnect from server and finish writing data???
         try {
-            //oos.writeObject();
-            oos.flush();
-        }
-        catch (IOException e) {
+            if (oos != null) {
+                oos.flush();
+                oos.close();
+            }
 
+            if (skt != null) {
+                skt.close();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -72,4 +123,5 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
