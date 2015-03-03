@@ -11,23 +11,30 @@ import java.net.Socket;
 
 
 public class Server extends Thread {
-	
-	
+	private Socket skt = null;
+	public Server(Socket sktin){
+		this.skt = sktin;
+	}
+
 	//Waits for connects forever
 	public static void main(String[] args) throws IOException {
-
+		
 		ServerSocket srvr = new ServerSocket(13337);
 
 		while (true) {
 			System.out.println("Waiting for connections ...");
 			Socket skt = srvr.accept(); //Set timeout with setSoTimeout(int timeout) function where timeout is in milliseconds
-			System.out.print("Client has connected to the server!!!\n");
-			run(skt);
+			System.out.println("Client has connected to the server!!!");
+			(new Server(skt)).start();
 		}
 	}
 
-	private static void run(Socket skt) {
+	public void run() {
 		//Links the database, maps, and server together? essentially!
+		if(skt == null){
+			System.out.println("bad things have happened");
+		}
+
 
 		Runner worker = new Runner();
 
@@ -37,10 +44,7 @@ public class Server extends Thread {
 			ObjectInputStream in = new ObjectInputStream(skt.getInputStream()); 	// skt's input stream for recieving data
 			ObjectOutputStream out = new ObjectOutputStream(skt.getOutputStream()); // skt's output stream for returning data to app
 
-
-			//Define at later date
-			//Maybe make this a double array or something of the sorts for parsing the data. or go full custom payload
-			Payload readData = null;
+			Payload readData = null; // this will be the payload coming in. 
 
 			while (true) {
 
@@ -55,7 +59,7 @@ public class Server extends Thread {
 				readData = (Payload) in.readObject();
 
 				
-				//wait for readData
+				//wait for readData to come in from the client
 				if (readData != null)
 					continue;
 
