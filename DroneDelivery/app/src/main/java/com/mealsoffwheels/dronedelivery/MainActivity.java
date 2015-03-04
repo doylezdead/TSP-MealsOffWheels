@@ -2,6 +2,7 @@ package com.mealsoffwheels.dronedelivery;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +27,10 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Hide Action bar
+        /*ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();*/
+
         // Gets references to layout objects.
         Button sendButton = (Button) findViewById(R.id.SendDataButton);
         msg = (TextView) findViewById(R.id.textView);
@@ -42,7 +47,7 @@ public class MainActivity extends ActionBarActivity {
 
     // <Do in background type, onProgressUpdate type, onPostExecute type>
     private class SendData extends AsyncTask<Void, Void, Void> {
-        private final int PORT = 13337;
+        private final int PORT = 25565;
         private final String HOST = "doyle.pw";
 
         @Override
