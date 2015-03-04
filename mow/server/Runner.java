@@ -1,4 +1,6 @@
-package mow_server;
+package mow.server;
+
+import mow.common.Payload;
 
 class Runner{
 	public boolean checkSecurity(String input){

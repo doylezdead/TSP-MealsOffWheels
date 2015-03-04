@@ -1,4 +1,4 @@
-package mow_server;
+package mow.server;
 class Drone{
 	private int status;
 

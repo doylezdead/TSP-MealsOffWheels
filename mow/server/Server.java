@@ -1,11 +1,12 @@
-package mow_server;
+package mow.server;
 
 import java.io.IOException;
+import java.io.EOFException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-
+import mow.common.Payload;
 
 // run thread with new Server().start();
 
@@ -19,12 +20,12 @@ public class Server extends Thread {
 	//Waits for connects forever
 	public static void main(String[] args) throws IOException {
 		
-		ServerSocket srvr = new ServerSocket(13337);
+		ServerSocket srvr = new ServerSocket(25565);
 
 		while (true) {
 			System.out.println("Waiting for connections ...");
 			Socket skt = srvr.accept(); //Set timeout with setSoTimeout(int timeout) function where timeout is in milliseconds
-			System.out.println("Client has connected to the server!!!");
+			System.out.println("Client with ip of " + skt.getRemoteSocketAddress() + " has connected to the server!!!");
 			(new Server(skt)).start();
 		}
 	}
@@ -33,6 +34,7 @@ public class Server extends Thread {
 		//Links the database, maps, and server together? essentially!
 		if(skt == null){
 			System.out.println("bad things have happened");
+			return;
 		}
 
 
@@ -57,16 +59,16 @@ public class Server extends Thread {
 				}
 
 				readData = (Payload) in.readObject();
-
 				
 				//wait for readData to come in from the client
-				if (readData != null)
+				if (readData == null)
 					continue;
-
+				
+				
 
 				//I like this idea
 				//If data is not secure, don't execute, make a security report, and close
-				if (worker.checkSecurity(readData.password)) {
+				if (worker.checkSecurity(readData.password) && false) {
 					in.close();
 					out.close();
 					skt.close(); // close all resources
@@ -75,8 +77,10 @@ public class Server extends Thread {
 
 				//Define at later date, this should return the data to give to app and may be a switch herea
 				//We could probably get away with the same object type for writing data back. (coords and other values just serve a different purpose etc.)
-				Payload writeData = worker.parseOps(readData);	
-
+				
+				Payload writeData = readData;
+				writeData.value = ((readData.value)*2);
+				//Payload writeData = worker.parseOps(readData);	
 				out.writeObject(writeData);
 			}
 
@@ -84,7 +88,10 @@ public class Server extends Thread {
 
 		} 
 		// Could be no connection found, security, io, or corruption in stream
-		catch (Exception e) {
+		catch (EOFException e) {
+			System.out.println("Client has disconnected");
+		}
+		catch (Exception e){
 			e.printStackTrace();
 		}
 	}
