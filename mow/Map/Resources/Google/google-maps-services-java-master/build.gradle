@@ -1,0 +1,131 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'signing'
+apply plugin: 'jacoco'
+apply plugin: 'com.github.kt3k.coveralls'
+
+group = 'com.google.maps'
+sourceCompatibility = 1.6
+
+repositories {
+    mavenCentral()
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.0.0'
+    }
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from 'build/docs/javadoc'
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+artifacts {
+    archives jar
+    archives javadocJar
+    archives sourcesJar
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.google.code.gson:gson:2.3.1'
+    compile 'com.squareup.okhttp:okhttp:2.0.0'
+    compile 'joda-time:joda-time:2.4'
+
+    testCompile 'junit:junit:4.11'
+    testCompile 'org.mockito:mockito-core:1.9.5'
+    testCompile 'com.google.mockwebserver:mockwebserver:20130706'
+    testCompile 'org.apache.httpcomponents:httpclient:4.3.5'
+}
+
+task updateVersion(type: Copy) {
+    from('src') into "build/filtered/src"
+    filter(ReplaceTokens, tokens: [VERSION: project.version])
+}
+compileJava.source = "build/filtered/src/main/java"
+compileJava.dependsOn updateVersion
+
+javadoc {
+    exclude '**/internal/**'
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true // coveralls plugin depends on xml format report
+        html.enabled = true
+    }
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: sonatypeUsername, password: sonatypePassword)
+            }
+
+            pom.artifactId = 'google-maps-services'
+            pom.project {
+                name 'Java Client for Google Maps Services'
+                packaging 'jar'
+                description 'Use the Google Maps API Web Services in Java! ' +
+                    'https://developers.google.com/maps/documentation/webservices/'
+                url 'https://github.com/googlemaps/google-maps-services-java'
+
+                scm {
+                    url 'scm:git@github.com:googlemaps/google-maps-services-java.git'
+                    connection 'scm:git@github.com:googlemaps/google-maps-services-java.git'
+                    developerConnection 'scm:git@github.com:googlemaps/google-maps-services-java.git'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        distribution 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'markmcd'
+                        name 'Mark McDonald'
+                        url 'https://google.com/+MarkMcDonald0'
+                    }
+                    developer {
+                        id 'domesticmouse'
+                        name 'Brett Morgan'
+                        url 'https://google.com/+BrettMorgan'
+                    }
+                    developer {
+                        id 'broady'
+                        name 'Chris Broadfoot'
+                        url 'https://google.com/+ChristopherBroadfoot'
+                    }
+                }
+            }
+        }
+    }
+}
+
+if (ext.'signing.secretKeyRingFile') {
+    signing {
+        sign configurations.archives
+    }
+}
