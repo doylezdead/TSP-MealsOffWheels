@@ -6,6 +6,12 @@ public interface genericStackInterface< Item > {
 	
 	public Item get();
 	public Item getNext();
+	public Item getPrev();
+	public Item getData();
+	public Item getHead();
+	public Item getTail();
 	
+	public void reverseOrder();
+	public void erase();
 	
 }
