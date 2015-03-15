@@ -35,6 +35,26 @@
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
+        <activity
+            android:name=".ItemActivity"
+            android:label="@string/title_activity_item"
+            android:parentActivityName=".FoodMenuActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mealsoffwheels.dronedelivery.FoodMenuActivity" />
+        </activity>
+        <activity
+            android:name=".PaymentActivity"
+            android:label="@string/title_activity_payment"
+            android:parentActivityName=".ItemActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mealsoffwheels.dronedelivery.ItemActivity" />
+        </activity>
+        <activity
+            android:name=".DroneStatusActivity"
+            android:label="@string/title_activity_drone_status" >
+        </activity>
     </application>
 
 </manifest>

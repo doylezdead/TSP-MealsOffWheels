@@ -4,22 +4,11 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
-    android:background="@color/Purple">
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/send_button"
-        android:id="@+id/SendDataButton"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:gravity="center"/>
+    android:background="@color/Purple"
+    android:focusable="false">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:id="@+id/spacer"
@@ -39,7 +28,8 @@
         android:background="@color/Purple"
         android:id="@+id/menuButtonLayout"
         android:contentDescription="@string/menu_layout_region"
-        android:clickable="true">
+        android:clickable="true"
+        android:elevation="2dp">
 
         <TextView
             android:layout_width="fill_parent"
@@ -51,8 +41,87 @@
             android:textColor="@color/White"
             android:textSize="@dimen/menu_button_text_size"
             android:theme="@style/Widget.AppCompat.ActionButton" />
+
     </RelativeLayout>
 
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/OrdersButton"
+        android:layout_below="@+id/spacer"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:clickable="true"
+        android:text="@string/orders"
+        android:textStyle="normal"
+        android:textSize="45sp"
+        android:textColor="@color/White"
+        android:gravity="end|center_vertical"
+        android:theme="@style/Widget.AppCompat.ActionButton" />
 
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/spacer2"
+        android:layout_below="@+id/OrdersButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/droneButton"
+        android:id="@+id/droneStatus"
+        android:textColor="@color/White"
+        android:gravity="end|center_vertical"
+        android:theme="@style/Widget.AppCompat.ActionButton"
+        android:textSize="45sp"
+        android:layout_below="@+id/spacer2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:clickable="true" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/spacer3"
+        android:layout_below="@+id/droneStatus"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/about_button"
+        android:id="@+id/aboutButton"
+        android:textColor="@color/White"
+        android:gravity="end|center_vertical"
+        android:theme="@style/Widget.AppCompat.ActionButton"
+        android:textSize="45sp"
+        android:layout_below="@+id/spacer3"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/spacer4"
+        android:layout_below="@+id/aboutButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/errorBarMain"
+        android:gravity="start|center_vertical"
+        android:layout_below="@+id/spacer4"
+        android:layout_alignRight="@+id/spacer4"
+        android:layout_alignEnd="@+id/spacer4" />
 
 </RelativeLayout>
