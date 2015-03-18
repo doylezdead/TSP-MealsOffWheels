@@ -13,6 +13,9 @@ import mow.common.Payload;
 
 public class Server extends Thread {
 	private Socket skt = null;
+	
+	
+	// Constructor for threading purposes. keeps socket in this particular instance of Server
 	public Server(Socket sktin){
 		this.skt = sktin;
 	}
@@ -68,7 +71,8 @@ public class Server extends Thread {
 
 				//I like this idea
 				//If data is not secure, don't execute, make a security report, and close
-				if (worker.checkSecurity(readData.password) && false) {
+				if (!worker.checkSecurity(readData.password)) {
+					System.out.println("Security Check failed for ip " + skt.getRemoteSocketAddress() + ". closing connection now");
 					in.close();
 					out.close();
 					skt.close(); // close all resources
@@ -78,9 +82,13 @@ public class Server extends Thread {
 				//Define at later date, this should return the data to give to app and may be a switch herea
 				//We could probably get away with the same object type for writing data back. (coords and other values just serve a different purpose etc.)
 				
-				Payload writeData = readData;
-				writeData.value = ((readData.value)*2);
-				//Payload writeData = worker.parseOps(readData);	
+				try{
+					Payload writeData = worker.parseOps(readData);	
+				}catch(Exception e){
+					e.printStackTrace();
+					System.out.println("Probably Shoudln't write the data");
+					break;
+				}
 				out.writeObject(writeData);
 			}
 
