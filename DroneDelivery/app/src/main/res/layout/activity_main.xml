@@ -1,127 +1,225 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Purple"
+    android:focusable="false"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
-    android:background="@color/Purple"
-    android:focusable="false">
+    tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="fill_parent"
+    <!-- Ignore gravity warnings about adding "end". Will break API 8 if "end" is added. -->
+
+    <!-- The 2dp layout_margin for buttons matches whatever the
+             stroke dp is in the mainactivitylayoutshape.xml file. -->
+
+    <!-- Menu layout -->
+    <LinearLayout
+        android:id="@+id/MenuButtonLayout"
+
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/spacer"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:gravity="center" />
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@+id/spacer"
-        android:background="@color/Purple"
-        android:id="@+id/menuButtonLayout"
-        android:contentDescription="@string/menu_layout_region"
+        android:layout_above="@+id/MenuLayoutSpacer"
+        android:orientation="horizontal"
+        android:gravity="right"
+        android:weightSum="2"
+
         android:clickable="true"
-        android:elevation="2dp">
+        android:background="@drawable/mainactivitylayoutshape" >
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text="@string/menu"
-            android:id="@+id/menuText"
-            android:textStyle="normal"
-            android:gravity="end|center_vertical"
+        <ImageView
+            android:id="@+id/MenuButtonImage"
+
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_launcher"
+            android:layout_weight="1"
+
+            android:gravity="left" />
+
+        <Button
+            android:id="@+id/MenuButton"
+
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_weight="1"
+            android:gravity="right|center_vertical"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:paddingEnd="5dp"
+
+            android:text="@string/title_activity_food_menu"
+            android:textSize="@dimen/main_activity_text_size"
             android:textColor="@color/White"
-            android:textSize="@dimen/menu_button_text_size"
-            android:theme="@style/Widget.AppCompat.ActionButton" />
 
-    </RelativeLayout>
+            android:background="@drawable/mainactivitybuttonshape" />
 
+    </LinearLayout>
+
+    <!-- Spacer -->
     <TextView
+        android:id="@+id/MenuLayoutSpacer"
+
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/OrdersButton"
-        android:layout_below="@+id/spacer"
+        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/MenuButtonLayout"
+        android:layout_alignEnd="@+id/MenuButtonLayout"
+
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <!-- Orders layout -->
+    <LinearLayout
+        android:id="@+id/OrdersButtonLayout"
+
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/MenuLayoutSpacer"
+        android:orientation="horizontal"
+        android:gravity="right"
+        android:weightSum="2"
+
         android:clickable="true"
-        android:text="@string/orders"
-        android:textStyle="normal"
-        android:textSize="45sp"
-        android:textColor="@color/White"
-        android:gravity="end|center_vertical"
-        android:theme="@style/Widget.AppCompat.ActionButton" />
+        android:background="@drawable/mainactivitylayoutshape" >
 
+
+        <Button
+            android:id="@+id/OrdersButton"
+
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_weight="2"
+            android:gravity="right|center_vertical"
+            android:paddingRight="5dp"
+            android:paddingEnd="5dp"
+
+            android:text="@string/title_activity_order"
+            android:textSize="@dimen/main_activity_text_size"
+            android:textColor="@color/White"
+
+            android:background="@drawable/mainactivitybuttonshape" />
+
+    </LinearLayout>
+
+    <!-- Spacer -->
     <TextView
+        android:id="@+id/OrdersLayoutSpacer"
+
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/spacer2"
-        android:layout_below="@+id/OrdersButton"
+        android:layout_below="@+id/OrdersButtonLayout"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/OrdersButtonLayout"
+        android:layout_alignEnd="@+id/OrdersButtonLayout"
 
-    <TextView
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <!-- Drone status layout -->
+    <LinearLayout
+        android:id="@+id/DroneStatusLayout"
+
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/droneButton"
-        android:id="@+id/droneStatus"
-        android:textColor="@color/White"
-        android:gravity="end|center_vertical"
-        android:theme="@style/Widget.AppCompat.ActionButton"
-        android:textSize="45sp"
-        android:layout_below="@+id/spacer2"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:clickable="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/OrdersLayoutSpacer"
+        android:orientation="horizontal"
+        android:gravity="right"
+        android:weightSum="2"
 
+        android:clickable="true"
+        android:background="@drawable/mainactivitylayoutshape" >
+
+
+
+        <Button
+            android:id="@+id/DroneStatusButton"
+
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_weight="2"
+            android:gravity="right|center_vertical"
+            android:paddingRight="5dp"
+            android:paddingEnd="5dp"
+
+            android:text="@string/title_activity_drone_status"
+            android:textSize="@dimen/main_activity_text_size"
+            android:textColor="@color/White"
+
+            android:background="@drawable/mainactivitybuttonshape" />
+
+    </LinearLayout>
+
+    <!-- Spacer -->
     <TextView
+        android:id="@+id/DroneStatusSpacer"
+
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/spacer3"
-        android:layout_below="@+id/droneStatus"
+        android:layout_below="@+id/DroneStatusLayout"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/DroneStatusLayout"
+        android:layout_alignEnd="@+id/DroneStatusLayout"
 
-    <TextView
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <!-- About layout -->
+    <LinearLayout
+        android:id="@+id/AboutLayout"
+
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/about_button"
-        android:id="@+id/aboutButton"
-        android:textColor="@color/White"
-        android:gravity="end|center_vertical"
-        android:theme="@style/Widget.AppCompat.ActionButton"
-        android:textSize="45sp"
-        android:layout_below="@+id/spacer3"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/DroneStatusSpacer"
+        android:orientation="horizontal"
+        android:gravity="right"
+        android:weightSum="2"
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/spacer4"
-        android:layout_below="@+id/aboutButton"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:clickable="true"
+        android:background="@drawable/mainactivitylayoutshape" >
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/errorBarMain"
-        android:gravity="start|center_vertical"
-        android:layout_below="@+id/spacer4"
-        android:layout_alignRight="@+id/spacer4"
-        android:layout_alignEnd="@+id/spacer4" />
+
+
+        <Button
+            android:id="@+id/AboutButton"
+
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_weight="2"
+            android:gravity="right|center_vertical"
+            android:paddingRight="5dp"
+            android:paddingEnd="5dp"
+
+            android:text="@string/about_button"
+            android:textSize="@dimen/main_activity_text_size"
+            android:textColor="@color/White"
+
+            android:background="@drawable/mainactivitybuttonshape" />
+
+    </LinearLayout>
+
 
 </RelativeLayout>

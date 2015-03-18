@@ -1,18 +1,16 @@
-package com.mealsoffwheels.dronedelivery;
+package com.mealsoffwheels.dronedelivery.activities;
 
 import android.content.Intent;
-import android.database.DataSetObserver;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListAdapter;
+
+import com.mealsoffwheels.dronedelivery.R;
 
 import java.util.ArrayList;
 
@@ -26,7 +24,7 @@ public class FoodMenuActivity extends ActionBarActivity {
 
         GridView gridView = (GridView) findViewById(R.id.gridView);
 
-        ArrayList<String> foods = new ArrayList<String>();
+        ArrayList<String> foods = new ArrayList<>();
 
         foods.add("#1");
         foods.add("#2");
@@ -39,7 +37,7 @@ public class FoodMenuActivity extends ActionBarActivity {
         foods.add("#9");
         foods.add("#10");
 
-        ListAdapter list = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, foods);
+        ListAdapter list = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, foods);
 
         gridView.setAdapter(list);
 

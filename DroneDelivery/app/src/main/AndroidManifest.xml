@@ -10,51 +10,74 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:name=".activities.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
         <activity
-            android:name=".FoodMenuActivity"
+            android:name=".activities.FoodMenuActivity"
             android:label="@string/title_activity_food_menu"
-            android:parentActivityName=".MainActivity" >
+            android:screenOrientation="portrait" >
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mealsoffwheels.dronedelivery.MainActivity" />
+                android:value=".activities.MainActivity" />
+
         </activity>
+
         <activity
-            android:name=".OrderActivity"
-            android:label="@string/title_activity_order" >
+            android:name=".activities.OrderActivity"
+            android:label="@string/title_activity_order"
+            android:screenOrientation="portrait" >
+
         </activity>
+
         <activity
-            android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings" >
-        </activity>
-        <activity
-            android:name=".ItemActivity"
+            android:name=".activities.ItemActivity"
             android:label="@string/title_activity_item"
-            android:parentActivityName=".FoodMenuActivity" >
+            android:screenOrientation="portrait" >
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mealsoffwheels.dronedelivery.FoodMenuActivity" />
+                android:value=".activities.FoodMenuActivity" />
+
         </activity>
+
         <activity
-            android:name=".PaymentActivity"
+            android:name=".activities.PaymentActivity"
             android:label="@string/title_activity_payment"
-            android:parentActivityName=".ItemActivity" >
+            android:screenOrientation="portrait" >
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mealsoffwheels.dronedelivery.ItemActivity" />
+                android:value=".activities.ItemActivity" />
+
         </activity>
+
         <activity
-            android:name=".DroneStatusActivity"
-            android:label="@string/title_activity_drone_status" >
+            android:name=".activities.DroneStatusActivity"
+            android:label="@string/title_activity_drone_status"
+            android:screenOrientation="portrait" >
+
         </activity>
+
+        <activity
+            android:name=".activities.AboutActivity"
+            android:label="@string/title_activity_about"
+            android:screenOrientation="portrait" >
+
+        </activity>
+
     </application>
 
 </manifest>
