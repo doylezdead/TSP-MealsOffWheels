@@ -8,14 +8,10 @@ class Runner{
 	 * checkSecurity returns true on a success
 	 *
 	 */
-	public boolean checkSecurity(String input){
-		//maybe read password out of a file somewhere?
-		return true;
-	}
 	
 	public Payload parseOps(Payload readData){
 		
-		Payload retData = new Payload(0,0,0,"fail");
+		Payload retData = new Payload(0,0,0,"fail","none");
 		
 		if(readData.value == -1){
 			throw Exception("parseOps failed with payload value of " + readData.value);
@@ -27,6 +23,9 @@ class Runner{
 		double xcoord = readData.xcoord;
 		double ycoord = readData.ycoord;
 		String name = readData.name;
+		String contact = readData.contact;
+
+
 		int order_num = null; //this will be defined and returned in the return payload
 		
 		switch(opcode){
@@ -37,7 +36,7 @@ class Runner{
 						retData.opcode = 0;
 					}
 			case 1:	// Placing an order
-					retData.value = placeOrder(name, 15174047199, value, xcoord, ycoord, weight);
+					retData.value = placeOrder(name, contact, value, xcoord, ycoord, weight);
 					
 			case 2:	// Retrieving order status
 					if (checkOrderIsGood(value)){
@@ -67,7 +66,7 @@ private boolean checkStoreStatus(){
 //
 
 // Place Order
-private int placeOrder(String name, int phone, int storeID, double x, double y, int weight){
+private int placeOrder(String name, String contact, int storeID, double x, double y, int weight){
 	//create order. assign a drone id and a store id
 	orderID = 0;
 	//orderID = new Order();

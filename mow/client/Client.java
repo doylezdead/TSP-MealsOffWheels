@@ -18,7 +18,7 @@ class Client{
 			ObjectOutputStream oos = new ObjectOutputStream(skt.getOutputStream());
 			ObjectInputStream ois = new ObjectInputStream(skt.getInputStream());
 	
-			oos.writeObject(new Payload(sval, 47.120982, 88.562478, "Ryan Doyle"));
+			oos.writeObject(new Payload(sval, 47.120982, 88.562478, "Ryan Doyle", "5175057199"));
 			
 			while(true){
 				Payload ret = null;

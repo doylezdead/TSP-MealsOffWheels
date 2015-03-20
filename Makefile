@@ -5,7 +5,7 @@
 JC = javac
 
 all: 
-	$(JC) mow/*/*.java 
+	$(JC) mow/{client,common,server}/*.java 
 
 clean:
-	rm -f mow/*/*.class
+	rm -f mow/{client,common,server}/*.class
