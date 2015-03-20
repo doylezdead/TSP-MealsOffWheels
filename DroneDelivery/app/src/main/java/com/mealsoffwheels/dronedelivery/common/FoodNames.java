@@ -12,7 +12,7 @@ public final class FoodNames {
     private FoodNames() {}
 
     public static String getFoodName(int number) {
-        if (number == 0 || number - 1 > names.length) {
+        if (number == 0 || number - 1 >= names.length) {
             return "";
         }
 
