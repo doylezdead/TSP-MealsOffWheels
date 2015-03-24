@@ -29,8 +29,15 @@ public class OrderActivity extends ActionBarActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
-        Button buyButton = (Button) findViewById(R.id.BuyButtonOrderPage);
+        Button cancelButton = (Button) findViewById(R.id.CancelButtonOrderPage);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toMainMenu();
+            }
+        });
 
+        Button buyButton = (Button) findViewById(R.id.BuyButtonOrderPage);
         buyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,6 +69,11 @@ public class OrderActivity extends ActionBarActivity {
 
         Intent intent = new Intent(this, PaymentActivity.class);
         intent.putExtra(OrderActivity.class.getName(), order.toArray());
+        startActivity(intent);
+    }
+
+    private void toMainMenu() {
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 

@@ -20,6 +20,7 @@
     <string name="accept">Accept</string>
     <string name="decline">Decline</string>
     <string name="add_more">Add More</string>
+    <string name="back">Back</string>
 
     <!-- General text section -->
     <string name="estimated_time">Estimated Time: </string>

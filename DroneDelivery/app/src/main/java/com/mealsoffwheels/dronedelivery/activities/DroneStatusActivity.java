@@ -20,5 +20,4 @@ public class DroneStatusActivity extends ActionBarActivity {
         actionBar.hide();
     }
 
-
 }

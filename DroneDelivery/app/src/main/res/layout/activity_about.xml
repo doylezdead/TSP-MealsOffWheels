@@ -10,6 +10,19 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.mealsoffwheels.dronedelivery.activities.AboutActivity">
 
+    <TextView
+        android:id="@+id/AboutTitle"
+
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="35sp"
+        android:gravity="left|center_vertical"
+        android:text="@string/title_activity_about"
+        android:textColor="@color/White"/>
 
     <TextView
         android:id="@+id/ServerResponse"

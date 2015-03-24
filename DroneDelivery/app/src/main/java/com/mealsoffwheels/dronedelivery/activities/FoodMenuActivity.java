@@ -36,6 +36,8 @@ public class FoodMenuActivity extends ActionBarActivity {
         foods.add("#8");
         foods.add("#9");
         foods.add("#10");
+        foods.add("#11");
+        foods.add("#12");
 
         ListAdapter list = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, foods);
 
