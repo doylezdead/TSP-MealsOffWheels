@@ -1,5 +1,6 @@
 package com.mealsoffwheels.dronedelivery.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -10,12 +11,18 @@ import android.widget.LinearLayout;
 
 import com.mealsoffwheels.dronedelivery.R;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+
 public class MainActivity extends ActionBarActivity {
 
     private final char FOOD_MENU_NUM = 0;
     private final char ORDER_NUM = 1;
     private final char DRONE_STATUS_NUM = 2;
     private final char ABOUT_NUM = 3;
+
+    protected static final String ORDER_LIST_NAME = "moworderlist";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +94,49 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
+        boolean exists = false;
+
+        for (String filename : this.fileList()) {
+            if (filename.equals(MainActivity.ORDER_LIST_NAME)) {
+                exists = true;
+                break;
+            }
+        }
+
+        // TODO: Add in code to detect if the file already exists on a new instance of the app
+        // TODO: Is this already accomplished with the onDestroy method?
+
+        // Doesn't exist, so create the file.
+        if (!exists) {
+            try {
+                String str = "Hello There\n";
+                FileOutputStream outputStream = openFileOutput(MainActivity.ORDER_LIST_NAME, Context.MODE_PRIVATE);
+                outputStream.write(str.getBytes());
+                outputStream.flush();
+                outputStream.close();
+
+                /*FileInputStream in = openFileInput(ORDER_LIST_NAME);
+                byte[] buff = new byte[2046];
+                int max = in.read(buff);
+                String str = "";
+                for (int i = 0; i < max; ++i) {
+                    str += (char)buff[i];
+                }
+                in.close();
+                System.out.println(str);*/
+
+            }
+
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        this.deleteFile(ORDER_LIST_NAME);
     }
 
     private void toNewActivity(char act) {
@@ -105,68 +155,5 @@ public class MainActivity extends ActionBarActivity {
                 break;
         }
     }
-
-    // Commented-out in case my class doesn't work
-    // <Do in background type, onProgressUpdate type, onPostExecute type>
-    /*private class SendData extends AsyncTask<Void, Void, Void> {
-        private final int PORT = 25565;
-        private final String HOST = "doyle.pw";
-
-        @Override
-        protected Void doInBackground(Void... arg) {
-            try {
-                InetAddress address = InetAddress.getByName(HOST);
-                skt = new Socket(address, PORT);
-
-                msg.setText("Data sent");
-                msg.invalidate(); // Sets up the GUI to refresh
-
-                oos = new ObjectOutputStream(skt.getOutputStream());
-
-                // Send the payload.
-                oos.writeObject(new Payload(0, 5.0, 6.2, "Eric Kosovec"));
-
-                oos.flush(); // Make sure all data was sent.
-                oos.close(); // Close stream.
-                skt.close(); // Close socket.
-            } catch (UnknownHostException ex) {
-                msg.setText("Unknown host."); // Have pop-up error box on app?
-                msg.invalidate();
-            } catch (IOException ex) {
-                msg.setText("Failed to send data.");
-                msg.invalidate();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... progress) {
-
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-
-        }
-    }*/
-
-/*    @Override
-    public void onPause() {
-        super.onPause();
-        // disconnect from server and finish writing data???
-        try {
-            if (oos != null) {
-                oos.flush();
-                oos.close();
-            }
-
-            if (skt != null) {
-                skt.close();
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }*/
 
 }

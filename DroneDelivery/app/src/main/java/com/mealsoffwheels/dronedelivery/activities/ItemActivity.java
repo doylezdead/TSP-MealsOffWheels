@@ -1,5 +1,6 @@
 package com.mealsoffwheels.dronedelivery.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -10,6 +11,11 @@ import android.widget.TextView;
 
 import com.mealsoffwheels.dronedelivery.R;
 import com.mealsoffwheels.dronedelivery.common.FoodNames;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class ItemActivity extends ActionBarActivity {
 
@@ -58,6 +64,29 @@ public class ItemActivity extends ActionBarActivity {
     private void addToOrder() {
         if (itemNumber == -1) {
             return;
+        }
+
+        try {
+            /*String csvLine = "0," + itemNumber + '\n';
+            FileOutputStream outputStream = openFileOutput(MainActivity.ORDER_LIST_NAME, Context.MODE_PRIVATE);
+            outputStream.write("Hello, world\n".getBytes());
+            outputStream.write(csvLine.getBytes());
+            outputStream.flush();
+            outputStream.close();*/
+
+            FileInputStream in = openFileInput(MainActivity.ORDER_LIST_NAME);
+            byte[] buff = new byte[2046];
+            int max = in.read(buff);
+            String str = "";
+            for (int i = 0; i < max; ++i) {
+                str += (char)buff[i];
+            }
+            System.out.print(str);
+            in.close();
+        }
+
+        catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
