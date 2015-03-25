@@ -7,11 +7,10 @@
     android:background="@color/Purple"
     tools:context="com.mealsoffwheels.dronedelivery.activities.FoodMenuActivity">
 
-
-    <GridView
+    <ListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/gridView"
+        android:id="@+id/MenuList"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/cancelButton" />
@@ -23,15 +22,5 @@
         android:id="@+id/cancelButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:gravity="start|center_vertical"
-        android:id="@+id/errorBarFoodMenu"
-        android:layout_below="@+id/cancelButton"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

@@ -10,14 +10,14 @@
     <TextView
         android:id="@+id/ItemName"
 
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
 
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="35sp"
-        android:gravity="left|center_vertical"
+        android:gravity="center_horizontal|center_vertical"
         android:textColor="@color/White"/>
 
     <Button

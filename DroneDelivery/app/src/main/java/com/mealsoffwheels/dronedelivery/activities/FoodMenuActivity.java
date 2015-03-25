@@ -9,8 +9,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 
 import com.mealsoffwheels.dronedelivery.R;
+import com.mealsoffwheels.dronedelivery.common.FoodNames;
 
 import java.util.ArrayList;
 
@@ -22,28 +24,19 @@ public class FoodMenuActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_menu);
 
-        GridView gridView = (GridView) findViewById(R.id.gridView);
+        ListView listView = (ListView) findViewById(R.id.MenuList);
 
         ArrayList<String> foods = new ArrayList<>();
 
-        foods.add("#1");
-        foods.add("#2");
-        foods.add("#3");
-        foods.add("#4");
-        foods.add("#5");
-        foods.add("#6");
-        foods.add("#7");
-        foods.add("#8");
-        foods.add("#9");
-        foods.add("#10");
-        foods.add("#11");
-        foods.add("#12");
+        for (int i = 0; i < FoodNames.names.length; ++i) {
+            foods.add("#" + (i + 1) + ((i + 1) < 10 ? "    " : "  ") + FoodNames.names[i]);
+        }
 
-        ListAdapter list = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, foods);
+        ListAdapter list = new ArrayAdapter<>(this, R.layout.list_view, foods);
 
-        gridView.setAdapter(list);
+        listView.setAdapter(list);
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 toItemPage(position);
