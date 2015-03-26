@@ -93,50 +93,11 @@ public class MainActivity extends ActionBarActivity {
                 toNewActivity(ABOUT_NUM);
             }
         });
-
-        boolean exists = false;
-
-        for (String filename : this.fileList()) {
-            if (filename.equals(MainActivity.ORDER_LIST_NAME)) {
-                exists = true;
-                break;
-            }
-        }
-
-        // TODO: Add in code to detect if the file already exists on a new instance of the app
-        // TODO: Is this already accomplished with the onDestroy method?
-
-        // Doesn't exist, so create the file.
-        if (!exists) {
-            try {
-                String str = "Hello There\n";
-                FileOutputStream outputStream = openFileOutput(MainActivity.ORDER_LIST_NAME, Context.MODE_PRIVATE);
-                outputStream.write(str.getBytes());
-                outputStream.flush();
-                outputStream.close();
-
-                /*FileInputStream in = openFileInput(ORDER_LIST_NAME);
-                byte[] buff = new byte[2046];
-                int max = in.read(buff);
-                String str = "";
-                for (int i = 0; i < max; ++i) {
-                    str += (char)buff[i];
-                }
-                in.close();
-                System.out.println(str);*/
-
-            }
-
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        this.deleteFile(ORDER_LIST_NAME);
     }
 
     private void toNewActivity(char act) {

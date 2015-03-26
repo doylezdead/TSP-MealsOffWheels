@@ -1,21 +1,18 @@
 package com.mealsoffwheels.dronedelivery.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mealsoffwheels.dronedelivery.R;
-import com.mealsoffwheels.dronedelivery.common.FoodNames;
+import com.mealsoffwheels.dronedelivery.common.Foods;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 public class ItemActivity extends ActionBarActivity {
 
@@ -37,11 +34,16 @@ public class ItemActivity extends ActionBarActivity {
 
         if (intent != null) {
             itemNumber = intent.getIntExtra(FoodMenuActivity.class.getName(), 0);
-            itemName.setText(FoodNames.names[itemNumber]);
+            itemName.setText(Foods.names[itemNumber]);
         }
 
         else {
             itemName.setText("Item Page");
+        }
+
+        if (itemNumber == 0) {
+            ImageView imageView = (ImageView) findViewById(R.id.FoodImage);
+            imageView.setBackgroundResource(Foods.foodImage[0]);
         }
 
         Button addToOrderButton = (Button) findViewById(R.id.AddToOrderButton);
@@ -66,31 +68,12 @@ public class ItemActivity extends ActionBarActivity {
             return;
         }
 
-        try {
-            /*String csvLine = "0," + itemNumber + '\n';
-            FileOutputStream outputStream = openFileOutput(MainActivity.ORDER_LIST_NAME, Context.MODE_PRIVATE);
-            outputStream.write("Hello, world\n".getBytes());
-            outputStream.write(csvLine.getBytes());
-            outputStream.flush();
-            outputStream.close();*/
-
-            FileInputStream in = openFileInput(MainActivity.ORDER_LIST_NAME);
-            byte[] buff = new byte[2046];
-            int max = in.read(buff);
-            String str = "";
-            for (int i = 0; i < max; ++i) {
-                str += (char)buff[i];
-            }
-            System.out.print(str);
-            in.close();
-        }
-
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+        startActivity(new Intent(this, OrderActivity.class));
+        finish();
     }
 
     private void toMenuPage() {
         startActivity(new Intent(this, FoodMenuActivity.class));
+        finish();
     }
 }

@@ -24,7 +24,7 @@
         android:layout_alignParentTop="true"
         android:layout_above="@+id/MenuLayoutSpacer"
         android:orientation="horizontal"
-        android:gravity="right"
+        android:gravity="end"
         android:weightSum="2"
 
         android:clickable="true"
@@ -35,10 +35,9 @@
 
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/ic_launcher"
             android:layout_weight="1"
 
-            android:gravity="left" />
+            android:gravity="start" />
 
         <Button
             android:id="@+id/MenuButton"
@@ -51,7 +50,7 @@
             android:layout_marginBottom="2dp"
             android:layout_weight="1"
             android:gravity="right|center_vertical"
-            android:paddingRight="5dp"
+            android:paddingRight="10dp"
             android:paddingLeft="5dp"
             android:paddingEnd="5dp"
 
@@ -104,7 +103,7 @@
             android:layout_marginBottom="2dp"
             android:layout_weight="2"
             android:gravity="right|center_vertical"
-            android:paddingRight="5dp"
+            android:paddingRight="10dp"
             android:paddingEnd="5dp"
 
             android:text="@string/title_activity_order"
@@ -144,8 +143,6 @@
         android:clickable="true"
         android:background="@drawable/mainactivitylayoutshape" >
 
-
-
         <Button
             android:id="@+id/DroneStatusButton"
 
@@ -157,7 +154,7 @@
             android:layout_marginBottom="2dp"
             android:layout_weight="2"
             android:gravity="right|center_vertical"
-            android:paddingRight="5dp"
+            android:paddingRight="10dp"
             android:paddingEnd="5dp"
 
             android:text="@string/title_activity_drone_status"
@@ -210,7 +207,7 @@
             android:layout_marginBottom="2dp"
             android:layout_weight="2"
             android:gravity="right|center_vertical"
-            android:paddingRight="5dp"
+            android:paddingRight="10dp"
             android:paddingEnd="5dp"
 
             android:text="@string/about_button"
@@ -220,6 +217,5 @@
             android:background="@drawable/mainactivitybuttonshape" />
 
     </LinearLayout>
-
 
 </RelativeLayout>

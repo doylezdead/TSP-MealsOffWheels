@@ -8,5 +8,5 @@
     android:paddingEnd="6dp"
     android:paddingLeft="6dp"
     android:paddingRight="6dp"
-    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:textAppearance="?android:attr/textAppearanceLarge"
     android:textColor="@color/White" />

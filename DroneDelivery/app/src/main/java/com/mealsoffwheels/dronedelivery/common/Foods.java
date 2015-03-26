@@ -1,6 +1,8 @@
 package com.mealsoffwheels.dronedelivery.common;
 
-public final class FoodNames {
+import com.mealsoffwheels.dronedelivery.R;
+
+public final class Foods {
 
     public final static String[] names = {
         "Burrito Supreme", "XXL Grilled Stuft Burrito", "3 Tacos Supreme",
@@ -9,18 +11,16 @@ public final class FoodNames {
         "3 Doritos Locos Tacos", "Smothered Burrito"
     };
 
-    private FoodNames() {}
+    public final static int[] foodImage = {
+            R.drawable.burrito_supreme
+    };
 
-    public static String getFoodName(int number) {
-        if (number == 0 || number - 1 >= names.length) {
-            return "";
-        }
+    public final static int[] foodWeight = {
+            1
+    };
 
-        return names[number - 1];
-    }
+    private Foods() {}
 
-    public static int numberOfNames() {
-        return names.length;
-    }
+
 
 }

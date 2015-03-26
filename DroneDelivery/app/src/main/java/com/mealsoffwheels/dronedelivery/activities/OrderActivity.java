@@ -4,15 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
 import com.mealsoffwheels.dronedelivery.R;
-import com.mealsoffwheels.dronedelivery.common.FoodNames;
+import com.mealsoffwheels.dronedelivery.common.Foods;
 
 import java.util.ArrayList;
 
@@ -55,8 +53,9 @@ public class OrderActivity extends ActionBarActivity {
             order.clear();
         }
 
-        for (int i = 1; i <= FoodNames.numberOfNames(); ++i) {
-            order.add(FoodNames.getFoodName(i));
+        for (int i = 0; i < 6; ++i) {
+            int rand = (int)(Math.random() * Foods.names.length);
+            order.add(Foods.names[rand]);
         }
 
         list.setAdapter(new ArrayAdapter<>(this, R.layout.list_view, order));
