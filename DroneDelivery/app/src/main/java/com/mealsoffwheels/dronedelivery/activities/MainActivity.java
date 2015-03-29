@@ -2,6 +2,7 @@ package com.mealsoffwheels.dronedelivery.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.mealsoffwheels.dronedelivery.R;
+import com.mealsoffwheels.dronedelivery.common.Foods;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,8 +23,6 @@ public class MainActivity extends ActionBarActivity {
     private final char ORDER_NUM = 1;
     private final char DRONE_STATUS_NUM = 2;
     private final char ABOUT_NUM = 3;
-
-    protected static final String ORDER_LIST_NAME = "moworderlist";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,11 +93,22 @@ public class MainActivity extends ActionBarActivity {
                 toNewActivity(ABOUT_NUM);
             }
         });
+
+        SharedPreferences prefs = getSharedPreferences("com.mealsoffwheels.dronedelivery.orders", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = prefs.edit();
+
+        // Indicate no current orders, if there are none
+        if (prefs.getInt("Last", -1) == -1) {
+            editor.putInt("Last", 0);
+            editor.commit();
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
     }
 
     private void toNewActivity(char act) {

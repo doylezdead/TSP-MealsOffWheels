@@ -1,5 +1,6 @@
 package com.mealsoffwheels.dronedelivery.common;
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.SystemClock;
 import android.widget.TextView;
@@ -23,9 +24,8 @@ public class Connect extends AsyncTask<Void, Void, Void> {
     private ObjectInputStream ois;
     private Socket skt;
     private boolean run;
-    private TextView changeText;
 
-    public Connect(int port, String host, Payload data, TextView changeText) {
+    public Connect(int port, String host, Payload data) {
         PORT = port; //25565
         HOST = host; // doyle.pw
         sendPayload = data;
@@ -33,7 +33,6 @@ public class Connect extends AsyncTask<Void, Void, Void> {
         oos = null;
         ois = null;
         run = false;
-        this.changeText = changeText;
     }
 
     public String getHost() {
@@ -151,17 +150,10 @@ public class Connect extends AsyncTask<Void, Void, Void> {
 
             run = false;
             sendPayload = null;
-
-            // TEMPORARY
-            if (receivePayload != null && changeText != null) {
-                changeText.setText(receivePayload.value + " " + receivePayload.xcoord + " " + receivePayload.ycoord + " " + receivePayload.name);
-                changeText.invalidate(); // Sets it up to refresh the textview
-            }
         }
 
         catch (ClassNotFoundException | IOException ex) {
             ex.printStackTrace();
-            System.out.println("fail");
         }
 
         return null;

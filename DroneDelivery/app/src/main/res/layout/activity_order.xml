@@ -13,13 +13,14 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
 
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="35sp"
         android:gravity="left|center_vertical"
         android:text="@string/current_orders"
-        android:textColor="@color/White"/>
+        android:textColor="@color/White"
+        android:layout_toLeftOf="@+id/deleteAll"
+        android:layout_toStartOf="@+id/deleteAll" />
 
     <RelativeLayout
         android:id="@+id/CurrentOrderLayout"
@@ -37,7 +38,9 @@
             android:layout_height="fill_parent"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_alignParentTop="true" />
+            android:layout_alignParentTop="true"
+
+            android:clickable="false" />
 
     </RelativeLayout>
 
@@ -79,5 +82,14 @@
         android:layout_alignParentRight="true"
 
         android:text="@string/buy" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="X"
+        android:id="@+id/deleteAll"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

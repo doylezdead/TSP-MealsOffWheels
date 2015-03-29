@@ -1,6 +1,8 @@
 package com.mealsoffwheels.dronedelivery.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -67,6 +69,21 @@ public class ItemActivity extends ActionBarActivity {
         if (itemNumber == -1) {
             return;
         }
+
+        SharedPreferences prefs = getSharedPreferences("com.mealsoffwheels.dronedelivery.orders", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = prefs.edit();
+
+        // Points to last order place.
+        int end = prefs.getInt("Last", 0);
+
+        ++end;
+
+        editor.putInt("Last", end);
+        editor.commit();
+
+        editor.putInt(Integer.toString(end), itemNumber);
+        editor.commit();
 
         startActivity(new Intent(this, OrderActivity.class));
         finish();

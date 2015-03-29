@@ -38,7 +38,7 @@ public class AboutActivity extends ActionBarActivity {
             cc.close();
         }
 
-        cc = new Connect(25565, "doyle.pw", new Payload(2, 3.5, 6.5, "Eric Kosovec"), (TextView) findViewById(R.id.ServerResponse));
+        cc = new Connect(25565, "doyle.pw", new Payload(2, 3.5, 6.5, "Eric Kosovec"));
         cc.execute();
     }
 
