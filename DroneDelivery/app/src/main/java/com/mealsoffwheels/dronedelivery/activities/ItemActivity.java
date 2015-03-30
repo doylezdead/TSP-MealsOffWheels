@@ -45,7 +45,7 @@ public class ItemActivity extends ActionBarActivity {
 
         if (itemNumber == 0) {
             ImageView imageView = (ImageView) findViewById(R.id.FoodImage);
-            imageView.setBackgroundResource(Foods.foodImage[0]);
+            imageView.setBackgroundResource(Foods.getData("Burrito Supreme").image);
         }
 
         Button addToOrderButton = (Button) findViewById(R.id.AddToOrderButton);

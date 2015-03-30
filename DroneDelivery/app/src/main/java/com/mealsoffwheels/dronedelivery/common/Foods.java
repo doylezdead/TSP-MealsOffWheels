@@ -2,7 +2,51 @@ package com.mealsoffwheels.dronedelivery.common;
 
 import com.mealsoffwheels.dronedelivery.R;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 public final class Foods {
+
+    public static class FoodData {
+        public int image;
+        public int weight;
+
+        public FoodData(int image, int weight) {
+            this.image = image;
+            this.weight = weight;
+        }
+    }
+
+    private static Map<String, FoodData> foodCollection = Collections.unmodifiableMap(
+            new HashMap<String, FoodData>() {
+                {
+                    put("Burrito Supreme", new FoodData(R.drawable.burrito_supreme, 240));
+                    put("XXL Stuft Burrito", new FoodData(0, 434));
+                    put("Taco", new FoodData(0, 92));
+                    put("Supreme Taco", new FoodData(0, 128));
+                    put("Mexican Pizza", new FoodData(0, 213));
+                    put("Nacho Bellgrande", new FoodData(0, 308));
+                    put("Chalupas", new FoodData(0, 153));
+                    put("Chicken Quesadilla", new FoodData(0, 181));
+                    put("Crunchwrap Supreme", new FoodData(0, 265));
+                    put("Gordita Crunch", new FoodData(0, 174));
+                    put("Doritos Locos Tacos", new FoodData(0, 78));
+                    put("Smothered Burrito", new FoodData(0, 387));
+                    put("7-Layer Burrito", new FoodData(0, 232));
+                    put("Quesarito", new FoodData(0, 259));
+                    put("Beefy 5-Layer Burrito", new FoodData(0, 230));
+                    put("Double Decker Taco", new FoodData(0, 149));
+
+                    put("Sauce", new FoodData(0, 7));
+
+                    put("Small", new FoodData(0, 454));
+                    put("Medium", new FoodData(0, 567));
+                    put("Large", new FoodData(0, 851));
+                    put("XL", new FoodData(0, 1134));
+                }
+            }
+    );
 
     public final static String[] burritos = {
         "Burrito Supreme", "Smothered Burrito", "XXL Grilled Stuft Burrito",
@@ -28,19 +72,13 @@ public final class Foods {
         "Burrito Supreme Combo", "XXL Stuft Burrito Combo", "3 Tacos Supreme Combo",
             "Mexican Pizza Combo", "Nacho Bellgrande Combo", "2 Chalupas Supreme Combo",
             "Chicken Quesadilla Combo", "3 Tacos Combo", "Crunchwrap Supreme Combo",
-            "Cheesy Gordita Crunch", "3 Doritos Locos Tacos Combo", "Smothered Burrito Combo"
+            "Cheesy Gordita Crunch Combo", "3 Doritos Locos Tacos Combo", "Smothered Burrito Combo"
     };
 
-    public final static int[] foodImage = {
-            R.drawable.burrito_supreme
-    };
+    public static FoodData getData(String name) {
+        return foodCollection.get(name);
+    }
 
-    public final static int[] foodWeight = {
-            1
-    };
-
-    private Foods() {}
-
-
+    private Foods() { }
 
 }
