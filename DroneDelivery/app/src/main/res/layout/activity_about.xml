@@ -2,52 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Purple"
+    android:background="@color/Black"
     android:focusable="false"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="10dp"
     tools:context="com.mealsoffwheels.dronedelivery.activities.AboutActivity">
-
-    <TextView
-        android:id="@+id/AboutTitle"
-
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="35sp"
-        android:gravity="left|center_vertical"
-        android:text="@string/title_activity_about"
-        android:textColor="@color/White"/>
-
-    <TextView
-        android:id="@+id/ServerResponse"
-
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:gravity="center_vertical|center_horizontal"
-
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/default_server_response"
-        android:textColor="@color/White" />
-
-    <Button
-        android:id="@+id/SendDataButton"
-
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-
-        android:text="@string/send_data" />
 
 </RelativeLayout>

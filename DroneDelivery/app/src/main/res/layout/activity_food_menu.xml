@@ -1,42 +1,89 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="10dp"
-    android:background="@color/Purple"
-    tools:context="com.mealsoffwheels.dronedelivery.activities.FoodMenuActivity">
+<android.support.v4.widget.DrawerLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/MenuTitle"
+        <RelativeLayout
+            android:id="@+id/content_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/Purple" >
 
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="0sp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/ImagesSpacer"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true" />
 
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="35sp"
-        android:gravity="start|center_vertical"
-        android:text="@string/title_activity_food_menu"
-        android:textColor="@color/White"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/combos"
+                android:id="@+id/CombosButton"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
-    <ListView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/MenuList"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@+id/CancelButtonMenuPage"
-        android:layout_below="@+id/MenuTitle" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tacos"
+                android:id="@+id/TacosButton"
+                android:layout_below="@+id/CombosButton"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
-    <Button
-        android:id="@+id/CancelButtonMenuPage"
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/burritos"
+                android:id="@+id/BurritosButton"
+                android:layout_below="@+id/TacosButton"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/specialties"
+                android:id="@+id/SpecialtiesButton"
+                android:layout_below="@+id/BurritosButton"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
-        android:text="@string/cancel"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/drinks"
+                android:id="@+id/DrinksButton"
+                android:layout_below="@+id/SpecialtiesButton"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
-</RelativeLayout>
+        </RelativeLayout>
+
+        <!-- The navigation drawer -->
+        <ListView android:id="@+id/left_drawer"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:choiceMode="singleChoice"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp"
+            android:background="#000000"/>
+</android.support.v4.widget.DrawerLayout>

@@ -36,7 +36,7 @@ public class ItemActivity extends ActionBarActivity {
 
         if (intent != null) {
             itemNumber = intent.getIntExtra(FoodMenuActivity.class.getName(), 0);
-            itemName.setText(Foods.names[itemNumber]);
+            itemName.setText(Foods.combos[itemNumber]);
         }
 
         else {

@@ -17,7 +17,6 @@ import com.mealsoffwheels.dronedelivery.common.Foods;
 
 import java.util.ArrayList;
 
-
 public class OrderActivity extends ActionBarActivity {
 
     private ArrayList<String> order;
@@ -51,9 +50,7 @@ public class OrderActivity extends ActionBarActivity {
 
         if (order == null) {
             order = new ArrayList<>();
-        }
-
-        else {
+        } else {
             order.clear();
         }
 
@@ -68,7 +65,7 @@ public class OrderActivity extends ActionBarActivity {
 
                 // Item number will be negative if no longer in order.
                 if (foodNum >= 0) {
-                    order.add(Foods.names[foodNum]);
+                    order.add(Foods.combos[foodNum]);
                 }
             }
         }
@@ -82,15 +79,6 @@ public class OrderActivity extends ActionBarActivity {
                 clearOrderList();
             }
         });
-    }
-
-    private class UpdateUI implements Runnable {
-        @Override
-        public void run() {
-            order.clear();
-            list.invalidateViews();
-            //list.postInvalidate();
-        }
     }
 
     private void clearOrderList() {
@@ -127,6 +115,14 @@ public class OrderActivity extends ActionBarActivity {
     private void toMainMenu() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    private class UpdateUI implements Runnable {
+        @Override
+        public void run() {
+            order.clear();
+            list.invalidateViews();
+        }
     }
 
 }

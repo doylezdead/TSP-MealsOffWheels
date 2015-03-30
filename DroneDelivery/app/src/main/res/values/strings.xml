@@ -21,12 +21,19 @@
     <string name="decline">Decline</string>
     <string name="add_more">Add More</string>
     <string name="back">Back</string>
+    <string name="combos">Combos</string>
+    <string name="tacos">Tacos</string>
+    <string name="burritos">Burritos</string>
+    <string name="drinks">Drinks</string>
+    <string name="specialties">Specialties</string>
 
     <!-- General text section -->
     <string name="estimated_time">Estimated Time: </string>
     <string name="drone_status">Drone Status: </string>
     <string name="idle">Idle</string>
     <string name="sample_estimated_time">Infinite</string>
+    <string name="drawer_open">Open drawer</string>
+    <string name="drawer_close">Close drawer</string>
 
     <!-- Testing text section -->
     <string name="send_data">Send Data</string>
