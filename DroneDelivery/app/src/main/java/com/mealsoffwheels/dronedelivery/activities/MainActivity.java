@@ -3,7 +3,13 @@ package com.mealsoffwheels.dronedelivery.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -12,10 +18,15 @@ import android.widget.LinearLayout;
 
 import com.mealsoffwheels.dronedelivery.R;
 import com.mealsoffwheels.dronedelivery.common.Foods;
+import com.mealsoffwheels.dronedelivery.common.Payload;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -23,6 +34,14 @@ public class MainActivity extends ActionBarActivity {
     private final char ORDER_NUM = 1;
     private final char DRONE_STATUS_NUM = 2;
     private final char ABOUT_NUM = 3;
+
+    private int longitude = Integer.MIN_VALUE;
+    private int latitude = Integer.MIN_VALUE;
+    private LocationManager locationManager = null;
+    private LocationListener locationListener = null;
+    private Location userLocation = null;
+    private SharedPreferences prefs;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,22 +113,139 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-        SharedPreferences prefs = getSharedPreferences("com.mealsoffwheels.dronedelivery.orders", Context.MODE_PRIVATE);
+        prefs = getSharedPreferences("com.mealsoffwheels.dronedelivery.orders", Context.MODE_PRIVATE);
 
-        SharedPreferences.Editor editor = prefs.edit();
+        editor = prefs.edit();
 
         // Indicate no current orders, if there are none
         if (prefs.getInt("Last", -1) == -1) {
             editor.putInt("Last", 0);
             editor.commit();
         }
+
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        locationListener = new FindLocation();
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+
+        new GetGPS().execute();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    private class FindLocation implements LocationListener {
 
+        public void onLocationChanged(Location location) {
+            if (location == null) {
+                return;
+            }
+
+            else {
+                userLocation = location;
+                locationManager.removeUpdates(locationListener); // also remove if away from app
+            }
+        }
+
+        public void onStatusChanged(String provider, int status, Bundle extras) {}
+
+        public void onProviderEnabled(String provider) {}
+
+        public void onProviderDisabled(String provider) {}
     }
+
+    // Convert to some other thread?
+    private class GetGPS extends AsyncTask<Void, Void, Void> {
+
+        private final int PORT = 25565;
+        private final String HOST = "doyle.pw";
+
+        @Override
+        protected Void doInBackground(Void... arg) {
+
+            long totalTime = 0;
+
+            // Wait to get GPS location.
+            while (userLocation == null) {
+                SystemClock.sleep(1000);
+                totalTime += 1000;
+
+                // Keep trying for 2 minutes.
+                if (totalTime >= 120000) {
+                    return null;
+                }
+            }
+
+            if (editor != null) {
+                editor.putFloat("Longitude", (float)userLocation.getLongitude());
+                editor.commit();
+                editor.putFloat("Latitude", (float) userLocation.getLatitude());
+                editor.commit();
+            }
+
+            Payload payload = new Payload(
+                    0,
+                    userLocation.getLongitude(),
+                    userLocation.getLatitude(),
+                    "",
+                    ""
+            );
+
+            try {
+                Socket socket = new Socket(HOST, PORT);
+
+                ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+
+                oos.writeObject(payload);
+                oos.flush();
+
+                ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+
+                Payload receivedPayload = null;
+
+                totalTime = 0;
+
+                while (receivedPayload == null) {
+                    receivedPayload = (Payload) ois.readObject();
+
+                    if (receivedPayload == null) {
+                        SystemClock.sleep(1000);
+                        totalTime += 1000;
+
+                        if (totalTime >= 180000) {
+                            return null; // didn't receive in 3 minutes. Up time maybe?
+                        }
+                    }
+                }
+
+                boolean error = false;
+                if (receivedPayload.opcode != 0 || receivedPayload.value < 0) {
+                    error = true;
+                }
+
+                editor.putInt("StoreID", receivedPayload.value);
+                editor.commit();
+
+                if (error) {
+                    // give message
+                }
+            }
+
+            catch (ClassNotFoundException | IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... progress) {
+
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+
+        }
+    }
+
 
     private void toNewActivity(char act) {
         switch (act) {
