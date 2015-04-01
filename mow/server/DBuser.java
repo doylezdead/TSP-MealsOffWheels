@@ -17,17 +17,39 @@ class DBuser{
 	
 	
 	// Store status. checking deliverability
-	int findNearestStore(double x, double y){
+	// TODO Find NEAREST STORE
+	//Currently gets the first store in the table stores
+	int findNearestStore(Connection con, double x, double y){
+		Statement stmt = con.createStatement();
 		
+		ResultSet rs = stmt("SELECT id From stores");
+		rs.next();
+		return rs.getInt("id");
+		
+		/* More helpful when finding actual closest store
+		ResultSet rs = stmt("SELECT id StoreLat StoreLng FROM stores WHERE StoreLat BETWEEN "+(y-.14492754)+" and " +(y+.14492754) WHERE StoreLng BETWEEN "+(x-.14492754)+" and " +(x+.14492754));
+		int clostest = 1;
+		int tempx = 0;
+		int tempy = 0;
+		
+		//No Stores in range??
+		
+		while (rs.next()) {
+			
+			tempy = rs.getDouble("StoreLat");
+			tempx = rs.getDouble("StoreLng");
+			//Find closest here
+		*/
 	}
 	
-	private boolean checkStoreStatus(){
+	public boolean checkStoreStatus(){
+		
 		return true; // or false
 	}
 	//
 	
 	// Place Order
-	private int placeOrder(String name, String contact, int storeID, double x, double y, int weight){
+	public int placeOrder(String name, String contact, int storeID, double x, double y, int weight){
 		//create order. assign a drone id and a store id
 		orderID = 0;
 		//orderID = new Order();
@@ -37,19 +59,20 @@ class DBuser{
 	//
 	
 	//Getting Order Status
-	private int checkOrderETA(int OrderID){
+	public int checkOrderETA(int OrderID){
 		return 0; //return time in seconds
 	}
 	
-	private double getOrderXPos(int OrderID){
+	public double getOrderXPos(int OrderID){
 		return 0;
 	}
 	
-	private double getOrderYPos(int OrderID){
+	public double getOrderYPos(int OrderID){
 		return 0;
 	}
 	
-	private boolean checkOrderIsGood(int OrderID){
+	public boolean checkOrderIsGood(int OrderID){
+		
 		return true; //or false. true is good status
 	}
 	
