@@ -9,9 +9,11 @@ class Runner{
 	
 	public Payload parseOps(Payload readData){
 		
+		DBuser dbu = new DBuser();
+
 		Payload retData = new Payload(0,0,0,"fail","none");
 		
-		if(readData.value == -1){
+		if(readData.value < 0){
 			throw Exception("parseOps failed with payload value of " + readData.value);
 		}
 		
@@ -23,83 +25,40 @@ class Runner{
 		String name = readData.name;
 		String contact = readData.contact;
 
+		Connection auth = DBuser.authenticate("jdbc:mysql//doyle.pw:3306/mow"); //this will need to be in place in order to authenticate to the database. 
 
-		int order_num = null; //this will be defined and returned in the return payload
-		
-		Connection auth = DBuser.authenticate("jdbc:mysql//doyle.pw/mow"); //this will need to be in place in order to authenticate to the database. 
-		if (auth==null)
-			throw Exception("server connection failed");
 
+		if (auth==null){
+			throw Exception("mysql server connection failed :( maybe it's not running?");
+		}
 
 		switch(opcode){
 			case 0: // checking deliverability
-					int storeID = findNearestStore(xcoord,ycoord);
-					if (checkStoreStatus(storeID)){
+					int storeID = dbu.findNearestStore(auth, xcoord,ycoord);
+					if (dbu.checkStoreStatus(auth, storeID)){
 						retData.value = storeID;
 						retData.opcode = 0;
 					}
+
 			case 1:	// Placing an order
-					retData.value = placeOrder(name, contact, value, xcoord, ycoord, weight);
+					retData.value = dbu.placeOrder(auth, name, contact, value, xcoord, ycoord, weight);
 					
 			case 2:	// Retrieving order status
-					if (checkOrderIsGood(value)){
-						retData.value = checkOrderETA(value);
-						retData.xcoord = getOrderXPos(value);
-						retData.ycoord = getOrderYPos(value);
+					if (dbu.checkOrderIsGood(auth, value)){
+						retData.value = dbu.checkOrderETA(auth, value);
+						retData.xcoord = dbu.getOrderXPos(auth, value);
+						retData.ycoord = dbu.getOrderYPos(auth, value);
 					}
 		}
-		
+
+		if(retData.value == 0){ System.out.println("WARNING. ZERO VALUE BEING RETURNED TO CLIENT. GOOD LUCK"); }
+		auth.close();//close auth here
 
 		//RETURNING A ZERO VALUE TO THE CLIENT MEANS SOMETHING FAILED. MUST CHECK ON CLIENT
 		return retData;
 	}
 
-	
-	private  authenticateMySQL(){
-		return DBuser.authenticate("jdbc:mysql//doyle.pw/mow");
-	}
-	
-	
-	// Store status. checking deliverability
-	private int findNearestStore(double x, double y){
-		
-	}
-	
-	private boolean checkStoreStatus(){
-		return true; // or false
-	}
-	//
-	
-	// Place Order
-	private int placeOrder(String name, String contact, int storeID, double x, double y, int weight){
-		//create order. assign a drone id and a store id
-		orderID = 0;
-		//orderID = new Order();
-		
-		return orderID; //returns newly created order identity
-	}
-	//
-	
-	//Getting Order Status
-	private int checkOrderETA(int OrderID){
-		return 0; //return time in seconds
-	}
-	
-	private double getOrderXPos(int OrderID){
-		return 0;
-	}
-	
-	private double getOrderYPos(int OrderID){
-		return 0;
-	}
-	
-	private boolean checkOrderIsGood(int OrderID){
-		return true; //or false. true is good status
-	}
-	
-
 }
-//
 
 
 
