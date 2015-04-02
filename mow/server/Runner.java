@@ -14,7 +14,7 @@ class Runner{
 		Payload retData = new Payload(0,0,0,"fail","none");
 		
 		if(readData.value < 0){
-			throw Exception("parseOps failed with payload value of " + readData.value);
+			throw new Exception("parseOps failed with payload value of " + readData.value);
 		}
 		
 		int value = readData.value;
@@ -25,11 +25,11 @@ class Runner{
 		String name = readData.name;
 		String contact = readData.contact;
 
-		Connection auth = DBuser.authenticate("jdbc:mysql//doyle.pw:3306/mow","rcdoyle","doyle"); //this will need to be in place in order to authenticate to the database. 
+		Connection auth = dbu.authenticate("jdbc:mysql//doyle.pw:3306/mow","rcdoyle","doyle"); //this will need to be in place in order to authenticate to the database. 
 
 
 		if (auth==null){
-			throw Exception("mysql server connection failed :( maybe it's not running?");
+			throw new Exception("mysql server connection failed :( maybe it's not running?");
 		}
 
 		switch(opcode){
@@ -45,7 +45,6 @@ class Runner{
 					
 			case 2:	// Retrieving order status
 					if (dbu.checkOrderIsGood(auth, value)){
-						retData.value = dbu.checkOrderETA(auth, value);
 						retData.xcoord = dbu.getOrderXPos(auth, value);
 						retData.ycoord = dbu.getOrderYPos(auth, value);
 					}

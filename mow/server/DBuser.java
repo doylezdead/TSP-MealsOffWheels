@@ -1,7 +1,7 @@
 package mow.server;
 
 import java.sql.*;
-import java.util.*
+import java.util.*;
 
 class DBuser{
 	
@@ -10,7 +10,7 @@ class DBuser{
 			return DriverManager.getConnection(server,user, password);
 		}
 		catch(Exception e){
-			system.out.println("Server could not connect to database on server " + server +".");
+			System.out.println("Server could not connect to database on server " + server +".");
 			return null;
 		}
 	}
@@ -24,13 +24,13 @@ class DBuser{
 	 * @param con The Connection to the database
 	 * @param x The Lng of the delivery site
 	 * @param y The Lat of the delivery site
-	 * @throw SQLExecption
+	 * @throw SQLException
 	 * @return The id of the cloest store
 	 */
-	int findNearestStore(Connection con, double x, double y) throws SQLExecption{
+	int findNearestStore(Connection con, double x, double y) throws SQLException{
 		Statement stmt = con.createStatement();
 		
-		ResultSet rs = stmt("SELECT ID From stores");
+		ResultSet rs = stmt.executeQuery("SELECT ID From stores");
 		rs.next();
 		int i = rs.getInt("ID");
 		stmt.close();
@@ -71,7 +71,7 @@ class DBuser{
 	/** Return the true if the store is open and false if closed
 	  * @param con The connection to the database
 	  * @param storeID The id of the storeID
-	  * @throw SQLExecption
+	  * @throw SQLException
 	  * @return true if open else false
 	  */
 	public boolean checkStoreStatus(Connection con, int storeID) throws SQLException {
@@ -96,10 +96,10 @@ class DBuser{
 	 * @param x The Lng location of the delivery
 	 * @param y The Lat location of the delivery
 	 * @param wieght The weight of the order in grams
-	 * @throws SQLExecption
+	 * @throws SQLException
 	 * @return THe orderID as an int
 	 */
-	public int placeOrder(Connection con, String name, String contact, int storeID, double x, double y, int weight) throws SLQExecption {
+	public int placeOrder(Connection con, String name, String contact, int storeID, double x, double y, int weight) throws SQLException {
 		
 		Statement stmt = con.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT ID FROM users WHERE UserName == " + name);
@@ -108,11 +108,11 @@ class DBuser{
 		rs = stmt.executeQuery("SELECT * FROM orders");
 		rs.moveToInsertRow();
 		
-		rs.updateString("StoreID", storeID);
+		rs.updateInt("StoreID", storeID);
 		rs.updateInt("UserID", userID);
 		rs.updateString("Contact",contact);
-		rs.updateFloat("DeliveryLng", x);
-		rs.updateFloat("DeliveryLat", y);
+		rs.updateDouble("DeliveryLng", x);
+		rs.updateDouble("DeliveryLat", y);
 		
 		//Test to see if row is made after this
 		rs.insertRow();
@@ -130,11 +130,11 @@ class DBuser{
 	 * Returns the second til the time of delivery
 	 * @param con The Connection to the database
 	 * @param OrderID 
-	 * @throws SQLExecption
+	 * @throws SQLException
 	 * @return The time in to delivery as seconds as an int
 	 */ 
 	 /*
-	public int checkOrderETA(Connection con, int OrderID) throws SQLExecption {
+	public int checkOrderETA(Connection con, int OrderID) throws SQLException {
 		
 	 int i;
 	 
@@ -146,10 +146,10 @@ class DBuser{
 	 * Return the Longitude of the delivery location
 	 * @param con The Connection to the database
 	 * @param OrderID The id of the order
-	 * @throws SQLExecption 
+	 * @throws SQLException 
 	 * @return the Longitude of the delivery location
 	 */
-	public double getOrderXPos(Connection con, int OrderID) throws SQLExecption {
+	public double getOrderXPos(Connection con, int OrderID) throws SQLException {
 
 		Statement stmt = con.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT DeliveryLng FROM orders WHERE id == " + OrderID);
@@ -164,10 +164,10 @@ class DBuser{
 	 * Return the Latitude of the delivery location
 	 * @param con The Connection to the database
 	 * @param OrderID The id of the order
-	 * @throws SQLExecption 
+	 * @throws SQLException 
 	 * @return the Latitude of the delivery location
 	 */
-	public double getOrderYPos(Connection con, int OrderID) throws SQLExecption {
+	public double getOrderYPos(Connection con, int OrderID) throws SQLException {
 		
 		Statement stmt = con.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT DeliveryLat FROM orders WHERE id == " + OrderID);
@@ -181,10 +181,10 @@ class DBuser{
 	 * Returns true for an accpeted order else false
 	 * @param con Connection to the database
 	 * @param OrderID the id number of the order
-	 * @throws SQLExecption
+	 * @throws SQLException
 	 * @return True if order has been approved and accpeted
 	 */
-	public boolean checkOrderIsGood(int OrderID){
+	public boolean checkOrderIsGood(Connection con, int OrderID) throws SQLException{
 		
 		Statement stmt = con.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT Approved FROM orders WHERE id == " + OrderID);
