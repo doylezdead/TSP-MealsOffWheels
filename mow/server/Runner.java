@@ -29,7 +29,7 @@ class Runner{
 
 
 		if (auth==null){
-			throw new Exception("mysql server connection failed :( maybe it's not running?");
+			throw new Exception("mysql server connection failed :'( maybe it's not running?");
 		}
 
 		switch(opcode){
