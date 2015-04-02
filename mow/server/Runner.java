@@ -25,7 +25,7 @@ class Runner{
 		String name = readData.name;
 		String contact = readData.contact;
 
-		Connection auth = DBuser.authenticate("jdbc:mysql//doyle.pw:3306/mow"); //this will need to be in place in order to authenticate to the database. 
+		Connection auth = DBuser.authenticate("jdbc:mysql//doyle.pw:3306/mow","rcdoyle","doyle"); //this will need to be in place in order to authenticate to the database. 
 
 
 		if (auth==null){
