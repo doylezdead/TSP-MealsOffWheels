@@ -113,48 +113,75 @@ class DBuser{
 	}
 	
 	//Getting Order Status
+	//NOT HERE 
 	/**
 	 * Returns the second til the time of delivery
+	 * @param con The Connection to the database
 	 * @param OrderID 
 	 * @throws SQLExecption
 	 * @return The time in to delivery as seconds as an int
 	 */ 
-	public int checkOrderETA(int OrderID) throws SQLExecption {
+	 /*
+	public int checkOrderETA(Connection con, int OrderID) throws SQLExecption {
 		
 	 int i;
 	 
 	 return i;//return time in seconds
 	}
+	*/
 	
-	public double getOrderXPos(int OrderID){
-		return 0;
+	/**
+	 * Return the Longitude of the delivery location
+	 * @param con The Connection to the database
+	 * @param OrderID The id of the order
+	 * @throws SQLExecption 
+	 * @return the Longitude of the delivery location
+	 */
+	public double getOrderXPos(Connection con, int OrderID) throws SQLExecption {
+
+		Statement stmt = con.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT DeliveryLng FROM orders WHERE id == " + OrderID);
+		rs.next();
+		double x = rs.getDouble("DeliveryLng");
+		
+		stmt.close();
+		return x;
 	}
 	
-	public double getOrderYPos(int OrderID){
-		return 0;
+		/**
+	 * Return the Latitude of the delivery location
+	 * @param con The Connection to the database
+	 * @param OrderID The id of the order
+	 * @throws SQLExecption 
+	 * @return the Latitude of the delivery location
+	 */
+	public double getOrderYPos(Connection con, int OrderID) throws SQLExecption {
+		
+		Statement stmt = con.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT DeliveryLat FROM orders WHERE id == " + OrderID);
+		rs.next();
+		double x = rs.getDouble("DeliveryLat");
+		
+		stmt.close();
+		return x;
 	}
-	
+	/**
+	 * Returns true for an accpeted order else false
+	 * @param con Connection to the database
+	 * @param OrderID the id number of the order
+	 * @throws SQLExecption
+	 * @return True if order has been approved and accpeted
+	 */
 	public boolean checkOrderIsGood(int OrderID){
 		
-		return true; //or false. true is good status
+		Statement stmt = con.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT Good FROM orders WHERE id == " + OrderID);
+		rs.next();
+		boolean x = rs.getBoolean("Good");
+		
+		stmt.close();
+		return x; //or false. true is good status
 	}
 	
 
 }
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
