@@ -118,7 +118,7 @@ class DBuser{
 		rs.insertRow();
 		rs.next();
 		
-		int orderID = rs.getInt("id");
+		int orderID = rs.getInt("ID");
 		
 		stmt.close();
 		return orderID; //returns newly created order identity
