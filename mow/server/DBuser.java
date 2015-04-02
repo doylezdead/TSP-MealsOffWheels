@@ -30,25 +30,38 @@ class DBuser{
 	int findNearestStore(Connection con, double x, double y) throws SQLExecption{
 		Statement stmt = con.createStatement();
 		
-		ResultSet rs = stmt("SELECT id From stores");
+		ResultSet rs = stmt("SELECT ID From stores");
 		rs.next();
-		int i = rs.getInt("id");
+		int i = rs.getInt("ID");
 		stmt.close();
 		return i;
 		
-		/* More helpful when finding actual closest store
-		ResultSet rs = stmt("SELECT id StoreLat StoreLng FROM stores WHERE StoreLat BETWEEN "+(y-.14492754)+" and " +(y+.14492754) WHERE StoreLng BETWEEN "+(x-.14492754)+" and " +(x+.14492754));
-		int clostest = 1;
+		/* More helpful when findin
+		
+		//Find open stores within 100 square miles
+		ResultSet rs = stmt("SELECT ID StoreLat StoreLng FROM stores WHERE StoreLat BETWEEN "+(y-.14492754)+" and " +(y+.14492754) WHERE StoreLng BETWEEN "+(x-.14492754)+" and " +(x+.14492754) + "WHERE Open == 1");
+		int closest = 1;
 		int tempx = 0;
 		int tempy = 0;
-		
+		double distance = -1;
+		double tempd = -1;
 		//No Stores in range??
 		
+		//Still stores to check
 		while (rs.next()) {
 			
 			tempy = rs.getDouble("StoreLat");
 			tempx = rs.getDouble("StoreLng");
-			//Find closest here
+			
+			if (distance == -1) {
+				closest = rs.getInt("ID");
+				distance = Math.sqrt( Math.pow(tempx - x, 2) + Math.pow(tempy - y, 2) );
+				continue;
+			}
+			tempd = Math.sqrt( Math.pow(tempx - x, 2) + Math.pow(tempy - y, 2) );
+			
+			if (tempd < distance)
+				distance = tempd;
 		}
 		stmt.close();
 		return closest;
@@ -89,8 +102,8 @@ class DBuser{
 	public int placeOrder(Connection con, String name, String contact, int storeID, double x, double y, int weight) throws SLQExecption {
 		
 		Statement stmt = con.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT id FROM users WHERE Name == " + name);
-		int userID = rs.getInt("id");
+		ResultSet rs = stmt.executeQuery("SELECT ID FROM users WHERE UserName == " + name);
+		int userID = rs.getInt("ID");
 		
 		rs = stmt.executeQuery("SELECT * FROM orders");
 		rs.moveToInsertRow();
@@ -99,12 +112,11 @@ class DBuser{
 		rs.updateInt("UserID", userID);
 		rs.updateString("Contact",contact);
 		rs.updateFloat("DeliveryLng", x);
-		rs.updateBoolean("GoodOrder", null);
 		rs.updateFloat("DeliveryLat", y);
-		rs.updateInt("TimeReceived", null); //CHANGE THIS !!!!!!!!!!
-		rs.updateTimeStamp("TimeDeliveried", null);
 		
+		//Test to see if row is made after this
 		rs.insertRow();
+		rs.next();
 		
 		int orderID = rs.getInt("id");
 		
@@ -160,10 +172,10 @@ class DBuser{
 		Statement stmt = con.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT DeliveryLat FROM orders WHERE id == " + OrderID);
 		rs.next();
-		double x = rs.getDouble("DeliveryLat");
+		double y = rs.getDouble("DeliveryLat");
 		
 		stmt.close();
-		return x;
+		return y;
 	}
 	/**
 	 * Returns true for an accpeted order else false
@@ -175,9 +187,9 @@ class DBuser{
 	public boolean checkOrderIsGood(int OrderID){
 		
 		Statement stmt = con.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT Good FROM orders WHERE id == " + OrderID);
+		ResultSet rs = stmt.executeQuery("SELECT Approved FROM orders WHERE id == " + OrderID);
 		rs.next();
-		boolean x = rs.getBoolean("Good");
+		boolean x = rs.getBoolean("Approved");
 		
 		stmt.close();
 		return x; //or false. true is good status
