@@ -5,9 +5,9 @@ import java.util.*
 
 class DBuser{
 	
-	Connection authenticate(String server){
+	Connection authenticate(String server, String user, String password){
 		try{
-			return DriverManager.getConnection(server,"test","bad password");
+			return DriverManager.getConnection(server,user, password);
 		}
 		catch(Exception e){
 			system.out.println("Server could not connect to database on server " + server +".");
