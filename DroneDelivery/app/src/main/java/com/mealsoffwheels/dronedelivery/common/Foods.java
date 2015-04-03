@@ -22,14 +22,17 @@ public final class Foods {
             new HashMap<String, FoodData>() {
                 {
                     put("Burrito Supreme", new FoodData(R.drawable.burrito_supreme, 240));
+                    put("XXL Grilled Stuft Burrito", new FoodData(0, 434));
                     put("XXL Stuft Burrito", new FoodData(0, 434));
-                    put("Taco", new FoodData(0, 92));
+                    put("Soft Taco", new FoodData(0, 92));
+                    put("Crunchy Taco", new FoodData(0, 92));
                     put("Supreme Taco", new FoodData(0, 128));
                     put("Mexican Pizza", new FoodData(0, 213));
                     put("Nacho Bellgrande", new FoodData(0, 308));
-                    put("Chalupas", new FoodData(0, 153));
+                    put("Chalupa Supreme", new FoodData(0, 153));
                     put("Chicken Quesadilla", new FoodData(0, 181));
                     put("Crunchwrap Supreme", new FoodData(0, 265));
+                    put("Cheesy Gordita Crunch", new FoodData(0, 174));
                     put("Gordita Crunch", new FoodData(0, 174));
                     put("Doritos Locos Tacos", new FoodData(0, 78));
                     put("Smothered Burrito", new FoodData(0, 387));
@@ -38,7 +41,20 @@ public final class Foods {
                     put("Beefy 5-Layer Burrito", new FoodData(0, 230));
                     put("Double Decker Taco", new FoodData(0, 149));
 
-                    put("Sauce", new FoodData(0, 7));
+                    put("Burrito Supreme Combo", new FoodData(0, 254));
+                    put("XXL Stuft Burrito Combo", new FoodData(0, 448));
+                    put("3 Tacos Supreme Combo", new FoodData(0, 290));
+                    put("Mexican Pizza Combo", new FoodData(0, 227));
+                    put("Nacho Bellgrande Combo", new FoodData(0, 322));
+                    put("2 Chalupas Supreme Combo", new FoodData(0, 320));
+                    put("Chicken Quesadilla Combo", new FoodData(0, 195));
+                    put("3 Tacos Combo", new FoodData(0, 290));
+                    put("Crunchwrap Supreme Combo", new FoodData(0, 279));
+                    put("Cheesy Gordita Crunch Combo", new FoodData(0, 188));
+                    put("3 Doritos Locos Tacos Combo", new FoodData(0, 248));
+                    put("Smothered Burrito Combo", new FoodData(0, 401));
+
+                    put("Sauce", new FoodData(0, 14));
 
                     put("Small", new FoodData(0, 454));
                     put("Medium", new FoodData(0, 567));

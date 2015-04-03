@@ -1,33 +1,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="10dp"
     tools:context="com.mealsoffwheels.dronedelivery.activities.ItemActivity"
-    android:background="@color/Purple">
-
-    <TextView
-        android:id="@+id/ItemName"
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="35sp"
-        android:gravity="center_horizontal|center_vertical"
-        android:textColor="@color/White" />
+    android:background="@color/Purple"
+    android:focusable="false">
 
     <ImageView
         android:id="@+id/FoodImage"
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ItemName"
         android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
         android:layout_above="@+id/ImageSpacer"/>
 
     <TextView
@@ -41,20 +26,6 @@
         android:layout_alignParentEnd="true"
 
         android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <Button
-        android:id="@+id/BackButtonItemPage"
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/AddToOrderButton"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/AddToOrderBackSpacer"
-        android:layout_toStartOf="@+id/AddToOrderBackSpacer"
-
-        android:text="@string/back" />
 
     <TextView
         android:id="@+id/AddToOrderBackSpacer"
@@ -75,9 +46,38 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/AddToOrderBackSpacer"
-        android:layout_toEndOf="@+id/AddToOrderBackSpacer"
+        android:layout_toEndOf="@+id/textView"
 
-        android:text="@string/add_to_order" />
+        android:text="@string/add_to_order"
+        android:layout_toRightOf="@+id/textView" />
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:layout_alignTop="@+id/AddToOrderBackSpacer"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/Quantity"
+        android:layout_alignBottom="@+id/AddToOrderBackSpacer"
+        android:layout_toLeftOf="@+id/AddToOrderBackSpacer"
+        android:layout_alignLeft="@+id/ImageSpacer"
+        android:layout_alignStart="@+id/ImageSpacer"
+        android:textColor="@color/Black"
+        android:background="@color/White"
+        android:layout_alignTop="@+id/AddToOrderBackSpacer"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="1"
+        android:hint="Quantity" />
 
 </RelativeLayout>

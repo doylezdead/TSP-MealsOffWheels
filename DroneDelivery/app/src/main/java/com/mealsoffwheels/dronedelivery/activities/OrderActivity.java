@@ -61,12 +61,14 @@ public class OrderActivity extends ActionBarActivity {
         // There exist orders.
         if (end > 0) {
             for (int i = 1; i <= end; ++i) {
-                int foodNum = prefs.getInt(Integer.toString(i), -1);
+                String foodName = prefs.getString(Integer.toString(i), "");
+                int quantity = prefs.getInt(Integer.toString(i) + "quantity", -1);
 
-                // Item number will be negative if no longer in order.
-                if (foodNum >= 0) {
-                    order.add(Foods.combos[foodNum]);
+                // Was not removed from the order.
+                if (!foodName.equals("") && quantity > 0) {
+                    order.add(foodName + ((quantity == 1) ? "" : " (" + quantity + ")"));
                 }
+
             }
         }
 
@@ -91,6 +93,7 @@ public class OrderActivity extends ActionBarActivity {
         if (end > 0) {
             for (int i = 1; i <= end; ++i) {
                 editor.remove(Integer.toString(i));
+                editor.remove(Integer.toString(i) + "quantity");
                 editor.commit();
             }
 

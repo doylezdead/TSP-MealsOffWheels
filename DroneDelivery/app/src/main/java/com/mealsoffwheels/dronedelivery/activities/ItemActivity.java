@@ -6,8 +6,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,35 +21,26 @@ import java.io.FileInputStream;
 
 public class ItemActivity extends ActionBarActivity {
 
-    private int itemNumber;
+    private String itemName;
+    private EditText editText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item);
 
-        itemNumber = -1;
+        itemName = "";
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
 
         Intent intent = getIntent();
 
-        TextView itemName = (TextView) findViewById(R.id.ItemName);
-
         if (intent != null) {
-            itemNumber = intent.getIntExtra(FoodMenuActivity.class.getName(), 0);
-            itemName.setText(Foods.combos[itemNumber]);
+            itemName = intent.getStringExtra(FoodMenuActivity.class.getName());
+            actionBar.setTitle(itemName);
         }
 
-        else {
-            itemName.setText("Item Page");
-        }
-
-        if (itemNumber == 0) {
-            ImageView imageView = (ImageView) findViewById(R.id.FoodImage);
-            imageView.setBackgroundResource(Foods.getData("Burrito Supreme").image);
-        }
+        editText = (EditText) findViewById(R.id.Quantity);
 
         Button addToOrderButton = (Button) findViewById(R.id.AddToOrderButton);
         addToOrderButton.setOnClickListener(new View.OnClickListener() {
@@ -55,18 +49,10 @@ public class ItemActivity extends ActionBarActivity {
                 addToOrder();
             }
         });
-
-        Button cancelButton = (Button) findViewById(R.id.BackButtonItemPage);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toMenuPage();
-            }
-        });
     }
 
     private void addToOrder() {
-        if (itemNumber == -1) {
+        if (itemName == null || itemName.equals("") || editText == null) {
             return;
         }
 
@@ -74,16 +60,39 @@ public class ItemActivity extends ActionBarActivity {
 
         SharedPreferences.Editor editor = prefs.edit();
 
+        boolean found = false;
+
         // Points to last order place.
         int end = prefs.getInt("Last", 0);
 
-        ++end;
+        for (int i = 1; i <= end; ++i) {
+            String foodName = prefs.getString(Integer.toString(i), "");
+            int quantity = prefs.getInt(Integer.toString(i) + "quantity", -1);
 
-        editor.putInt("Last", end);
-        editor.commit();
+            if (foodName.equals(itemName)) {
+                editor.putInt(foodName + "quantity", quantity + Integer.parseInt(editText.getText().toString()));
+                editor.commit();
+                System.out.println("Found with " + Integer.parseInt(editText.getText().toString()));
+                System.out.println("New value is " + prefs.getInt(foodName + "quantity", -1));
+                found = true;
+                break;
+            }
+        }
 
-        editor.putInt(Integer.toString(end), itemNumber);
-        editor.commit();
+        if (!found) {
+            System.out.println("Not found");
+            ++end;
+
+            editor.putInt("Last", end);
+            editor.commit();
+
+            String endName = Integer.toString(end);
+
+            editor.putString(endName, itemName);
+            editor.commit();
+            editor.putInt(endName + "quantity", Integer.parseInt(editText.getText().toString()));
+            editor.commit();
+        }
 
         startActivity(new Intent(this, OrderActivity.class));
         finish();

@@ -46,7 +46,7 @@ public class FoodMenuActivity extends ActionBarActivity {
         drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                toItemPage(position); // for now
+                toItemPage((String)parent.getItemAtPosition(position));
             }
         });
 
@@ -186,7 +186,6 @@ public class FoodMenuActivity extends ActionBarActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
         drawerToggle.syncState();
     }
 
@@ -207,9 +206,9 @@ public class FoodMenuActivity extends ActionBarActivity {
         }
     }
 
-    private void toItemPage(int item) {
+    private void toItemPage(String itemName) {
         Intent intent = new Intent(this, ItemActivity.class);
-        intent.putExtra(FoodMenuActivity.class.getName(), item);
+        intent.putExtra(FoodMenuActivity.class.getName(), itemName);
         startActivity(intent);
     }
 

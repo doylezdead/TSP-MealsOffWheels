@@ -128,7 +128,7 @@ public class MainActivity extends ActionBarActivity {
         locationListener = new FindLocation();
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
 
-        new GetGPS().execute();
+       // new GetGPS().execute();
     }
 
     private class FindLocation implements LocationListener {
