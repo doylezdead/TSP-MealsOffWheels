@@ -22,6 +22,8 @@ public class OrderActivity extends ActionBarActivity {
     private ArrayList<String> order;
     private ListView list;
 
+    //TODO: DISPLAY CURRENT COST ON THE ORDER PAGE
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +53,7 @@ public class OrderActivity extends ActionBarActivity {
         if (order == null) {
             order = new ArrayList<>();
         } else {
-            order.clear();
+            new Handler().post(new UpdateUI()); //TODO: WILL THIS FIX THE FAILURE OF UPDATING THE VIEW???
         }
 
         SharedPreferences prefs = getSharedPreferences("com.mealsoffwheels.dronedelivery.orders", Context.MODE_PRIVATE);
@@ -101,8 +103,7 @@ public class OrderActivity extends ActionBarActivity {
             editor.commit();
         }
 
-        Handler handle = new Handler();
-        handle.post(new UpdateUI());
+        new Handler().post(new UpdateUI());
     }
 
     private void dataToBuyPage() {
@@ -111,7 +112,9 @@ public class OrderActivity extends ActionBarActivity {
         }
 
         Intent intent = new Intent(this, PaymentActivity.class);
-        intent.putExtra(OrderActivity.class.getName(), order.toArray());
+        intent.putExtra(OrderActivity.class.getName() + "weight", 0);
+        intent.putExtra(OrderActivity.class.getName() + "cost", 5.00);//Send over weight- and cost
+
         startActivity(intent);
     }
 

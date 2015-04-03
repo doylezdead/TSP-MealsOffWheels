@@ -34,6 +34,7 @@
     <string name="sample_estimated_time">Infinite</string>
     <string name="drawer_open">Open drawer</string>
     <string name="drawer_close">Close drawer</string>
+    <string name="total">Total:</string>
 
     <!-- Testing text section -->
     <string name="send_data">Send Data</string>
