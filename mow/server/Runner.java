@@ -3,11 +3,11 @@ package mow.server;
 import mow.common.Payload;
 import mow.server.DBuser;
 import java.sql.Connection;
-import java.sql.ResultSet;
+import java.sql.SQLException;
 
 class Runner{
 	
-	public Payload parseOps(Payload readData){
+	public Payload parseOps(Payload readData) throws Exception, SQLException {
 		
 		DBuser dbu = new DBuser();
 
@@ -24,12 +24,11 @@ class Runner{
 		double ycoord = readData.ycoord;
 		String name = readData.name;
 		String contact = readData.contact;
-
+		
 		Connection auth = dbu.authenticate("jdbc:mysql//doyle.pw:3306/mow","rcdoyle","doyle"); //this will need to be in place in order to authenticate to the database. 
 
-
 		if (auth==null){
-			throw new Exception("mysql server connection failed :'( maybe it's not running?");
+			throw new SQLException("dbuser failed to return a valid connection :'( maybe it's not running or dbuser is broken?");
 		}
 
 		switch(opcode){
