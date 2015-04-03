@@ -1,1 +1,4 @@
-asdf
+[ ] Write test cases as a client connecting to server.
+    looking for payload return values and expected behavior
+
+[ ] Write standalone tests for authenticating against mysqldb on doyle.pw

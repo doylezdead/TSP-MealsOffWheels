@@ -11,7 +11,7 @@ class Runner{
 		
 		DBuser dbu = new DBuser();
 
-		Payload retData = new Payload(0,0,0,"fail","none");
+		Payload retData = new Payload(0,0,0,0,"fail","none");
 		
 		if(readData.value < 0){
 			throw new Exception("parseOps failed with payload value of " + readData.value);
