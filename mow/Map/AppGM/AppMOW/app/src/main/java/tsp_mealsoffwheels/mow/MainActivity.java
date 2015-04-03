@@ -2,14 +2,11 @@ package tsp_mealsoffwheels.mow;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.location.Location;
-import android.os.SystemClock;
+import android.location.Address;
+import android.location.Geocoder;
 import android.support.v4.app.FragmentActivity;
-import android.app.Activity;
 import android.os.Bundle;
 
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -19,7 +16,24 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.android.gms.maps.GoogleMap.OnMapLoadedCallback.*;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
+import java.util.List;
+import java.util.Locale;
 
 import static tsp_mealsoffwheels.mow.MarkerAnimation.*;
 
@@ -103,6 +117,8 @@ public class MainActivity extends FragmentActivity {
 
         Log.d("BEARING", "should be 069.28 and is " + getBearing(droneHome, thisHome));
         Log.d("DISTANCE", "The distance between two points on the map is");
+        getLatLongFromAddress("4820 Westchester Commons, Traverse City MI 49684", getApplicationContext());
+
         //LocationManager locMan = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
@@ -115,7 +131,7 @@ public class MainActivity extends FragmentActivity {
     }
 
     /**
-     * Written by David Mohrhardt
+     * Written by David C. Mohrhardt
      * @param from
      * @param to
      * @return
@@ -136,5 +152,23 @@ public class MainActivity extends FragmentActivity {
         theta = Math.toDegrees( theta );
 
         return theta;
+    }
+
+    public static void getLatLongFromAddress(String addr, Context context) {
+        Log.d("DEVICELOCAL = ", "" + Locale.getDefault());
+
+        Geocoder gc = new Geocoder(context, Locale.getDefault());
+        List<Address> addresses;
+        try {
+            addresses = gc.getFromLocationName(addr, 5);
+            if(addresses.size() > 0) {
+                double lat = addresses.get(0).getLatitude();
+                Log.d("GEOCODE_LAT = ", "" + lat);
+                double lng = addresses.get(0).getLongitude();
+                Log.d("GEOCODE_LNG = ", "" + lng);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
