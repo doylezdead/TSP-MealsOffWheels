@@ -85,7 +85,7 @@ class DBuser{
 	public boolean checkStoreStatus(Connection con, int storeID) throws SQLException {
 		//Create statmenet and result of doing select
 		Statement stmt = con.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT Open FROM stores WHERE StoreID == " + storeID);
+		ResultSet rs = stmt.executeQuery("SELECT Open FROM stores WHERE StoreID=" + storeID);
 		//Move cursor to first row
 		rs.next();
 		//Get value to return and close statement
@@ -110,7 +110,7 @@ class DBuser{
 	public int placeOrder(Connection con, String name, String contact, int storeID, double x, double y, int weight) throws SQLException {
 		
 		Statement stmt = con.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT ID FROM users WHERE UserName == " + name);
+		ResultSet rs = stmt.executeQuery("SELECT ID FROM users WHERE UserName='" + name + "'");
 		int userID = rs.getInt("ID");
 		
 		rs = stmt.executeQuery("SELECT * FROM orders");
@@ -160,7 +160,7 @@ class DBuser{
 	public double getOrderXPos(Connection con, int OrderID) throws SQLException {
 
 		Statement stmt = con.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT DeliveryLng FROM orders WHERE id == " + OrderID);
+		ResultSet rs = stmt.executeQuery("SELECT DeliveryLng FROM orders WHERE id=" + OrderID);
 		rs.next();
 		double x = rs.getDouble("DeliveryLng");
 		
@@ -178,7 +178,7 @@ class DBuser{
 	public double getOrderYPos(Connection con, int OrderID) throws SQLException {
 		
 		Statement stmt = con.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT DeliveryLat FROM orders WHERE id == " + OrderID);
+		ResultSet rs = stmt.executeQuery("SELECT DeliveryLat FROM orders WHERE i=" + OrderID);
 		rs.next();
 		double y = rs.getDouble("DeliveryLat");
 		
@@ -195,7 +195,7 @@ class DBuser{
 	public boolean checkOrderIsGood(Connection con, int OrderID) throws SQLException{
 		
 		Statement stmt = con.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT Approved FROM orders WHERE id == " + OrderID);
+		ResultSet rs = stmt.executeQuery("SELECT Approved FROM orders WHERE id=" + OrderID);
 		rs.next();
 		boolean x = rs.getBoolean("Approved");
 		
