@@ -2,8 +2,9 @@ package mow.server;
 
 import mow.common.Payload;
 import mow.server.DBuser;
-import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Connection;
+
 
 class Runner{
 	
@@ -25,7 +26,7 @@ class Runner{
 		String name = readData.name;
 		String contact = readData.contact;
 		
-		Connection auth = dbu.authenticate("jdbc:mysql//doyle.pw:3306/mow","rcdoyle","doyle"); //this will need to be in place in order to authenticate to the database. 
+		Connection auth = dbu.authenticate("jdbc:mysql://192.168.2.101:3306/mow","rcdoyle","doyle"); //this will need to be in place in order to authenticate to the database. 
 
 		if (auth==null){
 			throw new SQLException("dbuser failed to return a valid connection :'( maybe it's not running or dbuser is broken?");
