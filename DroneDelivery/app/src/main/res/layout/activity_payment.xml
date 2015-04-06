@@ -14,7 +14,9 @@
         android:id="@+id/DeclineButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/ButtonSpacer"
+        android:layout_toStartOf="@+id/ButtonSpacer" />
 
     <Button
         android:layout_width="wrap_content"
@@ -23,7 +25,9 @@
         android:id="@+id/AcceptButton"
         android:layout_alignBottom="@+id/DeclineButton"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/ButtonSpacer"
+        android:layout_toEndOf="@+id/ButtonSpacer" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -113,8 +117,8 @@
         android:layout_alignParentEnd="true"
         android:background="@drawable/edit_text_shape"
         android:gravity="center_vertical|left"
-        android:text="Zip Code"
-        android:textColor="@color/Black" />
+        android:textColor="@color/Black"
+        android:hint="Zip" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -187,7 +191,9 @@
         android:background="@drawable/edit_text_shape"
         android:gravity="center_vertical|left"
         android:hint="Credit Card Number"
-        android:textColor="@color/Black" />
+        android:textColor="@color/Black"
+        android:layout_toLeftOf="@+id/SecurityCode"
+        android:layout_toStartOf="@+id/SecurityCode" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -205,33 +211,39 @@
         android:ems="10"
         android:id="@+id/SecurityCode"
         android:layout_below="@+id/EditTextSpacer6"
-        android:layout_toRightOf="@+id/EditTextSpacer7"
-        android:layout_toEndOf="@+id/EditTextSpacer7"
+        android:layout_toEndOf="@+id/City"
         android:background="@drawable/edit_text_shape"
         android:textColor="@color/Black"
-        android:hint="Sec. Code" />
+        android:hint="Code"
+        android:layout_toRightOf="@+id/City" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/EditTextSpacer8"
-        android:password="false"
-        android:layout_below="@+id/CardNumber"
-        android:layout_toRightOf="@+id/DeclineButton"
-        android:layout_toEndOf="@+id/DeclineButton"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true" />
+        android:id="@+id/ButtonSpacer"
+        android:layout_alignTop="@+id/DeclineButton"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/total"
-        android:textSize="40sp"
-        android:id="@+id/TotalView"
-        android:layout_below="@+id/EditTextSpacer8"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/DeclineButton"
+        android:layout_below="@+id/CardNumber">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/total"
+            android:textSize="40sp"
+            android:id="@+id/TotalView"
+            android:layout_below="@+id/EditTextSpacer8"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_gravity="center_vertical|left" />
+    </FrameLayout>
 
 </RelativeLayout>

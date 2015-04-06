@@ -69,8 +69,8 @@ public class ItemActivity extends ActionBarActivity {
             String foodName = prefs.getString(Integer.toString(i), "");
             int quantity = prefs.getInt(Integer.toString(i) + "quantity", -1);
 
-            if (foodName.equals(itemName)) {
-                editor.putInt(foodName + "quantity", quantity + Integer.parseInt(editText.getText().toString()));
+            if (foodName.trim().equals(itemName.trim())) {
+                editor.putInt(foodName.trim() + "quantity", quantity + Integer.parseInt(editText.getText().toString().trim()));
                 editor.commit();
                 System.out.println("Found with " + Integer.parseInt(editText.getText().toString()));
                 System.out.println("New value is " + prefs.getInt(foodName + "quantity", -1));
@@ -88,9 +88,9 @@ public class ItemActivity extends ActionBarActivity {
 
             String endName = Integer.toString(end);
 
-            editor.putString(endName, itemName);
+            editor.putString(endName.trim(), itemName.trim());
             editor.commit();
-            editor.putInt(endName + "quantity", Integer.parseInt(editText.getText().toString()));
+            editor.putInt(endName + "quantity", Integer.parseInt(editText.getText().toString().trim()));
             editor.commit();
         }
 
@@ -98,8 +98,4 @@ public class ItemActivity extends ActionBarActivity {
         finish();
     }
 
-    private void toMenuPage() {
-        startActivity(new Intent(this, FoodMenuActivity.class));
-        finish();
-    }
 }

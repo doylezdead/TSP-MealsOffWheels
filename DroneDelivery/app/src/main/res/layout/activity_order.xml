@@ -7,21 +7,6 @@
     android:background="@color/Purple"
     tools:context="com.mealsoffwheels.dronedelivery.activities.OrderActivity" >
 
-    <TextView
-        android:id="@+id/CurrentOrderTitle"
-
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="35sp"
-        android:gravity="left|center_vertical"
-        android:text="@string/current_orders"
-        android:textColor="@color/White"
-        android:layout_toLeftOf="@+id/deleteAll"
-        android:layout_toStartOf="@+id/deleteAll" />
-
     <RelativeLayout
         android:id="@+id/CurrentOrderLayout"
 
@@ -29,7 +14,7 @@
         android:layout_height="fill_parent"
         android:layout_above="@+id/BuyButtonOrderPage"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/CurrentOrderTitle" >
+        android:layout_below="@+id/deleteAll">
 
         <ListView
             android:id="@+id/CurrentOrderList"

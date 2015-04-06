@@ -35,13 +35,9 @@ public class MainActivity extends ActionBarActivity {
     private final char DRONE_STATUS_NUM = 2;
     private final char ABOUT_NUM = 3;
 
-    private int longitude = Integer.MIN_VALUE;
-    private int latitude = Integer.MIN_VALUE;
     private LocationManager locationManager = null;
     private LocationListener locationListener = null;
     private Location userLocation = null;
-    private SharedPreferences prefs;
-    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,9 +109,9 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-        prefs = getSharedPreferences("com.mealsoffwheels.dronedelivery.orders", Context.MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences("com.mealsoffwheels.dronedelivery.orders", Context.MODE_PRIVATE);
 
-        editor = prefs.edit();
+        SharedPreferences.Editor editor = prefs.edit();
 
         // Indicate no current orders, if there are none
         if (prefs.getInt("Last", -1) == -1) {
@@ -159,26 +155,18 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         protected Void doInBackground(Void... arg) {
-
-            long totalTime = 0;
+            SharedPreferences prefs = getSharedPreferences("com.mealsoffwheels.dronedelivery.orders", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
 
             // Wait to get GPS location.
             while (userLocation == null) {
                 SystemClock.sleep(1000);
-                totalTime += 1000;
-
-                // Keep trying for 2 minutes.
-                if (totalTime >= 120000) {
-                    return null;
-                }
             }
 
-            if (editor != null) {
-                editor.putFloat("Longitude", (float)userLocation.getLongitude());
-                editor.commit();
-                editor.putFloat("Latitude", (float) userLocation.getLatitude());
-                editor.commit();
-            }
+            editor.putFloat("Longitude", (float)userLocation.getLongitude());
+            editor.commit();
+            editor.putFloat("Latitude", (float) userLocation.getLatitude());
+            editor.commit();
 
             Payload payload = new Payload(
                     0,
@@ -200,31 +188,28 @@ public class MainActivity extends ActionBarActivity {
 
                 Payload receivedPayload = null;
 
-                totalTime = 0;
-
                 while (receivedPayload == null) {
                     receivedPayload = (Payload) ois.readObject();
 
                     if (receivedPayload == null) {
                         SystemClock.sleep(1000);
-                        totalTime += 1000;
-
-                        if (totalTime >= 180000) {
-                            return null; // didn't receive in 3 minutes. Up time maybe?
-                        }
                     }
                 }
+
+                oos.close();
+                ois.close();
+                socket.close();
 
                 boolean error = false;
                 if (receivedPayload.opcode != 0 || receivedPayload.value < 0) {
                     error = true;
                 }
 
-                editor.putInt("StoreID", receivedPayload.value);
+                editor.putInt("storeID", receivedPayload.value);
                 editor.commit();
 
                 if (error) {
-                    // give message
+                    // TODO GIVE ERROR
                 }
             }
 
@@ -233,16 +218,6 @@ public class MainActivity extends ActionBarActivity {
             }
 
             return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... progress) {
-
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-
         }
     }
 

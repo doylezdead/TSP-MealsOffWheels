@@ -30,7 +30,7 @@ public class OrderActivity extends ActionBarActivity {
         setContentView(R.layout.activity_order);
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+        actionBar.setTitle("Current Orders");
 
         Button cancelButton = (Button) findViewById(R.id.CancelButtonOrderPage);
         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -53,7 +53,7 @@ public class OrderActivity extends ActionBarActivity {
         if (order == null) {
             order = new ArrayList<>();
         } else {
-            new Handler().post(new UpdateUI()); //TODO: WILL THIS FIX THE FAILURE OF UPDATING THE VIEW???
+            order.clear();
         }
 
         SharedPreferences prefs = getSharedPreferences("com.mealsoffwheels.dronedelivery.orders", Context.MODE_PRIVATE);
@@ -63,14 +63,14 @@ public class OrderActivity extends ActionBarActivity {
         // There exist orders.
         if (end > 0) {
             for (int i = 1; i <= end; ++i) {
-                String foodName = prefs.getString(Integer.toString(i), "");
-                int quantity = prefs.getInt(Integer.toString(i) + "quantity", -1);
+                String foodName = prefs.getString(Integer.toString(i).trim(), "");
+                int quantity = prefs.getInt(Integer.toString(i).trim() + "quantity", -1);
+                System.out.println("Got quantity order page is " + quantity);
 
                 // Was not removed from the order.
                 if (!foodName.equals("") && quantity > 0) {
                     order.add(foodName + ((quantity == 1) ? "" : " (" + quantity + ")"));
                 }
-
             }
         }
 
@@ -110,6 +110,8 @@ public class OrderActivity extends ActionBarActivity {
         if (order == null) {
             return;
         }
+
+        // Compute weight and price
 
         Intent intent = new Intent(this, PaymentActivity.class);
         intent.putExtra(OrderActivity.class.getName() + "weight", 0);
