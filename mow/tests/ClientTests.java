@@ -8,6 +8,8 @@ import java.net.Socket;
 import org.junit.Assert;
 import org.junit.Test;
 
+import mow.common.Payload;
+
 public class ClientTest {
 
 	@Test
