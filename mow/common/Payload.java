@@ -12,6 +12,7 @@ public class Payload implements Serializable{
 
 	public Payload(int value, int opcode, double xcoord, double ycoord, String name, String contact){
 		this.value = value;
+		this.opcode = opcode;
 		this.xcoord = xcoord;
 		this.ycoord = ycoord;
 		this.name = name;

@@ -15,7 +15,7 @@ class Client{
 			ObjectOutputStream oos = new ObjectOutputStream(skt.getOutputStream());
 			ObjectInputStream ois = new ObjectInputStream(skt.getInputStream());
 	
-			oos.writeObject(new Payload(1, 1, 47.120982, 88.562478, "Ryan Doyle", "5175057199"));
+			oos.writeObject(new Payload(1, 1, 47.120982, 88.562478, "Ryan Doyle", "5174047199"));
 			
 			while(true){
 				//waiting for return payload
@@ -32,7 +32,7 @@ class Client{
 			}
 		}catch(Exception e){
 			e.printStackTrace();
-			System.out.println("fail");
+			System.out.println("connection fail");
 		}
 	}
 }
