@@ -18,7 +18,7 @@ public class ClientTests {
 		ObjectInputStream ois = null;
 		try{
 			//Socket(serverip,port)
-			Socket skt = new Socket("doyle.pw", 8998);
+			Socket skt = new Socket("doyle.pw", 25565);
 			oos = new ObjectOutputStream(skt.getOutputStream());
 			ois = new ObjectInputStream(skt.getInputStream());
 			
@@ -75,7 +75,7 @@ public class ClientTests {
 		ObjectInputStream ois = null;
 		try{
 			//Socket(serverip,port)
-			Socket skt = new Socket("doyle.pw", 8998);
+			Socket skt = new Socket("doyle.pw", 25565);
 			oos = new ObjectOutputStream(skt.getOutputStream());
 			ois = new ObjectInputStream(skt.getInputStream());
 			
@@ -136,7 +136,7 @@ public class ClientTests {
 		ObjectInputStream ois = null;
 		try{
 			//Socket(serverip,port)
-			Socket skt = new Socket("doyle.pw", 8998);
+			Socket skt = new Socket("doyle.pw", 25565);
 			oos = new ObjectOutputStream(skt.getOutputStream());
 			ois = new ObjectInputStream(skt.getInputStream());
 			
@@ -201,7 +201,7 @@ public class ClientTests {
 		ObjectInputStream ois = null;
 		try{
 			//Socket(serverip,port)
-			Socket skt = new Socket("doyle.pw", 8998);
+			Socket skt = new Socket("doyle.pw", 25565);
 			oos = new ObjectOutputStream(skt.getOutputStream());
 			ois = new ObjectInputStream(skt.getInputStream());
 			
