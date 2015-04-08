@@ -82,7 +82,7 @@ public class Server extends Thread {
 
 					e.printStackTrace();
 					System.out.println("Probably Shoudln't write the data");
-					break;
+					//break;
 
 				}
 			}

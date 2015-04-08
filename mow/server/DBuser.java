@@ -7,17 +7,15 @@ class DBuser{
 	
 	Connection authenticate(String server, String user, String password){
 		try{
-			//DriverManager.registerDriver(new com.mysql.jdbc.Driver ());
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			Class.forName("com.mysql.jdbc.Driver").newInstance(); //register the jdbc driver
 			return DriverManager.getConnection(server,user,password); //plaintextpasswordlol
 		}
 		catch(SQLException e){
-			System.out.println("Server could not connect to database on server " + server +". Printing stack trace");
+			System.out.println("An issue occurred connecting to database on server " + server + ". Printing stack trace");
 			e.printStackTrace();
 			return null;
 		}
 		catch(Exception e){
-			System.out.println("jdbc driver could not be loaded. printing stack trace..");
 			e.printStackTrace();
 			return null;
 		}

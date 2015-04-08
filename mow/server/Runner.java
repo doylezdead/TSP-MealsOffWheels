@@ -54,6 +54,8 @@ class Runner{
 		auth.close();//close auth here
 
 		//RETURNING A ZERO VALUE TO THE CLIENT MEANS SOMETHING FAILED. MUST CHECK ON CLIENT
+		//
+		System.out.println("Things seem to have succeeded and the return payload is on it's way");
 		return retData;
 	}
 
