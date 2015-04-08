@@ -13,7 +13,11 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:layout_above="@+id/ImageSpacer"/>
+        android:layout_above="@+id/ImageSpacer"
+
+        android:contentDescription="@string/item_image_content_description"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/ImageSpacer"
@@ -46,38 +50,27 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_toEndOf="@+id/textView"
+        android:layout_toEndOf="@+id/Quantity"
 
         android:text="@string/add_to_order"
-        android:layout_toRightOf="@+id/textView" />
-
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:layout_alignTop="@+id/AddToOrderBackSpacer"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true" />
+        android:layout_toRightOf="@+id/Quantity" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
         android:id="@+id/Quantity"
         android:layout_alignBottom="@+id/AddToOrderBackSpacer"
-        android:layout_toLeftOf="@+id/AddToOrderBackSpacer"
         android:layout_alignLeft="@+id/ImageSpacer"
         android:layout_alignStart="@+id/ImageSpacer"
         android:textColor="@color/Black"
         android:background="@color/White"
-        android:layout_alignTop="@+id/AddToOrderBackSpacer"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:gravity="center_vertical|center_horizontal"
-        android:text="1"
-        android:hint="Quantity" />
+        android:text="@string/one"
+        android:hint="@string/quantity"
+        android:layout_alignTop="@+id/AddToOrderButton" />
 
 </RelativeLayout>

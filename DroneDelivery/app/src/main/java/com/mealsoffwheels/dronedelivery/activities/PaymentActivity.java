@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mealsoffwheels.dronedelivery.R;
 import com.mealsoffwheels.dronedelivery.common.Payload;
@@ -43,14 +42,10 @@ public class PaymentActivity extends ActionBarActivity {
 
             if (total == -1 || weight == -1) {
                 errorCase();
-            }
-
-            else {
+            } else {
                 text.setText("Total: $" + String.format("%.2f", total));
             }
-        }
-
-        else {
+        } else {
             errorCase();
         }
 
@@ -105,9 +100,7 @@ public class PaymentActivity extends ActionBarActivity {
 
         if (!phoneGood) {
             contact = emailAddress;
-        }
-
-        else {
+        } else {
             contact = phoneNumber;
         }
 
@@ -193,9 +186,7 @@ public class PaymentActivity extends ActionBarActivity {
 
                 editor.putInt("orderID", receivedPayload.value);
                 editor.commit();
-            }
-
-            catch (IOException | ClassNotFoundException e) {
+            } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
 

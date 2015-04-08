@@ -13,17 +13,24 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.mealsoffwheels.dronedelivery.R;
-import com.mealsoffwheels.dronedelivery.common.Foods;
+import com.mealsoffwheels.dronedelivery.common.ItemDatabase;
 
 import java.util.ArrayList;
 
+/**
+ * Activity that displays the user's order.
+ */
 public class OrderActivity extends ActionBarActivity {
 
     private ArrayList<String> order;
     private ListView list;
 
-    //TODO: DISPLAY CURRENT COST ON THE ORDER PAGE
-
+    /**
+     * Called when the Activity gets displayed.
+     * Sets up Buttons and List display.
+     *
+     * @param savedInstanceState - Stores saved variables.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,21 +63,20 @@ public class OrderActivity extends ActionBarActivity {
             order.clear();
         }
 
-        SharedPreferences prefs = getSharedPreferences("com.mealsoffwheels.dronedelivery.orders", Context.MODE_PRIVATE);
+        list.invalidateViews(); // TODO ???
+
+        SharedPreferences prefs = getSharedPreferences("com.mealsoffwheels.dronedelivery.values", Context.MODE_PRIVATE);
 
         int end = prefs.getInt("Last", 0);
 
-        // There exist orders.
-        if (end > 0) {
-            for (int i = 1; i <= end; ++i) {
-                String foodName = prefs.getString(Integer.toString(i).trim(), "");
-                int quantity = prefs.getInt(Integer.toString(i).trim() + "quantity", -1);
-                System.out.println("Got quantity order page is " + quantity);
+        // Gets all the food names and quantities from SharedPreferences.
+        for (int i = 1; i <= end; ++i) {
+            String foodName = prefs.getString(Integer.toString(i), "");
+            int quantity = prefs.getInt(Integer.toString(i) + "quantity", 0);
 
-                // Was not removed from the order.
-                if (!foodName.equals("") && quantity > 0) {
-                    order.add(foodName + ((quantity == 1) ? "" : " (" + quantity + ")"));
-                }
+            // Was not removed from the order.
+            if (!foodName.equals("") && quantity > 0) {
+                order.add(foodName + ((quantity == 1) ? "" : " (" + quantity + ")"));
             }
         }
 
@@ -78,6 +84,12 @@ public class OrderActivity extends ActionBarActivity {
 
         Button clearButton = (Button) findViewById(R.id.deleteAll);
         clearButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Called when the Button is clicked.
+             * Clears the order list.
+             *
+             * @param v - Button's View that was clicked.
+             */
             @Override
             public void onClick(View v) {
                 clearOrderList();
@@ -85,47 +97,125 @@ public class OrderActivity extends ActionBarActivity {
         });
     }
 
+    /**
+     * Clears the order list of the names and quantities.
+     */
     private void clearOrderList() {
-        SharedPreferences prefs = getSharedPreferences("com.mealsoffwheels.dronedelivery.orders", Context.MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences("com.mealsoffwheels.dronedelivery.values", Context.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = prefs.edit();
 
         int end = prefs.getInt("Last", 0);
 
-        if (end > 0) {
-            for (int i = 1; i <= end; ++i) {
-                editor.remove(Integer.toString(i));
-                editor.remove(Integer.toString(i) + "quantity");
-                editor.commit();
-            }
-
-            editor.putInt("Last", 0);
+        for (int i = 1; i <= end; ++i) {
+            editor.remove(Integer.toString(i));
+            editor.remove(Integer.toString(i) + "quantity");
             editor.commit();
         }
+
+        editor.putInt("Last", 0);
+        editor.commit();
 
         new Handler().post(new UpdateUI());
     }
 
+    /**
+     * Navigates to the Payment Activity.
+     */
     private void dataToBuyPage() {
         if (order == null) {
             return;
         }
 
+        SharedPreferences prefs = getSharedPreferences("com.mealsoffwheels.dronedelivery.values", Context.MODE_PRIVATE);
+
+        // No order to buy
+        if (prefs.getInt("Last", -1) <= 0) {
+            return;
+        }
+
         // Compute weight and price
+        int weight = computeWeight();
+        double price = computePrice();
 
         Intent intent = new Intent(this, PaymentActivity.class);
-        intent.putExtra(OrderActivity.class.getName() + "weight", 0);
-        intent.putExtra(OrderActivity.class.getName() + "cost", 5.00);//Send over weight- and cost
+        intent.putExtra(OrderActivity.class.getName() + "weight", weight);
+        intent.putExtra(OrderActivity.class.getName() + "cost", price);
 
         startActivity(intent);
     }
 
+    private int computeWeight() {
+        int weightSum = 0;
+
+        SharedPreferences prefs = getSharedPreferences("com.mealsoffwheels.dronedelivery.values", Context.MODE_PRIVATE);
+
+        int end = prefs.getInt("Last", 0);
+        String foodName = "";
+        int quantity = 0;
+
+        for (int i = 1; i <= end; ++i) {
+            foodName = prefs.getString(Integer.toString(i), "");
+            quantity = prefs.getInt(Integer.toString(i) + "quantity", 0);
+
+            // Not a deleted item.
+            if (quantity > 0 && !foodName.equals("")) {
+                weightSum += (ItemDatabase.getData(foodName).weight * quantity);
+                weightSum += (ItemDatabase.getData("Sauce").weight * quantity);
+
+                // Combo case, add drink size weight.
+                if (foodName.contains("Combo")) {
+                    weightSum += (ItemDatabase.getData("XL").weight * quantity);
+                }
+            }
+        }
+
+        return weightSum;
+    }
+
+    private double computePrice() {
+        double priceSum = 0.;
+
+        SharedPreferences prefs = getSharedPreferences("com.mealsoffwheels.dronedelivery.values", Context.MODE_PRIVATE);
+
+        int end = prefs.getInt("Last", 0);
+        String foodName = "";
+        int quantity = 0;
+
+        for (int i = 1; i <= end; ++i) {
+            foodName = prefs.getString(Integer.toString(i), "");
+            quantity = prefs.getInt(Integer.toString(i) + "quantity", 0);
+
+            // Not a deleted item.
+            if (quantity > 0 && !foodName.equals("")) {
+                priceSum += (ItemDatabase.getData(foodName).price * quantity);
+
+                // Combo case, add drink size price.
+                if (foodName.contains("Combo")) {
+                    priceSum += (ItemDatabase.getData("XL").price * quantity);
+                }
+            }
+        }
+
+        return priceSum;
+    }
+
+    /**
+     * Navigates back to the Main Activity.
+     */
     private void toMainMenu() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Clears the order list view and refreshes it
+     * on a different thread.
+     */
     private class UpdateUI implements Runnable {
+        /**
+         * Runs to clear the list view.
+         */
         @Override
         public void run() {
             order.clear();
