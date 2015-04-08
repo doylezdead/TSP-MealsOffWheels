@@ -18,74 +18,63 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-
         <activity
             android:name=".activities.FoodMenuActivity"
             android:label="@string/title_activity_food_menu"
             android:screenOrientation="portrait" >
-
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />
-
         </activity>
-
         <activity
             android:name=".activities.OrderActivity"
             android:label="@string/title_activity_order"
             android:screenOrientation="portrait" >
-
         </activity>
-
         <activity
             android:name=".activities.ItemActivity"
             android:label="@string/title_activity_item"
             android:screenOrientation="portrait" >
-
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.FoodMenuActivity" />
-
         </activity>
-
         <activity
             android:name=".activities.PaymentActivity"
             android:label="@string/title_activity_payment"
             android:screenOrientation="portrait" >
-
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.ItemActivity" />
-
-        </activity>
-
-        <activity
-            android:name=".activities.DroneStatusActivity"
-            android:label="@string/title_activity_drone_status"
-            android:screenOrientation="portrait" >
-
         </activity>
 
         <activity
             android:name=".activities.AboutActivity"
             android:label="@string/title_activity_about"
             android:screenOrientation="portrait" >
-
         </activity>
 
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".activities.DroneFinder"
+            android:label="@string/title_activity_drone_finder" >
+        </activity>
     </application>
 
 </manifest>

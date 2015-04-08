@@ -110,12 +110,14 @@ public class PaymentActivity extends ActionBarActivity {
 
         int storeID = prefs.getInt("storeID", -1);
 
-        // TODO: IF -1, GET STOREID
+        if (storeID == -1) {
+            return;
+        }
 
         SendOrder sendOrder = new SendOrder(userName, contact, storeID, weight);
         sendOrder.execute(); // Block until done?
 
-        startActivity(new Intent(this, DroneStatusActivity.class));
+        startActivity(new Intent(this, DroneFinder.class));
         finish();
     }
 

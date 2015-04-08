@@ -1,9 +1,5 @@
 package com.mealsoffwheels.dronedelivery.activities;
 
-import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.location.Address;
@@ -13,7 +9,6 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-
 import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,37 +18,16 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.mealsoffwheels.dronedelivery.R;
+import com.mealsoffwheels.dronedelivery.map.LatLngInterpolator;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import static com.mealsoffwheels.dronedelivery.map.MarkerAnimation.*;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URLEncoder;
 import java.util.List;
 import java.util.Locale;
 
-import static com.mealsoffwheels.dronedelivery.map.*;
-
-import com.mealsoffwheels.dronedelivery.R;
-
-/**
- * Activity defining the place the user can see the drone location,
- * status, and estimated arrival time. Also, displays the Google
- * Map API.
- *
- * @author Eric Kosovec
- */
-public class DroneStatusActivity extends FragmentActivity {
+public class DroneFinder extends FragmentActivity {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
@@ -63,19 +37,11 @@ public class DroneStatusActivity extends FragmentActivity {
     private LatLng deviceLocation;
     private Marker mark;
 
-    /**
-     * Called when the Activity gets displayed.
-     *
-     * @param savedInstanceState - Stores saved variables.
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_drone_status);
-
+        setContentView(R.layout.activity_drone_finder);
         setUpMapIfNeeded();
-
-
     }
 
     @Override
@@ -138,7 +104,7 @@ public class DroneStatusActivity extends FragmentActivity {
         path = new PolylineOptions().geodesic(true)
                 .add(droneHome)                             //  Taco Bell on Razorback
                 .add(thisHome)
-                .color(Color.argb(1000,128,0,128));
+                .color(Color.argb(1000, 128, 0, 128));
 
         mMap.addPolyline(path);
 
@@ -156,6 +122,7 @@ public class DroneStatusActivity extends FragmentActivity {
             }
         });
     }
+
 
     /**
      * Written by David C. Mohrhardt
@@ -235,5 +202,4 @@ public class DroneStatusActivity extends FragmentActivity {
         // End device location block
         return curLoc;
     }
-
 }

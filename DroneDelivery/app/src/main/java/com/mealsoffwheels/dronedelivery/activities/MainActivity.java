@@ -140,7 +140,7 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(new Intent(this, OrderActivity.class));
                 break;
             case DRONE_STATUS_NUM:
-                startActivity(new Intent(this, DroneStatusActivity.class));
+                startActivity(new Intent(this, DroneFinder.class));
                 break;
             case ABOUT_NUM:
                 startActivity(new Intent(this, AboutActivity.class));

@@ -1,4 +1,4 @@
-package tsp_mealsoffwheels.mow;
+package com.mealsoffwheels.dronedelivery.map;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;

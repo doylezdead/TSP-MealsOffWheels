@@ -1,18 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!--
-    TODO: Before you run your application, you need a Google Maps API key.
+TODO: Before you run your application, you need a Google Maps API key.
 
-    To get one, follow this link, follow the directions and press "Create" at the end:
+To get one, follow this link, follow the directions and press "Create" at the end:
 
-https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=45:9B:2B:D1:4B:E9:75:23:98:BC:34:83:7A:00:F2:E8:E6:CA:B4:AD%3Btsp_mealsoffwheels.mow
+https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=9D:1B:5C:A3:96:E1:5B:E7:03:0F:D5:A9:EB:95:1C:C6:E4:A0:4D:CE%3Bcom.mealsoffwheels.dronedelivery.activities
 
-    You can also add your credentials to an existing key, using this line:
-    45:9B:2B:D1:4B:E9:75:23:98:BC:34:83:7A:00:F2:E8:E6:CA:B4:AD;tsp_mealsoffwheels.mow
+You can also add your credentials to an existing key, using this line:
+9D:1B:5C:A3:96:E1:5B:E7:03:0F:D5:A9:EB:95:1C:C6:E4:A0:4D:CE;com.mealsoffwheels.dronedelivery.activities
 
-    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
-    string in this file.
+Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+string in this file.
     -->
-    <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">
-        AIzaSyCGbG_mI-rxepemcQCobcsEMWC0rVcQnQc
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+        AIzaSyDxeY0FdWqlgcD-UuvLlfg6cXwimR1FUMA
     </string>
 </resources>

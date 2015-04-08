@@ -38,6 +38,6 @@
     <string name="item_image_content_description">Item Image</string>
     <string name="quantity">Quantity</string>
     <string name="one">1</string>
-
+    <string name="title_activity_drone_finder">Drone Finder</string>
 
 </resources>
