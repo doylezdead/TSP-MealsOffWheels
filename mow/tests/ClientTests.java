@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import mow.common.Payload;
 
-public class ClientTest {
+public class ClientTests {
 
 	@Test
 	public void testClientToServer(){
