@@ -235,6 +235,7 @@ public class MainActivity extends ActionBarActivity {
 
             Payload payload = new Payload(
                     0,
+                    0,
                     userLocation.getLongitude(),
                     userLocation.getLatitude(),
                     "",
