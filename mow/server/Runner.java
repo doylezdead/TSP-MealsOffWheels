@@ -14,8 +14,8 @@ class Runner{
 
 		Payload retData = new Payload(0,0,0,0,"fail","none");
 		
-		if(readData.value < 0){
-			throw new Exception("parseOps failed with payload value of " + readData.value);
+		if( readData.value < 0 || readData.opcode < 0 || readData.opcode > 2 ) {
+			throw new Exception("parseOps failed with payload value of " + readData.value + " and opcode of " + readData.opcode);
 		}
 		
 		int value = readData.value;
@@ -31,23 +31,29 @@ class Runner{
 		if (auth==null){
 			throw new SQLException("dbuser failed to return a valid connection :'( maybe it's not running or dbuser is broken?");
 		}
-
-		switch(opcode){
-			case 0: // checking deliverability
-					int storeID = dbu.findNearestStore(auth, xcoord,ycoord);
-					if (dbu.checkStoreStatus(auth, storeID)){
-						retData.value = storeID;
-						retData.opcode = 0;
-					}
-
-			case 1:	// Placing an order
-					retData.value = dbu.placeOrder(auth, name, contact, value, xcoord, ycoord, weight);
-					
-			case 2:	// Retrieving order status
-					if (dbu.checkOrderIsGood(auth, value)){
-						retData.xcoord = dbu.getOrderXPos(auth, value);
-						retData.ycoord = dbu.getOrderYPos(auth, value);
-					}
+		
+		try{
+			switch(opcode){
+				case 0: // checking deliverability
+						int storeID = dbu.findNearestStore(auth, xcoord,ycoord);
+						if (dbu.checkStoreStatus(auth, storeID)){
+							retData.value = storeID;
+							retData.opcode = 0;
+						}
+	
+				case 1:	// Placing an order
+						retData.value = dbu.placeOrder(auth, name, contact, value, xcoord, ycoord, weight);
+						
+				case 2:	// Retrieving order status
+						if (dbu.checkOrderIsGood(auth, value)){
+							retData.xcoord = dbu.getOrderXPos(auth, value);
+							retData.ycoord = dbu.getOrderYPos(auth, value);
+						}
+			}
+		}
+		catch(Exception e){
+			System.out.println("a DBuser call failed! printing stack trace...");
+			e.printStackTrace();
 		}
 
 		if(retData.value == 0){ System.out.println("WARNING. ZERO VALUE BEING RETURNED TO CLIENT. GOOD LUCK"); }
@@ -55,7 +61,7 @@ class Runner{
 
 		//RETURNING A ZERO VALUE TO THE CLIENT MEANS SOMETHING FAILED. MUST CHECK ON CLIENT
 		//
-		System.out.println("Things seem to have succeeded and the return payload is on it's way");
+		System.out.println("The return payload is on it's way!");
 		return retData;
 	}
 
