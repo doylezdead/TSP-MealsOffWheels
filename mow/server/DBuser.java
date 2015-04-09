@@ -162,7 +162,7 @@ class DBuser{
 		Statement stmt = con.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT DeliveryLng FROM orders WHERE id=" + OrderID);
 		rs.next();
-		double x = rs.getDouble(5);
+		double x = rs.getDouble(1);
 		
 		stmt.close();
 		return x;
@@ -180,7 +180,7 @@ class DBuser{
 		Statement stmt = con.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT DeliveryLat FROM orders WHERE ID=" + OrderID);
 		rs.next();
-		double y = rs.getDouble(4);
+		double y = rs.getDouble(1);
 		
 		stmt.close();
 		return y;
