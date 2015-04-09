@@ -117,8 +117,8 @@ class DBuser{
 		rs = stmt.executeQuery("SELECT * FROM orders");
 		
 		rs.moveToInsertRow();
-		rs.updateInt(2, storeID);
-		rs.updateInt(1, userID);
+		rs.updateInt(3, storeID);
+		rs.updateInt(2, userID);
 		rs.updateDouble(5, x);
 		rs.updateDouble(4, y);
 		
