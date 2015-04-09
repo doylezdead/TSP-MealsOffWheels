@@ -12,7 +12,7 @@ import mow.common.Payload;
 
 public class ClientTests {
 
-	@Test
+	//@Test
 	public void testClientToServer(){
 		ObjectOutputStream oos = null;
 		ObjectInputStream ois = null;
