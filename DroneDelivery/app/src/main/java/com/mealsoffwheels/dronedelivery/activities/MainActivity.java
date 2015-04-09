@@ -112,8 +112,14 @@ public class MainActivity extends ActionBarActivity {
         });
 
         // Check if last is defined, if not, define it.
-        if (!OrderManager.isLastDefined(getSharedPreferences(OrderManager.ORDER_PREFS, Context.MODE_PRIVATE))) {
-            OrderManager.defineLast(getSharedPreferences(OrderManager.ORDER_PREFS, Context.MODE_PRIVATE));
+        SharedPreferences prefs = getSharedPreferences("com.mealsoffwheels.dronedelivery.values", Context.MODE_PRIVATE);
+
+        // If last order position is not defined, define it.
+        if (prefs.getInt("Last", -1) == -1) {
+            SharedPreferences.Editor editor = prefs.edit();
+
+            editor.putInt("Last", 0);
+            editor.commit();
         }
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -218,7 +224,7 @@ public class MainActivity extends ActionBarActivity {
                 SystemClock.sleep(1000);
             }
 
-            SharedPreferences prefs = getSharedPreferences(OrderManager.ORDER_PREFS, Context.MODE_PRIVATE);
+            SharedPreferences prefs = getSharedPreferences("com.mealsoffwheels.dronedelivery.values", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = prefs.edit();
 
             // Store the coordinates in the SharedPreferences file.

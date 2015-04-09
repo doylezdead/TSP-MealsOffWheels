@@ -104,7 +104,7 @@ public class PaymentActivity extends ActionBarActivity {
             contact = phoneNumber;
         }
 
-        prefs = getSharedPreferences("com.mealsoffwheels.dronedelivery.orders", Context.MODE_PRIVATE);
+        prefs = getSharedPreferences("com.mealsoffwheels.dronedelivery.values", Context.MODE_PRIVATE);
         editor = prefs.edit();
         editor.commit();
 
@@ -183,16 +183,36 @@ public class PaymentActivity extends ActionBarActivity {
                     return null;
                 }
 
-                SharedPreferences prefs = getSharedPreferences("com.mealsoffwheels.dronedelivery.orders", Context.MODE_PRIVATE);
+                SharedPreferences prefs = getSharedPreferences("com.mealsoffwheels.dronedelivery.values", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = prefs.edit();
 
                 editor.putInt("orderID", receivedPayload.value);
                 editor.commit();
+
+                clearOrderList();
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
 
             return null;
+        }
+
+        private void clearOrderList() {
+            SharedPreferences prefs = getSharedPreferences("com.mealsoffwheels.dronedelivery.values", Context.MODE_PRIVATE);
+
+            SharedPreferences.Editor editor = prefs.edit();
+
+            int end = prefs.getInt("Last", 0);
+
+            for (int i = 1; i <= end; ++i) {
+                editor.remove(Integer.toString(i));
+                editor.remove(Integer.toString(i) + "quantity");
+                editor.commit();
+            }
+
+            editor.putInt("Last", 0);
+            editor.commit();
+
         }
     }
 }
