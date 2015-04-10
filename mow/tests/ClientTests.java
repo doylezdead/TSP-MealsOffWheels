@@ -257,6 +257,71 @@ public class ClientTests {
 		}
 	}
 	
+	@Test
+	public void testPos(){
+		ObjectOutputStream oos = null;
+		ObjectInputStream ois = null;
+		try{
+			//Socket(serverip,port)
+			Socket skt = new Socket("doyle.pw", 25565);
+			oos = new ObjectOutputStream(skt.getOutputStream());
+			ois = new ObjectInputStream(skt.getInputStream());
+			
+			//send Payload instance to server
+			Payload p = new Payload(1, 1, 47.120982, 88.562478, "Ryan Doyle", "5175057199");
+			//Payload p = new Payload(2, 1, 47.120982, 88.562478, "Ryan Doyle", "5175057199");
+			//Payload p = new Payload(3, 1, 47.120982, 88.562478, "Ryan Doyle", "5175057199");
+			//Payload p = new Payload(4, 1, 47.120982, 88.562478, "Ryan Doyle", "5175057199");
+			//Payload p = new Payload(5, 1, 47.120982, 88.562478, "Ryan Doyle", "5175057199");
+			
+			p.weight = 1;
+			oos.writeObject(p);
+			
+			// Monitor and receive the information returned by the server
+			while(true){
+				try {
+					//waiting for server return payload
+					Payload ret = null;
+					ret = (Payload)ois.readObject();
+					if(ret != null){
+						//return payload has been found. do stuff with it
+						System.out.println("return order Lat is " + ret.ycoor);
+						System.out.println("return order Lng is " + ret.xcoor);
+						Assert.assertTrue("fail to place order!", (ret.ycoor == 88.562478));
+						Assert.assertTrue("fail to place order!", (ret.xcoor == 47.120982));
+					}else {
+						System.out.println("Connect to server fail!Check please! ");
+						break;
+					}
+				} catch (Exception e) {
+					//invalidate messsage from server ,not Payload instance?
+					System.out.println("The server returned an invalid information!Check your server code please!");
+					e.printStackTrace();
+					break;
+				}
+			}
+		}catch(Exception e){
+			System.out.println("Connect to server fail!");
+			e.printStackTrace();
+		} finally{
+			if(oos != null){
+				try {
+					oos.close();
+				} catch (IOException e) {
+					System.out.println("close ObjectOutputStream error!");
+					e.printStackTrace();
+				}
+			}
+			if(ois != null){
+				try {
+					ois.close();
+				} catch (IOException e) {
+					System.out.println("close ObjectInputStream error!");
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 	
 }
 
