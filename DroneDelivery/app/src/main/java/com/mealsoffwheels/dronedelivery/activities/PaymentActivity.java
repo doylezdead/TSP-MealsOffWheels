@@ -1,7 +1,10 @@
 package com.mealsoffwheels.dronedelivery.activities;
 
 import android.content.*;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.*;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.*;
@@ -37,6 +40,9 @@ public class PaymentActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.rgb(113, 24, 140)));
 
         prefs = getSharedPreferences("com.mealsoffwheels.dronedelivery.values", Context.MODE_PRIVATE);
         editor = prefs.edit();
@@ -278,6 +284,8 @@ public class PaymentActivity extends ActionBarActivity {
                 // must be an error.
                 if (receivedPayload.value < 0 || receivedPayload.opcode != 1) {
                     errorCase();
+                    editor.remove("Address Given");
+                    editor.commit();
                     return null;
                 }
 

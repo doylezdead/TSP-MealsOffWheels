@@ -41,6 +41,8 @@ public class MainActivity extends ActionBarActivity {
     private LocationManager locationManager = null;
     private LocationListener locationListener = null;
     private Location userLocation = null;
+    private SharedPreferences prefs;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,12 +114,12 @@ public class MainActivity extends ActionBarActivity {
         });
 
         // Check if last is defined, if not, define it.
-        SharedPreferences prefs = getSharedPreferences("com.mealsoffwheels.dronedelivery.values", Context.MODE_PRIVATE);
+        prefs = getSharedPreferences("com.mealsoffwheels.dronedelivery.values", Context.MODE_PRIVATE);
+
+        editor = prefs.edit();
 
         // If last order position is not defined, define it.
         if (prefs.getInt("Last", -1) == -1) {
-            SharedPreferences.Editor editor = prefs.edit();
-
             editor.putInt("Last", 0);
             editor.commit();
         }
@@ -127,7 +129,7 @@ public class MainActivity extends ActionBarActivity {
         locationListener = new FindLocation();
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
 
-        //new GetGPS().execute();
+        new GetGPS().execute();
     }
 
     /**

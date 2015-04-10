@@ -2,15 +2,18 @@ package com.mealsoffwheels.dronedelivery.activities;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.mealsoffwheels.dronedelivery.R;
@@ -42,6 +45,9 @@ public class FoodMenuActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_menu);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.rgb(113, 24, 140)));
 
         if (items == null) {
             items = new ArrayList<>();
@@ -107,11 +113,11 @@ public class FoodMenuActivity extends ActionBarActivity {
 
         drawerLayout.setDrawerListener(drawerToggle);
 
-        Button combos = (Button) findViewById(R.id.CombosButton);
-        Button tacos = (Button) findViewById(R.id.TacosButton);
-        Button burritos = (Button) findViewById(R.id.BurritosButton);
-        Button specialties = (Button) findViewById(R.id.SpecialtiesButton);
-        Button drinks = (Button) findViewById(R.id.DrinksButton);
+        ImageButton combos = (ImageButton) findViewById(R.id.CombosButton);
+        ImageButton tacos = (ImageButton) findViewById(R.id.TacosButton);
+        ImageButton burritos = (ImageButton) findViewById(R.id.BurritosButton);
+        ImageButton specialties = (ImageButton) findViewById(R.id.SpecialtiesButton);
+        ImageButton drinks = (ImageButton) findViewById(R.id.DrinksButton);
 
         combos.setOnClickListener(new View.OnClickListener() {
             /**
@@ -172,6 +178,7 @@ public class FoodMenuActivity extends ActionBarActivity {
                 changeListAndOpenDrawer((char) 5);
             }
         });
+
     }
 
     /**

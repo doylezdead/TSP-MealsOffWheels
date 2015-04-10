@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     android:paddingTop="10dp"
     tools:context="com.mealsoffwheels.dronedelivery.activities.ItemActivity"
-    android:background="@color/Purple"
+    android:background="@color/Black"
     android:focusable="false">
 
     <ImageView
