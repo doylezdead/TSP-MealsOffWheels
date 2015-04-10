@@ -71,10 +71,26 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="X"
+        android:text="Clear"
         android:id="@+id/deleteAll"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Total: $0.00"
+        android:id="@+id/TotalViewOrders"
+        android:layout_alignTop="@+id/deleteAll"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/CurrentOrderLayout"
+        android:layout_toLeftOf="@+id/deleteAll"
+        android:layout_toStartOf="@+id/deleteAll"
+        android:gravity="center_vertical"
+        android:textColor="@color/White"
+        android:textSize="30sp" />
 
 </RelativeLayout>

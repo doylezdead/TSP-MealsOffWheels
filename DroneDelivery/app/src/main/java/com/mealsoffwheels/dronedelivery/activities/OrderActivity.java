@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.mealsoffwheels.dronedelivery.R;
 import com.mealsoffwheels.dronedelivery.common.ItemDatabase;
@@ -19,6 +20,8 @@ import java.util.ArrayList;
 
 /**
  * Activity that displays the user's order.
+ *
+ * @author Eric Kosovec
  */
 public class OrderActivity extends ActionBarActivity {
 
@@ -63,7 +66,9 @@ public class OrderActivity extends ActionBarActivity {
             order.clear();
         }
 
-        list.invalidateViews(); // TODO ???
+        list.invalidateViews();
+
+        ((TextView) findViewById(R.id.TotalViewOrders)).setText("Total: $" + String.format("%.2f", computePrice()));
 
         SharedPreferences prefs = getSharedPreferences("com.mealsoffwheels.dronedelivery.values", Context.MODE_PRIVATE);
 
@@ -116,6 +121,8 @@ public class OrderActivity extends ActionBarActivity {
         editor.putInt("Last", 0);
         editor.commit();
 
+        ((TextView) findViewById(R.id.TotalViewOrders)).setText("Total: $0.00");
+
         new Handler().post(new UpdateUI());
     }
 
@@ -145,6 +152,11 @@ public class OrderActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
+    /**
+     * Computes the weight in grams of the order.
+     *
+     * @return - Weight of order in grams.
+     */
     private int computeWeight() {
         int weightSum = 0;
 
@@ -173,6 +185,11 @@ public class OrderActivity extends ActionBarActivity {
         return weightSum;
     }
 
+    /**
+     * Computes the price of the current order.
+     *
+     * @return - Price of current order.
+     */
     private double computePrice() {
         double priceSum = 0.;
 
@@ -219,6 +236,7 @@ public class OrderActivity extends ActionBarActivity {
         @Override
         public void run() {
             order.clear();
+            findViewById(R.id.TotalViewOrders).invalidate();
             list.invalidateViews();
         }
     }

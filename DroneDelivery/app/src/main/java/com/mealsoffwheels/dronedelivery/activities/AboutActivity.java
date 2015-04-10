@@ -15,8 +15,6 @@ import com.mealsoffwheels.dronedelivery.R;
  */
 public class AboutActivity extends ActionBarActivity {
 
-    private String htmlText = "";
-
     /**
      * Called when the Activity gets displayed.
      *
@@ -27,11 +25,25 @@ public class AboutActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        TextView aboutText = (TextView) findViewById(R.id.AboutText);
+        String htmlText =
+                "<h2 style=\"text-align: center;\">Meals Off Wheels</h2>\n" +
+                        "\n" +
+                        "<p>Team Members:</p>\n" +
+                        "\n" +
+                        "David Mohrhardt, " +
+                        "Eric Kosovec, " +
+                        "Mitchell Anderson, " +
+                        "Ryan Doyle, " +
+                        "and Zhen Piao\n" +
+                        "\n" +
+                        "<h2 style=\"text-align: center;\">Drone Delivery</h2>\n" +
+                        "\n" +
+                        "<p>Made for Team Software Project, the Drone Delivery application will" +
+                        " now allow you to get Taco Bell delivered straight to your door.&nbsp;" +
+                        " However, it won&#39;t be a person delivering to you, it will be an autonomous" +
+                        " drone.</p>\n";
 
-        // htmlText will always be at the bottom of the class to reduce
-        // clutter.
-        aboutText.setText(Html.fromHtml(htmlText));
+        ((TextView) findViewById(R.id.AboutText)).setText(Html.fromHtml(htmlText));
     }
 
 }

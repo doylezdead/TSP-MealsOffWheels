@@ -17,6 +17,8 @@ import com.mealsoffwheels.dronedelivery.common.ItemDatabase;
 /**
  * Activity defining a page to see data about a food
  * that may be bought.
+ *
+ * @author Eric Kosovec
  */
 public class ItemActivity extends ActionBarActivity {
 
