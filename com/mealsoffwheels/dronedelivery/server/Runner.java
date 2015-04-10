@@ -1,7 +1,7 @@
-package mow.server;
+package com.mealsoffwheels.dronedelivery.server;
 
-import mow.common.Payload;
-import mow.server.DBuser;
+import com.mealsoffwheels.dronedelivery.common.Payload;
+import com.mealsoffwheels.dronedelivery.server.DBuser;
 import java.sql.SQLException;
 import java.sql.Connection;
 

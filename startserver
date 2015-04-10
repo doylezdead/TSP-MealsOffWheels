@@ -1,2 +1,2 @@
 #!/bin/bash
-java -cp "lib/mysql/*:lib/junit/*:." mow.server.Server
+java -cp "lib/mysql/*:lib/junit/*:." com.mealsoffwheels.dronedelivery.server.Server

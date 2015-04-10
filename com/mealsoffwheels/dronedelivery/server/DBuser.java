@@ -1,4 +1,4 @@
-package mow.server;
+package com.mealsoffwheels.dronedelivery.server;
 
 import java.sql.*;
 import java.util.*;
@@ -121,7 +121,7 @@ class DBuser{
 		Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 		ResultSet rs = stmt.executeQuery("SELECT ID FROM users WHERE UserName='" + name + "'");
 		rs.next();
-		int userID = rs.getInt("ID");
+		int userID = rs.getInt(1);
 
 		rs = stmt.executeQuery("SELECT * FROM orders");
 		

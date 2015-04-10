@@ -1,10 +1,10 @@
-package mow.tests;
+package com.mealsoffwheels.dronedelivery.tests;
 
 import java.net.*;  //includes Socket, Object{Input,Output}Stream and more!
 import java.util.*;
 import java.io.ObjectOutputStream;
 import java.io.ObjectInputStream;
-import mow.common.Payload;
+import com.mealsoffwheels.dronedelivery.common.Payload;
 
 
 class Client{

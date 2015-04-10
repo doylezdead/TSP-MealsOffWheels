@@ -1,4 +1,4 @@
-package mow.server;
+package com.mealsoffwheels.dronedelivery.server;
 
 import java.io.IOException;
 import java.io.EOFException;
@@ -6,7 +6,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import mow.common.Payload;
+import com.mealsoffwheels.dronedelivery.common.Payload;
 
 // run thread with new Server().start();
 

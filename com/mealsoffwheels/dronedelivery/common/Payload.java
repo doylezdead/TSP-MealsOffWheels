@@ -1,4 +1,4 @@
-package mow.common;
+package com.mealsoffwheels.dronedelivery.common;
 import java.io.Serializable;
 
 public class Payload implements Serializable{

@@ -1,4 +1,4 @@
-package mow.tests;
+package com.mealsoffwheels.dronedelivery.tests;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -8,7 +8,7 @@ import java.net.Socket;
 import org.junit.Assert;
 import org.junit.Test;
 
-import mow.common.Payload;
+import com.mealsoffwheels.dronedelivery.common.Payload;
 
 public class ClientTests {
 

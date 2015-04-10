@@ -5,6 +5,6 @@
 JC = javac
 
 all: 
-	$(JC) -cp "lib/junit/*:lib/mysql/*:mow/tests/*:." mow/{tests,common,server}/*.java 
+	$(JC) -cp "lib/junit/*:lib/mysql/*:com/mealsoffwheels/dronedelivery/tests/*:." com/mealsoffwheels/dronedelivery/{tests,common,server}/*.java 
 clean:
-	rm -f mow/{tests,common,server}/*.class
+	rm -f com/mealsoffwheels/dronedelivery/{tests,common,server}/*.class

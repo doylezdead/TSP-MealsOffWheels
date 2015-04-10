@@ -1,4 +1,4 @@
-package mow.tests;
+package com.mealsoffwheels.dronedelivery.tests;
 
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
