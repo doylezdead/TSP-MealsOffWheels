@@ -3,6 +3,8 @@ package com.mealsoffwheels.dronedelivery.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
@@ -41,6 +43,7 @@ public class OrderActivity extends ActionBarActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Current Orders");
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.rgb(113, 24, 140)));
 
         Button cancelButton = (Button) findViewById(R.id.CancelButtonOrderPage);
         cancelButton.setOnClickListener(new View.OnClickListener() {

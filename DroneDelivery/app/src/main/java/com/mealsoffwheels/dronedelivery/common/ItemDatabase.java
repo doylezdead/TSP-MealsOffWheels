@@ -82,6 +82,14 @@ public final class ItemDatabase {
                     put("Medium", new ItemData(R.drawable.soda, 567, 0));
                     put("Large", new ItemData(R.drawable.soda, 851, 0));
                     put("XL", new ItemData(R.drawable.soda, 1134, .10));
+
+                    put("Pepsi", new ItemData(R.drawable.soda, 0, 1.39));
+                    put("Diet Pepsi", new ItemData(R.drawable.soda, 0, 1.39));
+                    put("Mountain Dew", new ItemData(R.drawable.soda, 0, 1.39));
+                    put("Mtn. Dew Baja Blast", new ItemData(R.drawable.soda, 0, 1.39));
+                    put("Sierra Mist", new ItemData(R.drawable.soda, 0, 1.39));
+                    put("Dr. Pepper", new ItemData(R.drawable.soda, 0, 1.39));
+                    put("Brisk Iced Tea", new ItemData(R.drawable.soda, 0, 1.39));
                 }
             }
     );

@@ -4,7 +4,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="10dp"
-    android:background="@color/Purple"
+    android:background="@color/Black"
     tools:context="com.mealsoffwheels.dronedelivery.activities.OrderActivity" >
 
     <RelativeLayout

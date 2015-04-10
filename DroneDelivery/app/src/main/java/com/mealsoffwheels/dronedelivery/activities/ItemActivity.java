@@ -3,6 +3,8 @@ package com.mealsoffwheels.dronedelivery.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -36,15 +38,17 @@ public class ItemActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item);
 
-        itemName = "";
-
         ActionBar actionBar = getSupportActionBar();
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.rgb(113, 24, 140)));
+
+        itemName = "";
 
         Intent intent = getIntent();
 
         // Get the item that was selected.
         if (intent != null) {
             itemName = intent.getStringExtra(FoodMenuActivity.class.getName());
+            System.out.println(itemName);
             actionBar.setTitle(itemName);
 
             ImageView imageView = (ImageView) findViewById(R.id.FoodImage);

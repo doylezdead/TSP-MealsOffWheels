@@ -1,82 +1,77 @@
 <android.support.v4.widget.DrawerLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/drawer_layout"
+        android:background="#4F1162"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:id="@+id/content_frame"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/Purple" >
+        <ScrollView
+            android:id="@+id/scrollView"
 
-            <TextView
+            android:background="@color/Black"
+            android:fillViewport="true"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" >
+
+            <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="0sp"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:id="@+id/ImagesSpacer"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true" />
-
-            <Button
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/combos"
-                android:id="@+id/CombosButton"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_above="@+id/ImagesSpacer" />
+                android:orientation="vertical" >
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tacos"
-                android:id="@+id/TacosButton"
-                android:layout_above="@+id/BurritosButton"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                <ImageButton
+                    android:id="@+id/CombosButton"
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/burritos"
-                android:id="@+id/BurritosButton"
-                android:layout_above="@+id/SpecialtiesButton"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.0"
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/specialties"
-                android:id="@+id/SpecialtiesButton"
-                android:layout_above="@+id/DrinksButton"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                    android:background="@drawable/combos" />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/drinks"
-                android:id="@+id/DrinksButton"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                <ImageButton
+                    android:id="@+id/TacosButton"
 
-        </RelativeLayout>
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.0"
+
+                    android:background="@drawable/tacos_mix" />
+
+                <ImageButton
+                    android:id="@+id/BurritosButton"
+
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.0"
+
+                    android:background="@drawable/burrito_mix" />
+
+                <ImageButton
+                    android:id="@+id/SpecialtiesButton"
+
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.0"
+
+                    android:background="@drawable/specialties_mix" />
+
+                <ImageButton
+                    android:id="@+id/DrinksButton"
+
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.0"
+
+                    android:background="@drawable/drinks_mix" />
+            </LinearLayout>
+
+        </ScrollView>
 
         <!-- The navigation drawer -->
         <ListView android:id="@+id/left_drawer"

@@ -1,6 +1,8 @@
 package com.mealsoffwheels.dronedelivery.activities;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Criteria;
@@ -39,20 +41,29 @@ public class DroneFinder extends FragmentActivity {
     //private LatLng deviceLocation;
     private Marker mark;
 
-    public DroneFinder(String dest, boolean destinationFlag) {
-        if(destinationFlag = true) {
-            thisHome = getLatLngFromAddress(dest, getApplicationContext());
-        }
-        else {
-            thisHome = getDeviceLocation();
-        }
-        setUpMapIfNeeded();
-    }
+    private SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drone_finder);
+
+        prefs = getSharedPreferences("com.mealsoffwheels.dronedelivery.values", Context.MODE_PRIVATE);
+
+        // No address given.
+        if (prefs.getInt("Address Given", 0) == 0) {
+            thisHome = getDeviceLocation();
+        }
+
+        // Address was given.
+        else {
+            // Construct given address into one string.
+            String address = "";
+            address += prefs.getString("Street Address", "") + " " + prefs.getString("City", "") +
+                    " " + prefs.getString("Zip Code", "");
+            thisHome = getLatLngFromAddress(address, getApplicationContext());
+        }
+
         setUpMapIfNeeded();
     }
 
