@@ -120,14 +120,31 @@ class DBuser{
 		
 		Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 		ResultSet rs = stmt.executeQuery("SELECT ID FROM users WHERE UserName='" + name + "'");
-		rs.next();
-		int userID = rs.getInt(1);
+
+		int userID;
+		if (rs.next()){
+			userID = rs.getInt(1);
+		}
+		else { 
+			//creating new entry 
+			rs = stmt.executeQuery("SELECT * FROM users");
+			rs.moveToInsertRow();
+			rs.updateDouble(2, x);
+			rs.updateDouble(3, y);
+			rs.updateString(4, name);
+			rs.updateString(5, contact);
+			rs.updateBoolean(7, true);
+			rs.insertRow();
+			rs.last();
+			userID = rs.getInt(1);
+		}
 
 		rs = stmt.executeQuery("SELECT * FROM orders");
 		
 		rs.moveToInsertRow();
 		rs.updateInt(2, userID);
 		rs.updateInt(3, storeID);
+		if
 		rs.updateDouble(4, y);
 		rs.updateDouble(5, x);
 		rs.updateBoolean(6,true);
