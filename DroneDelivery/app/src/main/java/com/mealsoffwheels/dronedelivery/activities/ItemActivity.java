@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.mealsoffwheels.dronedelivery.R;
 import com.mealsoffwheels.dronedelivery.common.ItemDatabase;
@@ -54,9 +53,6 @@ public class ItemActivity extends ActionBarActivity {
 
             ImageView imageView = (ImageView) findViewById(R.id.FoodImage);
             imageView.setImageResource(ItemDatabase.getData(itemName).image);
-
-            ((TextView) findViewById(R.id.PriceView)).setText(" Price: $" + String.format("%.2f",
-                    ItemDatabase.getData(itemName).price));
         }
 
         editText = (EditText) findViewById(R.id.Quantity);
