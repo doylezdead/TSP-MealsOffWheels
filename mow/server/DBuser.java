@@ -85,7 +85,7 @@ class DBuser{
 	public boolean checkStoreStatus(Connection con, int storeID) throws SQLException {
 		//Create statmenet and result of doing select
 		Statement stmt = con.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT Open FROM stores WHERE StoreID=" + storeID);
+		ResultSet rs = stmt.executeQuery("SELECT Open FROM stores WHERE ID=" + storeID);
 		//Move cursor to first row
 		rs.next();
 		//Get value to return and close statement
