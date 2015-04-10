@@ -144,7 +144,6 @@ class DBuser{
 		rs.moveToInsertRow();
 		rs.updateInt(2, userID);
 		rs.updateInt(3, storeID);
-		if
 		rs.updateDouble(4, y);
 		rs.updateDouble(5, x);
 		rs.updateBoolean(6,true);
