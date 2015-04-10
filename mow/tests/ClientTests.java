@@ -69,7 +69,7 @@ public class ClientTests {
 	}
 	
 	
-	@Test
+	//@Test
 	public void testCheckDeliverablity(){
 		ObjectOutputStream oos = null;
 		ObjectInputStream ois = null;
@@ -80,7 +80,7 @@ public class ClientTests {
 			ois = new ObjectInputStream(skt.getInputStream());
 			
 			//send Payload instance to server
-			oos.writeObject(new Payload(0, 0, 47.120982, 88.562478, "Ryan Doyle", "5175057199"));
+			oos.writeObject(new Payload(20, 0, 47.120982, 88.562478, "Ryan Doyle", "5175057199"));
 			//oos.writeObject(new Payload(0, 0, 47.120982, 88.562478, "Test0", "5175057199"));
 			//oos.writeObject(new Payload(0, 0, 47.120982, 88.562478, "Test1", "5175057199"));
 			//oos.writeObject(new Payload(0, 0, 47.120982, 88.562478, "Test2", "5175057199"));

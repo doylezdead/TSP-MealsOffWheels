@@ -12,5 +12,6 @@ public class TestRunner {
 		for (Failure failure : resultFixed.getFailures()) {
 			System.out.println(failure.toString());
 		}
+		System.out.println("\n===================");
 	}
 }
