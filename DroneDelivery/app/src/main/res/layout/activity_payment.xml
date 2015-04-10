@@ -1,0 +1,249 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@color/Purple"
+    tools:context="com.mealsoffwheels.dronedelivery.activities.PaymentActivity">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/decline"
+        android:id="@+id/DeclineButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/ButtonSpacer"
+        android:layout_toStartOf="@+id/ButtonSpacer" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/accept"
+        android:id="@+id/AcceptButton"
+        android:layout_alignBottom="@+id/DeclineButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/ButtonSpacer"
+        android:layout_toEndOf="@+id/ButtonSpacer" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/UsersName"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/AcceptButton"
+        android:layout_alignEnd="@+id/AcceptButton"
+        android:hint="First Name, Last Name"
+        android:gravity="center_vertical|left"
+        android:textColor="@color/Black"
+        android:background="@drawable/edit_text_shape" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/EditTextSpacer1"
+        android:layout_below="@+id/UsersName"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPostalAddress"
+        android:ems="10"
+        android:id="@+id/StreetAddress"
+        android:layout_below="@+id/EditTextSpacer1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/EditTextSpacer1"
+        android:layout_alignEnd="@+id/EditTextSpacer1"
+        android:textColor="@color/Black"
+        android:background="@drawable/edit_text_shape"
+        android:gravity="center_vertical|left"
+        android:hint="Street Address" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/EditTextSpacer2"
+        android:layout_below="@+id/StreetAddress"
+        android:layout_toLeftOf="@+id/AcceptButton"
+        android:layout_toStartOf="@+id/AcceptButton"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPostalAddress"
+        android:ems="10"
+        android:id="@+id/City"
+        android:layout_below="@+id/EditTextSpacer2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:gravity="center_vertical|left"
+        android:hint="City"
+        android:background="@drawable/edit_text_shape"
+        android:textColor="@color/Black" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/EditTextSpacer3"
+        android:layout_alignTop="@+id/City"
+        android:layout_toRightOf="@+id/City"
+        android:layout_toEndOf="@+id/City" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/ZipCode"
+        android:layout_alignBottom="@+id/City"
+        android:layout_toRightOf="@+id/EditTextSpacer3"
+        android:layout_toEndOf="@+id/EditTextSpacer3"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/edit_text_shape"
+        android:gravity="center_vertical|left"
+        android:textColor="@color/Black"
+        android:hint="Zip" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/EditTextSpacer4"
+        android:layout_below="@+id/City"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/EditTextSpacer5"
+        android:layout_below="@+id/EditTextSpacer4"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPostalAddress"
+        android:ems="10"
+        android:id="@+id/PhoneNumber"
+        android:gravity="center_vertical|left"
+        android:hint="Phone Number"
+        android:background="@drawable/edit_text_shape"
+        android:textColor="@color/Black"
+        android:layout_below="@+id/EditTextSpacer4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/EditTextSpacer5"
+        android:layout_toStartOf="@+id/EditTextSpacer5" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/Email"
+        android:layout_below="@+id/EditTextSpacer4"
+        android:layout_toRightOf="@+id/EditTextSpacer5"
+        android:layout_toEndOf="@+id/EditTextSpacer5"
+        android:textColor="@color/Black"
+        android:background="@drawable/edit_text_shape"
+        android:gravity="center_vertical|left"
+        android:hint="E-mail" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/EditTextSpacer6"
+        android:layout_below="@+id/PhoneNumber"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:password="false"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberPassword"
+        android:ems="10"
+        android:id="@+id/CardNumber"
+        android:layout_below="@+id/EditTextSpacer6"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/edit_text_shape"
+        android:gravity="center_vertical|left"
+        android:hint="Credit Card Number"
+        android:textColor="@color/Black"
+        android:layout_toLeftOf="@+id/SecurityCode"
+        android:layout_toStartOf="@+id/SecurityCode" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/EditTextSpacer7"
+        android:layout_alignTop="@+id/CardNumber"
+        android:layout_toRightOf="@+id/CardNumber"
+        android:layout_toEndOf="@+id/CardNumber" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberPassword"
+        android:ems="10"
+        android:id="@+id/SecurityCode"
+        android:layout_below="@+id/EditTextSpacer6"
+        android:layout_toEndOf="@+id/City"
+        android:background="@drawable/edit_text_shape"
+        android:textColor="@color/Black"
+        android:hint="Code"
+        android:layout_toRightOf="@+id/City" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/ButtonSpacer"
+        android:layout_alignTop="@+id/DeclineButton"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true" />
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/DeclineButton"
+        android:layout_below="@+id/CardNumber">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/total"
+            android:textSize="40sp"
+            android:id="@+id/TotalView"
+            android:layout_below="@+id/EditTextSpacer8"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_gravity="center_vertical|left" />
+    </FrameLayout>
+
+</RelativeLayout>

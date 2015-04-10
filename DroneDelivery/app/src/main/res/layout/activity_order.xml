@@ -1,0 +1,96 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="10dp"
+    android:background="@color/Purple"
+    tools:context="com.mealsoffwheels.dronedelivery.activities.OrderActivity" >
+
+    <RelativeLayout
+        android:id="@+id/CurrentOrderLayout"
+
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/BuyButtonOrderPage"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/deleteAll">
+
+        <ListView
+            android:id="@+id/CurrentOrderList"
+
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+
+            android:clickable="false" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/CancelButtonOrderPage"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/CancelBuySpacer"
+        android:layout_toStartOf="@+id/CancelBuySpacer"
+
+        android:text="@string/cancel" />
+
+    <TextView
+        android:id="@+id/CancelBuySpacer"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_alignTop="@+id/CancelButtonOrderPage"
+
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+    <Button
+        android:id="@+id/BuyButtonOrderPage"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_toRightOf="@+id/CancelBuySpacer"
+        android:layout_toEndOf="@+id/CancelBuySpacer"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+
+        android:text="@string/buy" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clear"
+        android:id="@+id/deleteAll"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Total: $0.00"
+        android:id="@+id/TotalViewOrders"
+        android:layout_alignTop="@+id/deleteAll"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/CurrentOrderLayout"
+        android:layout_toLeftOf="@+id/deleteAll"
+        android:layout_toStartOf="@+id/deleteAll"
+        android:gravity="center_vertical"
+        android:textColor="@color/White"
+        android:textSize="30sp" />
+
+</RelativeLayout>
