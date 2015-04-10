@@ -8,7 +8,10 @@ import android.location.Address;
 import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
+import android.os.SystemClock;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,15 +24,22 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.mealsoffwheels.dronedelivery.R;
+import com.mealsoffwheels.dronedelivery.common.Payload;
 import com.mealsoffwheels.dronedelivery.map.LatLngInterpolator;
 
 import static com.mealsoffwheels.dronedelivery.map.MarkerAnimation.*;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * @author David C. Mohrhardt
+ */
 public class DroneFinder extends FragmentActivity {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
@@ -38,8 +48,12 @@ public class DroneFinder extends FragmentActivity {
     private List<LatLng> latlngPath;
     private LatLng droneHome = new LatLng(47.11240, -88.58705);     // Taco Bell at Razorback Dr.
     private LatLng thisHome;
-    //private LatLng deviceLocation;
+    private LatLng deviceLocation;
     private Marker mark;
+
+    private LocationManager locationManager = null;
+    private LocationListener locationListener = null;
+    private Location userLocation = null;
 
     private SharedPreferences prefs;
 
@@ -50,21 +64,31 @@ public class DroneFinder extends FragmentActivity {
 
         prefs = getSharedPreferences("com.mealsoffwheels.dronedelivery.values", Context.MODE_PRIVATE);
 
-        // No address given.
-        if (prefs.getInt("Address Given", 0) == 0) {
-            thisHome = getDeviceLocation();
-        }
-
-        // Address was given.
-        else {
-            // Construct given address into one string.
-            String address = "";
-            address += prefs.getString("Street Address", "") + " " + prefs.getString("City", "") +
-                    " " + prefs.getString("Zip Code", "");
-            thisHome = getLatLngFromAddress(address, getApplicationContext());
-        }
-
         setUpMapIfNeeded();
+    }
+
+    /**
+     * Thread task to wait for a GPS location.
+     */
+    private class GetGPS extends AsyncTask<Void, Void, Void> {
+
+        /**
+         * Performed when execute is called on
+         * the GetGPS class. Waits for the
+         * GPS location to be discovered.
+         *
+         * @param arg - Unused.
+         * @return - Always returns null.
+         */
+        @Override
+        protected Void doInBackground(Void... arg) {
+            // Wait to get GPS location.
+            while (userLocation == null) {
+                SystemClock.sleep(1000);
+            }
+
+            return null;
+        }
     }
 
     @Override
@@ -108,17 +132,48 @@ public class DroneFinder extends FragmentActivity {
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
+        // No address given.
+        if (prefs.getInt("Address Given", 0) == 0) {
+            LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+            lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 2000, 10, new LocationListener() {
+                @Override
+                public void onLocationChanged(Location location) { }
+
+                @Override
+                public void onStatusChanged(String provider, int status, Bundle extras) { }
+
+                @Override
+                public void onProviderEnabled(String provider) { }
+
+                @Override
+                public void onProviderDisabled(String provider) { }
+            });
+
+            Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+            double latitude = location.getLatitude();
+            double longitude = location.getLongitude();
+
+            thisHome = new LatLng(latitude, longitude);
+        }
+
+        // Address was given.
+        else {
+            // Construct given address into one string.
+            String address = "";
+            address += prefs.getString("Street Address", "") + " " + prefs.getString("City", "") +
+                    " " + prefs.getString("Zip Code", "");
+            thisHome = getLatLngFromAddress(address, getApplicationContext());
+        }
+
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                         droneHome, 12.0f)
         );
 
-        mMap.addMarker(new MarkerOptions().position(
-                        thisHome).title("Destination")
-        );
-
-        //deviceLocation = getDeviceLocation();
-
+        mMap.addMarker(new MarkerOptions().position(thisHome).title("Destination"));
         mMap.addMarker(new MarkerOptions().position(droneHome).title("Taco Bell"));
+
         mark = mMap.addMarker(new MarkerOptions().position(droneHome).title("Drone"));
 
         path = new PolylineOptions().geodesic(true)
@@ -129,7 +184,6 @@ public class DroneFinder extends FragmentActivity {
         mMap.addPolyline(path);
         latlngPath = path.getPoints();
 
-        //LocationManager locMan = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
             public void onMapLoaded() {
@@ -139,7 +193,6 @@ public class DroneFinder extends FragmentActivity {
             }
         });
     }
-
 
     /**
      * Written by David C. Mohrhardt
@@ -199,7 +252,7 @@ public class DroneFinder extends FragmentActivity {
         return dest;
     }
 
-    public LatLng getDeviceLocation() {
+    /*public LatLng getDeviceLocation() {
         // Here is where we will start to add the Devices location as a variable
         LatLng curLoc = null;
         mMap.setMyLocationEnabled(true);    // Enable Location layer
@@ -217,7 +270,7 @@ public class DroneFinder extends FragmentActivity {
             Log.d("DEVICE_LOCATION_FAILURE", "Failed to retrieve the device location");
         // End device location block
         return curLoc;
-    }
+    }*/
 
     /**
      * Get the LatLng path from point A to point B on the map and pass that back to the main
@@ -228,4 +281,5 @@ public class DroneFinder extends FragmentActivity {
     public List<LatLng> getLatLngPath() {
         return latlngPath;
     }
+
 }

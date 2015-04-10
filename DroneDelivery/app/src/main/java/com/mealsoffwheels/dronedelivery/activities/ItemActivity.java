@@ -48,7 +48,6 @@ public class ItemActivity extends ActionBarActivity {
         // Get the item that was selected.
         if (intent != null) {
             itemName = intent.getStringExtra(FoodMenuActivity.class.getName());
-            System.out.println(itemName);
             actionBar.setTitle(itemName);
 
             ImageView imageView = (ImageView) findViewById(R.id.FoodImage);
