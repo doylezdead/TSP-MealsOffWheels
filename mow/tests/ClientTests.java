@@ -285,10 +285,10 @@ public class ClientTests {
 					ret = (Payload)ois.readObject();
 					if(ret != null){
 						//return payload has been found. do stuff with it
-						System.out.println("return order Lat is " + ret.ycoor);
-						System.out.println("return order Lng is " + ret.xcoor);
-						Assert.assertTrue("fail to place order!", (ret.ycoor == 88.562478));
-						Assert.assertTrue("fail to place order!", (ret.xcoor == 47.120982));
+						System.out.println("return order Lat is " + ret.ycoord);
+						System.out.println("return order Lng is " + ret.xcoord);
+						Assert.assertTrue("fail to place order!", (ret.ycoord == 88.562478));
+						Assert.assertTrue("fail to place order!", (ret.xcoord == 47.120982));
 					}else {
 						System.out.println("Connect to server fail!Check please! ");
 						break;
