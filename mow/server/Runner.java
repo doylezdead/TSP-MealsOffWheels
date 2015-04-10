@@ -46,6 +46,7 @@ class Runner{
 						
 				case 2:	// Retrieving order status
 						if (dbu.checkOrderIsGood(auth, value)){
+							retData.value = 1;
 							retData.xcoord = dbu.getOrderXPos(auth, value);
 							retData.ycoord = dbu.getOrderYPos(auth, value);
 						}

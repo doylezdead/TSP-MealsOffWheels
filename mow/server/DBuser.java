@@ -37,8 +37,13 @@ class DBuser{
 		Statement stmt = con.createStatement();
 		
 		ResultSet rs = stmt.executeQuery("SELECT ID From stores");
-		rs.next();
-		int i = rs.getInt(1);
+		
+		int i = -1;
+
+		if( rs.next() ){
+			i = rs.getInt(1);
+		}
+		
 		stmt.close();
 		return i;
 		
@@ -87,9 +92,13 @@ class DBuser{
 		Statement stmt = con.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT Open FROM stores WHERE ID=" + storeID);
 		//Move cursor to first row
-		rs.next();
 		//Get value to return and close statement
-		boolean r = rs.getBoolean(5);
+		boolean r = false;	
+		
+		if( rs.next() ){
+			r = rs.getBoolean(1);
+		}
+		
 		stmt.close();
 		return r; 
 	}
@@ -117,11 +126,12 @@ class DBuser{
 		rs = stmt.executeQuery("SELECT * FROM orders");
 		
 		rs.moveToInsertRow();
-		rs.updateInt(3, storeID);
 		rs.updateInt(2, userID);
-		rs.updateDouble(5, x);
+		rs.updateInt(3, storeID);
 		rs.updateDouble(4, y);
-		
+		rs.updateDouble(5, x);
+		rs.updateBoolean(6,true);
+
 		rs.insertRow();
 		rs.last();
 		
@@ -161,8 +171,12 @@ class DBuser{
 
 		Statement stmt = con.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT DeliveryLng FROM orders WHERE id=" + OrderID);
-		rs.next();
-		double x = rs.getDouble(1);
+		
+		double x = -1;
+		
+		if( rs.next() ){
+			x = rs.getDouble(1);
+		}
 		
 		stmt.close();
 		return x;
@@ -179,8 +193,11 @@ class DBuser{
 		
 		Statement stmt = con.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT DeliveryLat FROM orders WHERE ID=" + OrderID);
-		rs.next();
-		double y = rs.getDouble(1);
+		
+		double y = -1;
+		if( rs.next() ){
+			y = rs.getDouble(1);
+		}
 		
 		stmt.close();
 		return y;
@@ -196,8 +213,13 @@ class DBuser{
 		
 		Statement stmt = con.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT Approved FROM orders WHERE id=" + OrderID);
-		rs.next();
-		boolean x = rs.getBoolean("Approved");
+		
+		boolean x = false;
+
+		if( rs.next() ){
+			x = rs.getBoolean(1);
+		}
+		
 		
 		stmt.close();
 		return x; //or false. true is good status
