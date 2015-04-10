@@ -37,8 +37,13 @@ class DBuser{
 		Statement stmt = con.createStatement();
 		
 		ResultSet rs = stmt.executeQuery("SELECT ID From stores");
-		rs.next();
-		int i = rs.getInt("ID");
+		
+		int i = -1;
+
+		if( rs.next() ){
+			i = rs.getInt(1);
+		}
+		
 		stmt.close();
 		return i;
 		
@@ -56,18 +61,20 @@ class DBuser{
 		//Still stores to check
 		while (rs.next()) {
 			
-			tempy = rs.getDouble("StoreLat");
-			tempx = rs.getDouble("StoreLng");
+			tempy = rs.getDouble(2);
+			tempx = rs.getDouble(3);
 			
 			if (distance == -1) {
-				closest = rs.getInt("ID");
+				closest = rs.getInt(1);
 				distance = Math.sqrt( Math.pow(tempx - x, 2) + Math.pow(tempy - y, 2) );
 				continue;
 			}
 			tempd = Math.sqrt( Math.pow(tempx - x, 2) + Math.pow(tempy - y, 2) );
 			
-			if (tempd < distance)
+			if (tempd < distance) {
 				distance = tempd;
+				closeset = rs.getInt(1);
+			}
 		}
 		stmt.close();
 		return closest;
@@ -83,11 +90,15 @@ class DBuser{
 	public boolean checkStoreStatus(Connection con, int storeID) throws SQLException {
 		//Create statmenet and result of doing select
 		Statement stmt = con.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT Open FROM stores WHERE StoreID=" + storeID);
+		ResultSet rs = stmt.executeQuery("SELECT Open FROM stores WHERE ID=" + storeID);
 		//Move cursor to first row
-		rs.next();
 		//Get value to return and close statement
-		boolean r = rs.getBoolean("Open");
+		boolean r = false;	
+		
+		if( rs.next() ){
+			r = rs.getBoolean(1);
+		}
+		
 		stmt.close();
 		return r; 
 	}
@@ -107,25 +118,26 @@ class DBuser{
 	 */
 	public int placeOrder(Connection con, String name, String contact, int storeID, double x, double y, int weight) throws SQLException {
 		
-		Statement stmt = con.createStatement();
+		Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 		ResultSet rs = stmt.executeQuery("SELECT ID FROM users WHERE UserName='" + name + "'");
-		int userID = rs.getInt("ID");
-		
-		rs = stmt.executeQuery("SELECT * FROM orders");
-		rs.moveToInsertRow();
-		
-		rs.updateInt("StoreID", storeID);
-		rs.updateInt("UserID", userID);
-		rs.updateString("Contact",contact);
-		rs.updateDouble("DeliveryLng", x);
-		rs.updateDouble("DeliveryLat", y);
-		
-		//Test to see if row is made after this
-		rs.insertRow();
 		rs.next();
+		int userID = rs.getInt("ID");
+
+		rs = stmt.executeQuery("SELECT * FROM orders");
 		
-		int orderID = rs.getInt("ID");
+		rs.moveToInsertRow();
+		rs.updateInt(2, userID);
+		rs.updateInt(3, storeID);
+		rs.updateDouble(4, y);
+		rs.updateDouble(5, x);
+		rs.updateBoolean(6,true);
+
+		rs.insertRow();
+		rs.last();
 		
+		//TODO Get the actual id back instead of zero
+		int orderID = rs.getInt(1);
+
 		stmt.close();
 		return orderID; //returns newly created order identity
 	}
@@ -159,8 +171,12 @@ class DBuser{
 
 		Statement stmt = con.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT DeliveryLng FROM orders WHERE id=" + OrderID);
-		rs.next();
-		double x = rs.getDouble("DeliveryLng");
+		
+		double x = -1;
+		
+		if( rs.next() ){
+			x = rs.getDouble(1);
+		}
 		
 		stmt.close();
 		return x;
@@ -176,9 +192,12 @@ class DBuser{
 	public double getOrderYPos(Connection con, int OrderID) throws SQLException {
 		
 		Statement stmt = con.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT DeliveryLat FROM orders WHERE i=" + OrderID);
-		rs.next();
-		double y = rs.getDouble("DeliveryLat");
+		ResultSet rs = stmt.executeQuery("SELECT DeliveryLat FROM orders WHERE ID=" + OrderID);
+		
+		double y = -1;
+		if( rs.next() ){
+			y = rs.getDouble(1);
+		}
 		
 		stmt.close();
 		return y;
@@ -194,8 +213,13 @@ class DBuser{
 		
 		Statement stmt = con.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT Approved FROM orders WHERE id=" + OrderID);
-		rs.next();
-		boolean x = rs.getBoolean("Approved");
+		
+		boolean x = false;
+
+		if( rs.next() ){
+			x = rs.getBoolean(1);
+		}
+		
 		
 		stmt.close();
 		return x; //or false. true is good status

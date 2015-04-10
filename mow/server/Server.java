@@ -75,13 +75,16 @@ public class Server extends Thread {
 
 				try{
 
+					//sending full payload to the parser
 					writeData = worker.parseOps(readData);	
+					
+					//returning the output payload
 					out.writeObject(writeData);
 
 				}catch(Exception e){
 
 					e.printStackTrace();
-					System.out.println("Probably Shoudln't write the data");
+					System.out.println("Probably Shoudln't write the data... But we will anyway");
 					//break;
 
 				}
