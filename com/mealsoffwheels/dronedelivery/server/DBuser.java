@@ -129,8 +129,8 @@ class DBuser{
 			//creating new entry 
 			rs = stmt.executeQuery("SELECT * FROM users");
 			rs.moveToInsertRow();
-			rs.updateDouble(2, x);
-			rs.updateDouble(3, y);
+			rs.updateDouble(2, y);
+			rs.updateDouble(3, x);
 			rs.updateString(4, name);
 			rs.updateString(5, contact);
 			rs.updateBoolean(7, true);
