@@ -132,7 +132,11 @@ class DBuser{
 			rs.updateDouble(2, y);
 			rs.updateDouble(3, x);
 			rs.updateString(4, name);
-			rs.updateString(5, contact);
+			//if email else number
+			if (contact.contains("@") )
+				rs.updateString(5, contact);
+			else
+				rs.updateString(6, contact);
 			rs.updateBoolean(7, true);
 			rs.insertRow();
 			rs.last();
