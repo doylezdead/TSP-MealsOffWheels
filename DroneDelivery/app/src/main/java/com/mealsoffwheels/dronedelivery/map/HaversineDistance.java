@@ -9,13 +9,13 @@ public class HaversineDistance {
 
     private final double droneSpeed = 0.0134112;    // In meters per millisecond
     private double latA, latB, lngA, lngB;
-    private final double r = 6371000.00;
+    private final double r = 6372800;
 
     public HaversineDistance(LatLng start, LatLng finish) {
         latA = start.latitude;
         lngA = start.longitude;
-        latB = start.latitude;
-        lngB = start.longitude;
+        latB = finish.latitude;
+        lngB = finish.longitude;
     }
 
     public double getDistance() {
@@ -27,7 +27,7 @@ public class HaversineDistance {
         double a = Math.pow(Math.sin(dLat / 2), 2) +
                 Math.cos(latA) * Math.cos(latB) *
                 Math.pow(Math.sin(dLng / 2), 2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(a - 1));
+        double c = 2 * Math.asin(Math.sqrt(a));
         double d = r * c;
         return d;
     }

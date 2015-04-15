@@ -25,6 +25,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.mealsoffwheels.dronedelivery.R;
+import com.mealsoffwheels.dronedelivery.map.HaversineDistance;
 import com.mealsoffwheels.dronedelivery.map.LatLngInterpolator;
 
 import java.io.IOException;
@@ -166,7 +167,8 @@ public class DroneFinder extends FragmentActivity {
                 public void onMapLoaded() {
                     if (mMap != null) {
                         animateMarkerAtoB(mark, thisHome, new LatLngInterpolator.Spherical());
-                        new Handler().postDelayed(new SimulateOrderComplete(), 30000);
+                        new Handler().postDelayed(new SimulateOrderComplete(),
+                                (int)new HaversineDistance(mark.getPosition(), thisHome).getTime());
                     }
                 }
             });
