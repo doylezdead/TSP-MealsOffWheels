@@ -16,7 +16,10 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_toLeftOf="@+id/ButtonSpacer"
-        android:layout_toStartOf="@+id/ButtonSpacer" />
+        android:layout_toStartOf="@+id/ButtonSpacer"
+        android:gravity="center_vertical|center_horizontal"
+        android:background="@drawable/button_shape_left"
+        android:textColor="@color/White" />
 
     <Button
         android:layout_width="wrap_content"
@@ -27,7 +30,10 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_toRightOf="@+id/ButtonSpacer"
-        android:layout_toEndOf="@+id/ButtonSpacer" />
+        android:layout_toEndOf="@+id/ButtonSpacer"
+        android:gravity="center_vertical|center_horizontal"
+        android:background="@drawable/button_shape_right"
+        android:textColor="@color/White" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -118,7 +124,8 @@
         android:background="@drawable/edit_text_shape"
         android:gravity="center_vertical|left"
         android:textColor="@color/Black"
-        android:hint="Zip" />
+        android:hint="Zip"
+        android:maxLength="5"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -215,10 +222,11 @@
         android:background="@drawable/edit_text_shape"
         android:textColor="@color/Black"
         android:hint="Code"
-        android:layout_toRightOf="@+id/City" />
+        android:layout_toRightOf="@+id/City"
+        android:maxLength="3" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="10dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:id="@+id/ButtonSpacer"
@@ -243,7 +251,8 @@
             android:layout_below="@+id/EditTextSpacer8"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_gravity="center_vertical|left" />
+            android:layout_gravity="center_vertical|left"
+            android:textColor="@color/White" />
     </FrameLayout>
 
 </RelativeLayout>

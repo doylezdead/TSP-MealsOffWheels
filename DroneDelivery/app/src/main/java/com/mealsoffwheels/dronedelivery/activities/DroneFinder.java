@@ -5,16 +5,17 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Address;
-import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
-import android.os.SystemClock;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.os.Handler;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.widget.ListView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -24,18 +25,13 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.mealsoffwheels.dronedelivery.R;
-import com.mealsoffwheels.dronedelivery.common.Payload;
 import com.mealsoffwheels.dronedelivery.map.LatLngInterpolator;
 
-import static com.mealsoffwheels.dronedelivery.map.MarkerAnimation.*;
-
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import static com.mealsoffwheels.dronedelivery.map.MarkerAnimation.animateMarkerAtoB;
 
 /**
  * @author David C. Mohrhardt
@@ -65,30 +61,6 @@ public class DroneFinder extends FragmentActivity {
         prefs = getSharedPreferences("com.mealsoffwheels.dronedelivery.values", Context.MODE_PRIVATE);
 
         setUpMapIfNeeded();
-    }
-
-    /**
-     * Thread task to wait for a GPS location.
-     */
-    private class GetGPS extends AsyncTask<Void, Void, Void> {
-
-        /**
-         * Performed when execute is called on
-         * the GetGPS class. Waits for the
-         * GPS location to be discovered.
-         *
-         * @param arg - Unused.
-         * @return - Always returns null.
-         */
-        @Override
-        protected Void doInBackground(Void... arg) {
-            // Wait to get GPS location.
-            while (userLocation == null) {
-                SystemClock.sleep(1000);
-            }
-
-            return null;
-        }
     }
 
     @Override
@@ -138,16 +110,20 @@ public class DroneFinder extends FragmentActivity {
 
             lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 2000, 10, new LocationListener() {
                 @Override
-                public void onLocationChanged(Location location) { }
+                public void onLocationChanged(Location location) {
+                }
 
                 @Override
-                public void onStatusChanged(String provider, int status, Bundle extras) { }
+                public void onStatusChanged(String provider, int status, Bundle extras) {
+                }
 
                 @Override
-                public void onProviderEnabled(String provider) { }
+                public void onProviderEnabled(String provider) {
+                }
 
                 @Override
-                public void onProviderDisabled(String provider) { }
+                public void onProviderDisabled(String provider) {
+                }
             });
 
             Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
@@ -176,26 +152,57 @@ public class DroneFinder extends FragmentActivity {
 
         mark = mMap.addMarker(new MarkerOptions().position(droneHome).title("Drone"));
 
-        path = new PolylineOptions().geodesic(true)
-                .add(droneHome)                             //  Taco Bell on Razorback
-                .add(thisHome)
-                .color(Color.argb(1000, 128, 0, 128));
+        if (prefs.getInt("orderID", -1) != -1) {
+            path = new PolylineOptions().geodesic(true)
+                    .add(droneHome)                             //  Taco Bell on Razorback
+                    .add(thisHome)
+                    .color(Color.argb(1000, 128, 0, 128));
 
-        mMap.addPolyline(path);
-        latlngPath = path.getPoints();
+            mMap.addPolyline(path);
+            latlngPath = path.getPoints();
 
-        mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
-            @Override
-            public void onMapLoaded() {
-                if(mMap != null) {
-                    animateMarkerAtoB(mark, thisHome, new LatLngInterpolator.Spherical());
+            mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+                @Override
+                public void onMapLoaded() {
+                    if (mMap != null) {
+                        animateMarkerAtoB(mark, thisHome, new LatLngInterpolator.Spherical());
+                        new Handler().postDelayed(new SimulateOrderComplete(), 30000);
+                    }
                 }
-            }
-        });
+            });
+        }
+    }
+
+    private class SimulateOrderComplete implements Runnable {
+        @Override
+        public void run() {
+            clearOrder();
+        }
+    }
+
+    private void clearOrder() {
+        int end = prefs.getInt("Last", 0);
+        SharedPreferences.Editor editor = prefs.edit();
+
+        for (int i = 1; i <= end; ++i) {
+            editor.remove(Integer.toString(i));
+            editor.remove(Integer.toString(i) + "quantity");
+            editor.commit();
+        }
+
+        // Reset last legit order location.
+        editor.putInt("Last", 0);
+        editor.remove("orderID");
+        editor.putInt("Address Given", 0);
+        editor.remove("Street Address");
+        editor.remove("Zip Code");
+        editor.remove("City");
+        editor.commit();
     }
 
     /**
      * Written by David C. Mohrhardt
+     *
      * @param from
      * @param to
      * @return
@@ -203,17 +210,17 @@ public class DroneFinder extends FragmentActivity {
     private double getBearing(LatLng from, LatLng to) {
         double theta;
 
-        double startLat = Math.toRadians( from.latitude );
-        double startLon = Math.toRadians( from.longitude);
-        double endLat = Math.toRadians( to.latitude );
-        double endLon = Math.toRadians( to.longitude );
+        double startLat = Math.toRadians(from.latitude);
+        double startLon = Math.toRadians(from.longitude);
+        double endLat = Math.toRadians(to.latitude);
+        double endLon = Math.toRadians(to.longitude);
 
         double y = Math.sin(endLon - startLon) * Math.cos(endLat);
         double x = Math.cos(startLat) * Math.sin(endLat) -
                 Math.sin(startLat) * Math.cos(endLat) * Math.cos(endLon - startLon);
 
         theta = Math.atan2(y, x);
-        theta = Math.toDegrees( theta );
+        theta = Math.toDegrees(theta);
 
         return theta;
     }
@@ -221,13 +228,12 @@ public class DroneFinder extends FragmentActivity {
     /**
      * getLatLongFromAddress()
      * Written by: David C Mohrhardt
-     *
+     * <p/>
      * This method is designed to perform reverse Geocoding to get GPS coordinates from an address
      * string and return the latitude and longitude of the address.
      *
-     * @param addr      The string containing the address to be decoded.
-     * @param context   The context of the application
-     *
+     * @param addr    The string containing the address to be decoded.
+     * @param context The context of the application
      * @return dest     Returns the LatLng object containing the coordinates to the destination.
      */
     public LatLng getLatLngFromAddress(String addr, Context context) {
@@ -239,7 +245,7 @@ public class DroneFinder extends FragmentActivity {
         List<Address> addresses;
         try {
             addresses = gc.getFromLocationName(addr, 5);
-            if(addresses.size() > 0) {
+            if (addresses.size() > 0) {
                 double lat = addresses.get(0).getLatitude();
                 Log.d("GEOCODE_LAT = ", "" + lat);
                 double lng = addresses.get(0).getLongitude();
@@ -252,26 +258,6 @@ public class DroneFinder extends FragmentActivity {
         return dest;
     }
 
-    /*public LatLng getDeviceLocation() {
-        // Here is where we will start to add the Devices location as a variable
-        LatLng curLoc = null;
-        mMap.setMyLocationEnabled(true);    // Enable Location layer
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE); // Get LocationManager from the System Service
-        Criteria criteria = new Criteria(); // Create a criteria object to retrieve best provider
-        String provider = locationManager.getBestProvider(criteria, true);  // Retrieve the name of the best provider
-        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        Location myLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);   // Get current location
-        if(myLocation != null) {
-            Log.d("CUR_LAT", "" + myLocation.getLatitude());
-            Log.d("CUR_LNG", "" + myLocation.getLongitude());
-            curLoc = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());    // Create a LatLng object of the devices current location.
-        }
-        else
-            Log.d("DEVICE_LOCATION_FAILURE", "Failed to retrieve the device location");
-        // End device location block
-        return curLoc;
-    }*/
-
     /**
      * Get the LatLng path from point A to point B on the map and pass that back to the main
      * program.
@@ -280,6 +266,12 @@ public class DroneFinder extends FragmentActivity {
      */
     public List<LatLng> getLatLngPath() {
         return latlngPath;
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
 }

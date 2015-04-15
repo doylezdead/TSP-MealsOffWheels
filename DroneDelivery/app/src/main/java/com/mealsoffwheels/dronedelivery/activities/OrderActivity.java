@@ -43,7 +43,7 @@ public class OrderActivity extends ActionBarActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Current Orders");
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.rgb(113, 24, 140)));
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.rgb(79, 17, 98)));
 
         Button cancelButton = (Button) findViewById(R.id.CancelButtonOrderPage);
         cancelButton.setOnClickListener(new View.OnClickListener() {

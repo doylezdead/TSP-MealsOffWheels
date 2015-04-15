@@ -59,6 +59,7 @@ public class MainActivity extends ActionBarActivity {
                 toNewActivity(FOOD_MENU_NUM);
             }
         });
+
         Button oButton = (Button) findViewById(R.id.OrdersButton);
         oButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,47 +67,17 @@ public class MainActivity extends ActionBarActivity {
                 toNewActivity(ORDER_NUM);
             }
         });
-        Button dButton = (Button) findViewById(R.id.DroneStatusButton);
+
+        Button dButton = (Button) findViewById(R.id.StatusButton);
         dButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 toNewActivity(DRONE_STATUS_NUM);
             }
         });
+
         Button aButton = (Button) findViewById(R.id.AboutButton);
         aButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toNewActivity(ABOUT_NUM);
-            }
-        });
-
-        LinearLayout menuLayout = (LinearLayout) findViewById(R.id.MenuButtonLayout);
-        menuLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toNewActivity(FOOD_MENU_NUM);
-            }
-        });
-
-        LinearLayout ordersLayout = (LinearLayout) findViewById(R.id.OrdersButtonLayout);
-        ordersLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toNewActivity(ORDER_NUM);
-            }
-        });
-
-        LinearLayout droneStatusLayout = (LinearLayout) findViewById(R.id.DroneStatusLayout);
-        droneStatusLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toNewActivity(DRONE_STATUS_NUM);
-            }
-        });
-
-        LinearLayout aboutLayout = (LinearLayout) findViewById(R.id.AboutLayout);
-        aboutLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 toNewActivity(ABOUT_NUM);
@@ -226,14 +197,11 @@ public class MainActivity extends ActionBarActivity {
                 SystemClock.sleep(1000);
             }
 
-            System.out.println(userLocation.getLatitude() + " " + userLocation.getLongitude());
-
             SharedPreferences prefs = getSharedPreferences("com.mealsoffwheels.dronedelivery.values", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = prefs.edit();
 
             // Store the coordinates in the SharedPreferences file.
             editor.putFloat("Longitude", (float) userLocation.getLongitude());
-            editor.commit();
             editor.putFloat("Latitude", (float) userLocation.getLatitude());
             editor.commit();
 
