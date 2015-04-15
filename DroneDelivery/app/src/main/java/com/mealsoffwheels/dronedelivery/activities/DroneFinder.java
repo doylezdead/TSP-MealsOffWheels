@@ -140,31 +140,6 @@ public class DroneFinder extends FragmentActivity {
         });
     }
 
-
-    /**
-     * Written by David C. Mohrhardt
-     * @param from
-     * @param to
-     * @return
-     */
-    private double getBearing(LatLng from, LatLng to) {
-        double theta;
-
-        double startLat = Math.toRadians( from.latitude );
-        double startLon = Math.toRadians( from.longitude);
-        double endLat = Math.toRadians( to.latitude );
-        double endLon = Math.toRadians( to.longitude );
-
-        double y = Math.sin(endLon - startLon) * Math.cos(endLat);
-        double x = Math.cos(startLat) * Math.sin(endLat) -
-                Math.sin(startLat) * Math.cos(endLat) * Math.cos(endLon - startLon);
-
-        theta = Math.atan2(y, x);
-        theta = Math.toDegrees( theta );
-
-        return theta;
-    }
-
     /**
      * getLatLongFromAddress()
      * Written by: David C Mohrhardt
