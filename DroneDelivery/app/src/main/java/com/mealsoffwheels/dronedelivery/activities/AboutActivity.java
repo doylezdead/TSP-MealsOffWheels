@@ -29,7 +29,7 @@ public class AboutActivity extends ActionBarActivity {
         setContentView(R.layout.activity_about);
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.rgb(113, 24, 140)));
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.rgb(79, 17, 98)));
 
         String htmlText =
                 "<h2 style=\"text-align: center;\">Meals Off Wheels</h2>\n" +

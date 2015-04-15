@@ -39,7 +39,7 @@ public class ItemActivity extends ActionBarActivity {
         setContentView(R.layout.activity_item);
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.rgb(113, 24, 140)));
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.rgb(79, 17, 98)));
 
         itemName = "";
 

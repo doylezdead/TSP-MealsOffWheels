@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.*;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.*;
 
@@ -42,7 +43,7 @@ public class PaymentActivity extends ActionBarActivity {
         setContentView(R.layout.activity_payment);
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.rgb(113, 24, 140)));
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.rgb(79, 17, 98)));
 
         prefs = getSharedPreferences("com.mealsoffwheels.dronedelivery.values", Context.MODE_PRIVATE);
         editor = prefs.edit();
@@ -102,7 +103,7 @@ public class PaymentActivity extends ActionBarActivity {
      * get the user their order delivered.
      */
     private void acceptAction() {
-        EditText name = (EditText) findViewById(R.id.UsersName);
+        final EditText name = (EditText) findViewById(R.id.UsersName);
         EditText phone = (EditText) findViewById(R.id.PhoneNumber);
         EditText email = (EditText) findViewById(R.id.Email);
         EditText streetAddr = (EditText) findViewById(R.id.StreetAddress);
@@ -282,7 +283,7 @@ public class PaymentActivity extends ActionBarActivity {
 
                 // Parse received payload from server. If neither case holds,
                 // must be an error.
-                if (receivedPayload.value < 0 || receivedPayload.opcode != 1) {
+                if (receivedPayload.value < 0) {
                     errorCase();
                     editor.remove("Address Given");
                     editor.commit();
@@ -292,6 +293,8 @@ public class PaymentActivity extends ActionBarActivity {
                 // Store the order ID to get later.
                 editor.putInt("orderID", receivedPayload.value);
                 editor.commit();
+
+                System.err.println("orderID is " + receivedPayload.value);
 
                 // Remove all orders from the list.
                 clearOrderList();

@@ -53,7 +53,10 @@
         android:layout_toEndOf="@+id/Quantity"
 
         android:text="@string/add_to_order"
-        android:layout_toRightOf="@+id/Quantity" />
+        android:layout_toRightOf="@+id/Quantity"
+        android:gravity="center_vertical|center_horizontal"
+        android:textColor="@color/White"
+        android:background="@drawable/button_shape_right" />
 
     <EditText
         android:layout_width="100dp"
@@ -71,6 +74,7 @@
         android:gravity="center_vertical|center_horizontal"
         android:text="@string/one"
         android:hint="@string/quantity"
-        android:layout_alignTop="@+id/AddToOrderButton" />
+        android:layout_alignTop="@+id/AddToOrderButton"
+        android:maxLength="10" />
 
 </RelativeLayout>

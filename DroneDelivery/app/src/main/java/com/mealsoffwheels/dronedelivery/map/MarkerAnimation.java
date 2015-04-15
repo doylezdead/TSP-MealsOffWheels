@@ -19,7 +19,8 @@ public class MarkerAnimation {
         final Handler handles = new Handler();
         final long start = SystemClock.uptimeMillis();
         final Interpolator interpolator = new AccelerateDecelerateInterpolator();
-        final float durationMS = 15000;      // This will be changed to update with the drone speed over time.
+        final float durationMS;      // This will be changed to update with the drone speed over time.
+        durationMS = new HaversineDistance(marker.getPosition(), finishLoc).getTime();
 
         handles.post(new Runnable() {
             long elapsed;
