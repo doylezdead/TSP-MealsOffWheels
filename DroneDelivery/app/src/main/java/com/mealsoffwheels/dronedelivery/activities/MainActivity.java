@@ -226,6 +226,8 @@ public class MainActivity extends ActionBarActivity {
                 SystemClock.sleep(1000);
             }
 
+            System.out.println(userLocation.getLatitude() + " " + userLocation.getLongitude());
+
             SharedPreferences prefs = getSharedPreferences("com.mealsoffwheels.dronedelivery.values", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = prefs.edit();
 
@@ -238,8 +240,8 @@ public class MainActivity extends ActionBarActivity {
             Payload payload = new Payload(
                     0,
                     0,
-                    userLocation.getLongitude(),
                     userLocation.getLatitude(),
+                    userLocation.getLongitude(),
                     "",
                     ""
             );

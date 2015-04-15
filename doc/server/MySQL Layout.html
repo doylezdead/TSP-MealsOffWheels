@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head><meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>MySQL Layout</title></head><body>
+  <big><big><big><span style="font-style: italic; color: rgb(102, 102, 102);"><span style="font-weight: bold;"><span style="font-family: Courier New;">MySQL Database Layout</span></span></span><br></big></big></big><span style="font-family: Courier New;"><br>
+There are three tables in the database.&nbsp; They all have different
+fields for their respective entries and are accessable by the server
+users.&nbsp; <br>
+</span><span style="font-family: monospace;">+----------------+</span><br style="font-family: monospace;">
+<span style="font-family: monospace;">| Tables_in_mow&nbsp; |</span><br style="font-family: monospace;">
+<span style="font-family: monospace;">+----------------+</span><br style="font-family: monospace;">
+<span style="font-family: monospace;">| <a href="#orders">orders</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |</span><br style="font-family: monospace;">
+<span style="font-family: monospace;">| <a href="#stores">stores</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |</span><br style="font-family: monospace;">
+<span style="font-family: monospace;">| <a href="#users">users</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |</span><br style="font-family: monospace;">
+<span style="font-family: monospace;">+----------------+</span><span style="font-family: Courier New;"><br>
+</span>
+
+
+  
+
+
+  
+
+<br>
+<br>
+<span style="font-family: monospace;"><a name="orders"></a></span><span style="font-family: Courier New;">The orders table. Contains fields for the unique orderID<br>
+&nbsp;&nbsp;&nbsp; (used as the primary key), userID, the storeID,<br>
+&nbsp;&nbsp;&nbsp; and delivery status information</span><br>
+<span style="font-family: monospace;">+----------------+------------------+------+-----+---------------------+----------------+</span><br style="font-family: monospace;">
+<span style="font-family: monospace;">|
+Field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+| Null | Key |
+Default&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+| Extra&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |</span><br style="font-family: monospace;">
+<span style="font-family: monospace;">+----------------+------------------+------+-----+---------------------+----------------+</span><br style="font-family: monospace;">
+<span style="font-family: monospace;">|
+ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+| int(10) unsigned | NO&nbsp;&nbsp; | PRI |
+NULL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+| auto_increment |</span><br style="font-family: monospace;">
+<span style="font-family: monospace;">|
+UserID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+int(11)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+NO&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp; |
+NULL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|</span><br style="font-family: monospace;">
+<span style="font-family: monospace;">|
+StoreID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+int(11)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+NO&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp; |
+NULL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|</span><br style="font-family: monospace;">
+<span style="font-family: monospace;">| DeliveryLat&nbsp;&nbsp;&nbsp; |
+double&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+NO&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp; |
+NULL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|</span><br style="font-family: monospace;">
+<span style="font-family: monospace;">| DeliveryLng&nbsp;&nbsp;&nbsp; |
+double&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+NO&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp; |
+NULL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|</span><br style="font-family: monospace;">
+<span style="font-family: monospace;">|
+Approved&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+tinyint(1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | NO&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;&nbsp; |
+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|</span><br style="font-family: monospace;">
+<span style="font-family: monospace;">| TimeReceived&nbsp;&nbsp; |
+timestamp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | NO&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;&nbsp; | CURRENT_TIMESTAMP&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|</span><br style="font-family: monospace;">
+<span style="font-family: monospace;">| TimeDeliveried |
+timestamp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | NO&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;&nbsp; | 0000-00-00 00:00:00
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|</span><br style="font-family: monospace;">
+<span style="font-family: monospace;">+----------------+------------------+------+-----+---------------------+----------------+</span><br>
+<br>
+<br>
+<br>
+<span style="font-family: monospace;"><a name="stores"></a></span><span style="font-family: Courier New;">The stores table.&nbsp; Contains fields for the unique storeID&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; (used as the primary key), the store's location and its status.  </span><br>
+<span style="font-family: monospace;">+------------+------------------+------+-----+---------+----------------+<br>
+| Field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+| Null | Key | Default |
+Extra&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |<br>
++------------+------------------+------+-----+---------+----------------+<br>
+| ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | int(10) unsigned
+| NO&nbsp;&nbsp; | PRI | NULL&nbsp;&nbsp;&nbsp; | auto_increment |<br>
+| StoreLat&nbsp;&nbsp; |
+double&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+NO&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp; | NULL&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|<br>
+| StoreLng&nbsp;&nbsp; |
+double&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+NO&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp; | NULL&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|<br>
+| Connection | varchar(50)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+NO&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp; | NULL&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|<br>
+| Open&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+tinyint(1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | NO&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;&nbsp; | 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|<br>
++------------+------------------+------+-----+---------+----------------+</span><br>
+<br>
+<span style="font-family: monospace;"><a name="users"></a></span><span style="font-family: Courier New;"></span><span style="font-family: Courier New;">The users table.&nbsp; Contains fields for the unique userID&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; (used as the primary key), the user's name, contact info<br>
+&nbsp;&nbsp;&nbsp; and default delivery location</span><br>
+<span style="font-family: monospace;">+-------------+------------------+------+-----+---------+----------------+<br>
+| Field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+| Null | Key | Default |
+Extra&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |<br>
++-------------+------------------+------+-----+---------+----------------+<br>
+| ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | int(10)
+unsigned | NO&nbsp;&nbsp; | PRI | NULL&nbsp;&nbsp;&nbsp; |
+auto_increment |<br>
+| DeliveryLat |
+double&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+NO&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp; | NULL&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|<br>
+| DeliveryLng |
+double&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+NO&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp; | NULL&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|<br>
+| UserName&nbsp;&nbsp;&nbsp; |
+varchar(50)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | NO&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;&nbsp; | NULL&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|<br>
+| Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+varchar(50)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | YES&nbsp;
+|&nbsp;&nbsp;&nbsp;&nbsp; | NULL&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|<br>
+| PhoneNum&nbsp;&nbsp;&nbsp; |
+varchar(16)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | YES&nbsp;
+|&nbsp;&nbsp;&nbsp;&nbsp; | NULL&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|<br>
+| PreferEmail | tinyint(1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+NO&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp; | NULL&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|<br>
++-------------+------------------+------+-----+---------+----------------+<br>
+<br>
+<br>
+<br>
+</span></body></html>

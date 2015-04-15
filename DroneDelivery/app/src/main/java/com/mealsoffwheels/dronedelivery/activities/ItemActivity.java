@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.mealsoffwheels.dronedelivery.R;
 import com.mealsoffwheels.dronedelivery.common.ItemDatabase;
@@ -49,14 +48,10 @@ public class ItemActivity extends ActionBarActivity {
         // Get the item that was selected.
         if (intent != null) {
             itemName = intent.getStringExtra(FoodMenuActivity.class.getName());
-            System.out.println(itemName);
             actionBar.setTitle(itemName);
 
             ImageView imageView = (ImageView) findViewById(R.id.FoodImage);
             imageView.setImageResource(ItemDatabase.getData(itemName).image);
-
-            ((TextView) findViewById(R.id.PriceView)).setText(" Price: $" + String.format("%.2f",
-                    ItemDatabase.getData(itemName).price));
         }
 
         editText = (EditText) findViewById(R.id.Quantity);

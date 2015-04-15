@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+
+<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>Server</title></head><body>
+  <big><big><big><span style="font-style: italic; color: rgb(102, 102, 102);"><span style="font-weight: bold;"><span style="font-family: Courier New;">Server Application</span></span></span><br>
+</big></big></big>
+<ul>
+<li><a href="#main-server"><span style="font-family: Courier New;">Main Server</span></a></li>
+  <li><a href="#payload-layout"><span style="font-family: Courier New;">Payload Protocol</span></a></li>
+  <li><span style="font-family: Courier New;"><a href="#SQL-database">MySQL database</a><br>
+</span></li>
+</ul>
+<span style="font-family: Courier New;"><br>
+<br><a name="main-server"></a>The main server application wraps the parser for the payloads.<br>
+&nbsp;&nbsp;&nbsp; It is self-threading to allow as many connections simultaneously<br>
+&nbsp;&nbsp;&nbsp; as needed and can close stale connections in order to not<br>
+&nbsp;&nbsp;&nbsp; waste resources. It is in charge of recieving the payloads<br>
+&nbsp;&nbsp;&nbsp; and passing them to the parser directly, recieving a return from<br>
+&nbsp;&nbsp;&nbsp; the parser and returning the return payload. The parser is expected<br>
+&nbsp;&nbsp;&nbsp; to take care of error handling and handling invalid payloads.<br>
+<br>
+<br><a name="payload-layout"></a>The payloads that get sent from client to server and returned<br>
+&nbsp;&nbsp;&nbsp; back to the client are layed out very specifically. Since we<br>
+&nbsp;&nbsp;&nbsp; are using Object Streams from the java.net package, we need to<br>
+&nbsp;&nbsp;&nbsp; define the payload to be as small of a class as possible to reduce<br>
+&nbsp;&nbsp;&nbsp; overhead. Some of the variables are reused a couple of times and<br>
+&nbsp;&nbsp;&nbsp; our general layout of the payloads is described <a href="Payload.html">here</a><br>
+<br><a name="SQL-database"></a>The MySQL server will house the database and it's tables in order to<br>
+&nbsp;&nbsp;&nbsp; store user, order, and store informataion. It is interfaced with<br>
+&nbsp;&nbsp;&nbsp; by the server through the jdbc mysql driver and more specifically<br>
+&nbsp;&nbsp;&nbsp; in the DBuser class. The layout of the tables is described <a href="MySQL%20Layout.html">here</a><br>
+</span>
+
+
+  
+
+</body></html>
