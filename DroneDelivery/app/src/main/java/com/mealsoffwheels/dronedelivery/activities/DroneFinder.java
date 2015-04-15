@@ -194,8 +194,6 @@ public class DroneFinder extends FragmentActivity {
         });
     }
 
-<<<<<<< HEAD
-=======
     /**
      * Written by David C. Mohrhardt
      * @param from
@@ -220,7 +218,6 @@ public class DroneFinder extends FragmentActivity {
         return theta;
     }
 
->>>>>>> origin/dev-eric
     /**
      * getLatLongFromAddress()
      * Written by: David C Mohrhardt
