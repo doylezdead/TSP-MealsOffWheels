@@ -133,11 +133,14 @@ class DBuser{
 			rs.updateDouble(3, x);
 			rs.updateString(4, name);
 			//if email else number
-			if (contact.contains("@") )
+			if (contact.contains("@") ) {
 				rs.updateString(5, contact);
-			else
+				rs.updateBoolean(7, true);
+			}
+			else {
 				rs.updateString(6, contact);
-			rs.updateBoolean(7, true);
+				rs.updateBoolean(7, false);
+			}
 			rs.insertRow();
 			rs.last();
 			userID = rs.getInt(1);
